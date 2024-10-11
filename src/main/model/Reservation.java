@@ -1,27 +1,23 @@
 package model;
 
 //Represents a reservation made having details of the date,
-//time, number of guests, and the restaurant in which the booking is to be made
+//time, number of guests, and the customer who is making the booking
 public class Reservation {
     
-    private String date;            //the date of the reservation
-    private String time;            //the time of the reservation
-    private int numberOfGuests;     //the number of guests for the reservation
-    private Restaurant restaurant;  //the restaurant in which reservation is being made
-    private boolean isReserved;     //the table is reserved
-
+    private String reservationDate;            //the date of the reservation
+    private String reservationTime;            //the time of the reservation
+    private int numberOfGuests;                //the number of guests for the reservation
+    private boolean isReserved;                //the table is reserved
+    private String customerName;               //the name of the customer making the resevation
     /*
      * REQUIRES: date and time has a non-zero length and numberOfGuests > 0
      * EFFECTS: the date of the reservation is set to date;
      *          the time of the reservation is set to time;
-     *          the number of guests for the reservation is set to numberOfGuests
-     *          the restaurant in which the resevation is being made is set to restaurant.
+     *          the number of guests for the reservation is set to numberOfGuests;
+     *          the name of the customer is set to customerName.
      */
-    public Reservation( String date, String time, int numberOfGuests, Restaurant restaurant) {
-        this.date = date;
-        this.time = time;
-        this.numberOfGuests = numberOfGuests;
-        this.restaurant = restaurant;
+    public Reservation( String customerName, String date, String time, int numberOfGuests) {
+        //STUB
     }
 
     /* 
@@ -42,33 +38,22 @@ public class Reservation {
         //STUB
     }
 
-    /* 
-     * REQUIRES: the reservation to exist
-     * MODIFIES: this
-     * EFFECTS: lets the customer view the reservation they made
-     */
-    public void viewReservationDetails() {
-        //STUB
-    }
-    
-    
-    
 
     // Getters
-    public String getDate() {
+    public String getReservationDate() {
         return "";
     }
 
-    public String getTime() {
+    public String getReservationTime() {
         return "";
     }
 
     public int getNumberOfGuests() {
-        return numberOfGuests;
+        return 0;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public String getCustomerName() {
+        return "";
     }
 
     public boolean getIsReserved() {
@@ -76,11 +61,11 @@ public class Reservation {
     }
 
     // Setters
-    public void setDate(String date) {
+    public void setReservationDate(String date) {
         //STUB
     }
 
-    public void setTime(String time) {
+    public void setReservationTime(String time) {
         //STUB
     }
 
@@ -88,7 +73,7 @@ public class Reservation {
         //STUB
     }
 
-    public void setRestaurant(Restaurant restaurant) {
+    public void setCustomerName(String customerName) {
         //STUB
     }
 
