@@ -12,13 +12,14 @@ import java.util.Scanner;
 // Represents the E Restaurant Manager that manages the restaurants
 public class ERestaurantManager {
 
-    private ArrayList<Restaurant> restaurants;      // the list of restaurants on the E restaurant manager
-    private ArrayList<OrderFood> orders;            // the list of orders
-    private Scanner scanner;                        // Scanner for user input
+    private ArrayList<Restaurant> restaurants; // the list of restaurants on the E restaurant manager
+    private ArrayList<OrderFood> orders; // the list of orders
+    private Scanner scanner; // Scanner for user input
 
     /*
-     * EFFECTS: creates a list of restaurants, initializes customers and orders lists,
-     *          and sets up the scanner for user input
+     * EFFECTS: creates a list of restaurants, initializes customers and orders
+     * lists,
+     * and sets up the scanner for user input
      */
     public ERestaurantManager() {
         this.restaurants = new ArrayList<>();
@@ -33,7 +34,7 @@ public class ERestaurantManager {
 
         while (running) {
             System.out.println("Welcome to the E Restaurant Manager!");
-            System.out.print("Are you:");
+            System.out.print("\nEnter your choice:\n");
             System.out.println("1. Restaurant Owner");
             System.out.println("2. Customer");
             System.out.println("3. Exit");
@@ -57,20 +58,38 @@ public class ERestaurantManager {
     }
 
     /*
+     * EFFECTS: displays options available to Restaurant Owner
+     */
+    public void displayOwnerOptions() {
+        System.out.println("\nWhat are you looking for:");
+        System.out.println("1: Add Restaurant");
+        System.out.println("2: Add Menu Item");
+        System.out.println("3: Read Reviews");
+        System.out.println("4: Exit to Main Menu");
+    }
+
+    /*
+     * EFFECTS: displays options available to Customer
+     */
+    public void displayCustomerOptions() {
+        System.out.println("\nWhat are you looking for:");
+        System.out.println("1: Make Reservation");
+        System.out.println("2: Place Order");
+        System.out.println("3: Leave Review");
+        System.out.println("4: View all Restaurants");
+        System.out.println("5: Read Reviews");
+        System.out.println("6: Exit to Main Menu");
+    }
+
+    /*
      * EFFECTS: handles the operations that is available to the Restaurant Owner
      */
     private void handleOwnerOptions() {
         boolean running = true;
-
         while (running) {
-            System.out.println("\nWhat are you looking for:");
-            System.out.println("1: Add Restaurant");
-            System.out.println("2: Add Menu Item");
-            System.out.println("3: Read Reviews");
-            System.out.println("4: Exit to Main Menu");
+            displayOwnerOptions();
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
+            scanner.nextLine();
             switch (choice) {
                 case 1:
                     addRestaurant();
@@ -95,41 +114,40 @@ public class ERestaurantManager {
      */
     private void handleCustomerOptions() {
         boolean running = true;
-
         while (running) {
-            System.out.println("\nWhat are you looking for:");
-            System.out.println("1: Make Reservation");
-            System.out.println("2: Place Order");
-            System.out.println("3: Leave Review");
-            System.out.println("4: View all Restaurants");
-            System.out.println("5: Read Reviews");
-            System.out.println("6: Exit to Main Menu");
+            displayCustomerOptions();
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
-
-            switch (choice) {
-                case 1:
-                    makeReservation();
-                    break;
-                case 2:
-                    placeOrder();
-                    break;
-                case 3:
-                    leaveReview();
-                    break;
-                case 4:
-                    listRestaurants();
-                    break;
-                case 5:
-                    readReviews();
-                    break;
-                case 6:
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
+            scanner.nextLine();
+            running = processCustomerChoice(choice);
         }
+    }
+
+    /*
+     * EFFECTS: stores the chpice made by the Customer
+     */
+    private boolean processCustomerChoice(int choice) {
+        switch (choice) {
+            case 1:
+                makeReservation();
+                break;
+            case 2:
+                placeOrder();
+                break;
+            case 3:
+                leaveReview();
+                break;
+            case 4:
+                listRestaurants();
+                break;
+            case 5:
+                readReviews();
+                break;
+            case 6:
+                return false;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+        return true; 
     }
 
     /*
@@ -158,7 +176,8 @@ public class ERestaurantManager {
                 System.out.println("No reviews available.");
             } else {
                 for (Review review : restaurant.getRestaurantReviews()) {
-                    System.out.println(" - " + review.getCustomerName() + ": " + review.getReviewComment() + " (Rating: " + review.getRating() + ")");
+                    System.out.println(" - " + review.getCustomerName() + ": " + review.getReviewComment()
+                            + " (Rating: " + review.getRating() + ")");
                 }
             }
         }
@@ -195,50 +214,54 @@ public class ERestaurantManager {
      * EFFECTS: places an order for a customer using user input
      */
     private void placeOrder() {
-        System.out.print("Enter restaurant name: ");
-        String restaurantName = scanner.nextLine();
-        
-        // Display menu before placing order
-        displayMenu(restaurantName);
+    System.out.print("Enter restaurant name: ");
+    String restaurantName = scanner.nextLine();
 
-        System.out.print("Enter customer name: ");
-        String customerName = scanner.nextLine();
+    displayMenu(restaurantName); // Display the menu of the restaurant
 
-        ArrayList<MenuItems> orderItems = new ArrayList<>();
-        boolean addingItems = true;
+    Restaurant restaurant = findRestaurant(restaurantName);
+    if (restaurant == null) {
+        System.out.println("Restaurant not found.");
+        return;
+    }
 
-        while (addingItems) {
-            System.out.print("Enter item name (or 'done' to finish): ");
-            String itemName = scanner.nextLine();
-            if (itemName.equalsIgnoreCase("done")) {
-                addingItems = false;
-                continue;
-            }
-            System.out.print("Enter item description: ");
-            String itemDescription = scanner.nextLine();
-            System.out.print("Enter item price: ");
-            double itemPrice = scanner.nextDouble();
-            scanner.nextLine(); // Consume newline character
-            System.out.print("Enter item category: ");
-            String itemCategory = scanner.nextLine();
+    System.out.print("Enter customer name: ");
+    String customerName = scanner.nextLine();
 
-            orderItems.add(new MenuItems(itemName, itemDescription, itemPrice, itemCategory));
+    ArrayList<MenuItems> orderItems = new ArrayList<>();
+    boolean addingItems = true;
+
+    while (addingItems) {
+        System.out.print("Enter item name (or 'done' to finish): ");
+        String itemName = scanner.nextLine();
+        if (itemName.equalsIgnoreCase("done")) {
+            addingItems = false;
+            continue;
         }
 
-        Restaurant restaurant = findRestaurant(restaurantName);
-        if (restaurant != null) {
-            OrderFood order = new OrderFood();
-            order.setCustomerName(customerName);
-            order.setRestaurantName(restaurant.getRestaurantName());
-            order.setOrderItems(orderItems);
-            order.setTotalPrice(orderItems.stream().mapToDouble(MenuItems::getItemPrice).sum());
-            restaurant.addOrder(order);
-            orders.add(order); // Add the order to the orders list
-            System.out.println("Order placed successfully for " + customerName);
+        MenuItems menuItem = restaurant.findMenuItem(itemName);
+        if (menuItem != null) {
+            orderItems.add(menuItem); // Add the menu item directly
+            System.out.println(itemName + " added to the order.");
         } else {
-            System.out.println("Restaurant not found.");
+            System.out.println("Item not found on the menu.");
         }
     }
+
+    if (!orderItems.isEmpty()) {
+        OrderFood order = new OrderFood();
+        order.setCustomerName(customerName);
+        order.setRestaurantName(restaurant.getRestaurantName());
+        order.setOrderItems(orderItems);
+        order.setTotalPrice(orderItems.stream().mapToDouble(MenuItems::getItemPrice).sum());
+        restaurant.addOrder(order);
+        orders.add(order); // Add the order to the orders list
+        System.out.println("Order placed successfully for " + customerName);
+    } else {
+        System.out.println("No items added to the order.");
+    }
+}
+
 
     /*
      * EFFECTS: retrieves a list of all orders
@@ -254,7 +277,7 @@ public class ERestaurantManager {
     private void makeReservation() {
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
-        
+
         // Display menu before making a reservation
         displayMenu(restaurantName);
 
@@ -285,9 +308,6 @@ public class ERestaurantManager {
     private void leaveReview() {
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
-        
-        // Display menu before leaving a review
-        displayMenu(restaurantName);
 
         System.out.print("Enter customer name: ");
         String customerName = scanner.nextLine();
@@ -334,7 +354,7 @@ public class ERestaurantManager {
         System.out.print("Enter the restaurant name to add a menu item: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
-    
+
         if (restaurant != null) {
             System.out.print("Enter item name: ");
             String itemName = scanner.nextLine();
@@ -345,12 +365,12 @@ public class ERestaurantManager {
             scanner.nextLine(); // Consume newline character
             System.out.print("Enter item category: ");
             String itemCategory = scanner.nextLine();
-    
+
             restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory); // Call method with parameters
             System.out.println("Menu item added to " + restaurantName + ": " + itemName);
         } else {
             System.out.println("Restaurant not found.");
         }
     }
-    
+
 }
