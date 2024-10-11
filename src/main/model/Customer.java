@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 // represents a Customer with name, email and phone number
 public class Customer {
 
@@ -19,14 +21,34 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+     /* 
+     * REQUIRES: the restaurant to exist in the list of restaurants;
+     *           the numberOfGuests > 0;
+     * MODIFIES: Resevation
+     * EFFECTS: lets the customer make a reservatiionb at a restaurant
+     */
+    public void makeReservation(Restaurant restaurant, String customerName, String date, String time, int numberOfGuests) {
+        //STUB
+    }
+
     /* 
      * REQUIRES: the restaurant to exist in the list of restaurants;
      *           rating <= 5;
-     * MODIFIES: this and Restaurant
+     * MODIFIES: Restaurant
      * EFFECTS: lets the customer leave a review
      */
-    public Review leaveReview(Restaurant restaurant, int rating, String comment) {
-        return null;
+    public void leaveReview(Restaurant restaurant, int rating, String comment) {
+        //STUB
+    }
+
+    /* 
+     * REQUIRES: the restaurant to exist in the list of restaurants;
+     *           rating <= 5;
+     * MODIFIES: Order
+     * EFFECTS: lets the customer place a order
+     */
+    public void placeOrder(Restaurant restaurant, ArrayList<MenuItems> items) {
+        //STUB
     }
 
     /* 
