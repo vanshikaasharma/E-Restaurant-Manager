@@ -17,7 +17,7 @@ public class TestCustomer {
 
     @BeforeEach
     public void setUp() {
-        customer = new Customer("Katie", "Katie.Mill@example.com", "1234567890");
+        customer = new Customer("Katie");
         r1 = new Restaurant("Cactus club", "765 Broadway" , "Fusion");
         menuItem = new MenuItems("Pizza", "cheese pizza", 9.99, "Main Course");
         review = new Review(customer.getName(), "Amazing food", 5);
@@ -84,19 +84,11 @@ public class TestCustomer {
     @Test
     public void testGetters() {
         assertEquals("Katie Mills", customer.getName());
-        assertEquals("Katie.Mills@gmail.com", customer.getEmail());
-        assertEquals("1234567890", customer.getPhoneNumber());
     }
 
     @Test
     public void testSetters() {
         customer.setName("Jude");
         assertEquals("Jude", customer.getName());
-
-        customer.setEmail("jude@gmail.com");
-        assertEquals("jude@gmail.com", customer.getEmail());
-
-        customer.setPhoneNumber("0987654321");
-        assertEquals("0987654321", customer.getPhoneNumber());
     }
 }

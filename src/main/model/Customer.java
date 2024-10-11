@@ -2,19 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
-// represents a Customer with name, email and phone number
+// represents a Customer with name
 public class Customer {
 
     private String name;            //name of the customer
 
     /*
-     * REQUIRES: name has a non-zero length and phonenumber has 10 digits
+     * REQUIRES: name has a non-zero length
      * EFFECTS: the name of the customer is set to name;
-     *          the email of the customer is set to email;
-     *          the phone number is set to phoneNumber.
+     *          
      */
     public Customer(String name) {
-        
     }
 
      /* 
@@ -69,25 +67,9 @@ public class Customer {
         return "";
     }
 
-    public String getEmail() {
-        return "";
-    }
-
-    public String getPhoneNumber() {
-        return "";
-    }
-
 
     // Setters
     public void setName(String name) {
-        //STUB
-    }
-
-    public void setEmail(String email) {
-        //STUB
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
         //STUB
     }
 }
