@@ -77,6 +77,31 @@ public class TestRestaurant {
         assertEquals("Soup", menuItems.get(0).getItemName());
     }
 
+    @Test
+    public void testAddReservation() {
+        Reservation reservation = new Reservation("John Doe", "2024-10-12", "19:00", 4);
+        restaurant.addReservation(reservation);
+        assertEquals(1, restaurant.getReservations().size());
+        assertEquals("Peggy", restaurant.getReservations().get(0).getCustomerName());
+    }
+
+    @Test
+    public void testAddOrderValid() {
+        MenuItems menuItem = new MenuItems("Tea","Boba Tea", 12.50, "Beverages"); 
+        ArrayList<MenuItems> items = new ArrayList<>();
+        items.add(menuItem);
+        OrderFood order = new OrderFood();
+        order.setCustomerName("Manny");
+        order.setDeliveryAddress("123 Main mall");
+        order.setRestaurantName("TeaDot");
+        order.setOrderItems(items);
+        restaurant.addOrder(order);
+        assertEquals(1, restaurant.getOrders().size());
+        assertEquals("Manny", restaurant.getOrders().get(0).getCustomerName());
+        assertEquals(1, restaurant.getOrders().get(0).getOrderItems().size());
+        assertEquals(12.50, restaurant.getOrders().get(0).getTotalPrice());
+    }
+
 
     @Test
     void testSettersAndGetters() {
@@ -91,5 +116,6 @@ public class TestRestaurant {
 
         restaurant.setCapacity(50);
         assertEquals(50, restaurant.getCapacity());
+
     }
 }
