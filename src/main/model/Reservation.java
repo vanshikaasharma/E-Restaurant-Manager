@@ -8,16 +8,21 @@ public class Reservation {
     private String reservationTime;            //the time of the reservation
     private int numberOfGuests;                //the number of guests for the reservation
     private boolean isReserved;                //the table is reserved
-    private String customerName;               //the name of the customer making the resevation
+    private String customerName;               //the name of the customer making the reservation
+
     /*
-     * REQUIRES: date and time has a non-zero length and numberOfGuests > 0
+     * REQUIRES: date and time have a non-zero length and numberOfGuests > 0
      * EFFECTS: the date of the reservation is set to date;
      *          the time of the reservation is set to time;
      *          the number of guests for the reservation is set to numberOfGuests;
      *          the name of the customer is set to customerName.
      */
-    public Reservation( String customerName, String date, String time, int numberOfGuests) {
-        //STUB
+    public Reservation(String customerName, String date, String time, int numberOfGuests) {
+        this.customerName = customerName;
+        this.reservationDate = date;
+        this.reservationTime = time;
+        this.numberOfGuests = numberOfGuests;
+        this.isReserved = true;  // Set to true when a reservation is created
     }
 
     /* 
@@ -26,59 +31,59 @@ public class Reservation {
      * EFFECTS: lets the customer modify reservation 
      */
     public void modifyReservation(String date, String time, int newNumberOfGuests) {
-        //STUB
+        this.reservationDate = date;
+        this.reservationTime = time;
+        this.numberOfGuests = newNumberOfGuests;
     }
 
     /* 
      * REQUIRES: the reservation to exist
      * MODIFIES: this
-     * EFFECTS: lets the customer cancel the resevation
+     * EFFECTS: lets the customer cancel the reservation
      */
     public void cancelReservation() {
-        //STUB
+        this.isReserved = false;
     }
-
 
     // Getters
     public String getReservationDate() {
-        return "";
+        return reservationDate;
     }
 
     public String getReservationTime() {
-        return "";
+        return reservationTime;
     }
 
     public int getNumberOfGuests() {
-        return 0;
+        return numberOfGuests;
     }
 
     public String getCustomerName() {
-        return "";
+        return customerName;
     }
 
     public boolean getIsReserved() {
-        return false;
+        return isReserved;
     }
 
     // Setters
     public void setReservationDate(String date) {
-        //STUB
+        this.reservationDate = date;
     }
 
     public void setReservationTime(String time) {
-        //STUB
+        this.reservationTime = time;
     }
 
     public void setNumberOfGuests(int numberOfGuests) {
-        //STUB
+        this.numberOfGuests = numberOfGuests;
     }
 
     public void setCustomerName(String customerName) {
-        //STUB
+        this.customerName = customerName;
     }
 
-    public void setIsReserved() {
-        //STUB
+    public void setIsReserved(boolean isReserved) {
+        this.isReserved = isReserved;
     }
-
 }

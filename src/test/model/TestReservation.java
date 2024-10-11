@@ -49,13 +49,13 @@ public class TestReservation {
         reservation.setReservationDate("2024-10-17");
         reservation.setReservationTime("21:00");
         reservation.setNumberOfGuests(6);
-        reservation.setCustomerName("Jane Doe");
-        reservation.setIsReserved();
+        reservation.setCustomerName("Marco");
+        reservation.setIsReserved(true);
 
         assertEquals("2024-10-17", reservation.getReservationDate());
         assertEquals("21:00", reservation.getReservationTime());
         assertEquals(6, reservation.getNumberOfGuests());
-        assertEquals("Shirley", reservation.getCustomerName());
+        assertEquals("Marco", reservation.getCustomerName());
         assertTrue(reservation.getIsReserved());
     }
 }
