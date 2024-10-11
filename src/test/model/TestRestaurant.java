@@ -77,6 +77,7 @@ public class TestRestaurant {
         assertEquals("Soup", menuItems.get(0).getItemName());
     }
 
+
     @Test
     void testSettersAndGetters() {
         restaurant.setRestaurantName("Sushi Bar");

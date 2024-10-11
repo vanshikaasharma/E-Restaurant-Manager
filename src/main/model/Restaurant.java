@@ -12,6 +12,8 @@ public class Restaurant {
     private Menu restaurantMenu;                    //menu of the restaurant
     private int capacity;                           //capacity of the restaurant
     private ArrayList<Review> restaurantReviews;     //reviews of the restaurant
+    private ArrayList<Reservation> reservations;     //reservations made in the restaurant
+    private ArrayList<OrderFood> orders;             //orders made in the restaurant
 
 
     /*
@@ -110,6 +112,14 @@ public class Restaurant {
         return restaurantReviews;
     }
 
+    public ArrayList<OrderFood> getOrders(){
+        return orders;
+    }
+
+    public ArrayList<Reservation> getReservations(){
+        return reservations;
+    }
+
     public int getCapacity() {
         return capacity;
     }
@@ -134,6 +144,14 @@ public class Restaurant {
 
     public void setReviews(ArrayList<Review> reviews) {
         this.restaurantReviews = reviews;
+    }
+
+    public void setReservation(ArrayList<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void setOrders(ArrayList<OrderFood> orders) {
+        this.orders = orders;
     }
 
     public void setCapacity(int capacity) {
