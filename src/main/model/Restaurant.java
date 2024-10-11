@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // Represents a restaurant having an name, location, cuisine type, menu, 
 // the working hours, capacity of the restaurant, review of the restaurant and
@@ -11,7 +10,7 @@ public class Restaurant {
     private String restaurantName;                  //name of the restaurant
     private String restaurantLocation;              //location of the restaurant
     private String cuisineType;                     //the cuisine that is being served in the restaurant
-    private ArrayList<Menu> restaurantMenu;         //menu of the restaurant
+    private Menu restaurantMenu;         //menu of the restaurant
     private int openingHours;                        //the time the restaurant is open 
     private int closingHours;                        //the time the restaurant is closed
     private int capacity;                           //capacity of the restaurant
@@ -48,17 +47,40 @@ public class Restaurant {
      * MODIFIES: this and Menu
      * EFFECTS: adds a the item to the menu of the restaurant
      */
-    public void addMenuItem(Menu item, int price) {
+    public void addMenuItem(String itemName, String itemDescription, double itemPrice, String itemCategory) {
         //STUB
     }
 
     /* 
      * MODIFIES: this and Menu
-     * EFFECTS: adds a the item to the menu of the restaurant
+     * EFFECTS: removes the item from the menu of the restaurant
      */
-    public void removeMenuItem(Menu item) {
+    public void removeMenuItem(String itemName) {
         //STUB
     }
+
+    /* 
+     * MODIFIES: this and Menu
+     * EFFECTS: updates the item in the menu of the restaurant
+     */
+    public void updateMenuItem(String name, String description, double price) {
+        //STUB
+    }
+
+    /* 
+     * EFFECTS: returns the items in the menu of the restaurant
+     */
+    public ArrayList<Menu> viewMenu() {
+        return null;
+    }
+
+    /* 
+     * EFFECTS: returns the reviews the restaurant has recieved
+     */
+    public ArrayList<Review> viewReviews() {
+        return null;
+    }
+
 
     //getters
     public String getRestaurantName() {
@@ -73,11 +95,11 @@ public class Restaurant {
         return "";
     }
 
-    public List<Menu> getMenuItems() {
+    public Menu getRestaurantMenu() {
         return null;
     }
 
-    public List<Review> getRestaurantReviews() {
+    public ArrayList<Review> getRestaurantReviews() {
         return null;
     }
 
@@ -101,6 +123,7 @@ public class Restaurant {
         return 0;
     }
 
+
     //setters
     public void setRestaurantName(String restaurantName) {
         //STUB
@@ -114,11 +137,31 @@ public class Restaurant {
         //STUB
     }
 
-    public void setRestaurantMenu(List<Menu> menuItems) {
+    public void setRestaurantMenu(Menu menu) {
         //STUB
     }
 
-    public void setReviews(List<Review> review) {
+    public void setReviews(ArrayList<Review> reviews) {
+        //STUB
+    }
+
+    public void setIsDeliveryAvailable() {
+        //STUB
+    }
+
+    public void setIsDineInAvailable() {
+        //STUB
+    }
+
+    public void setOpeningHours() {
+        //STUB
+    }
+
+    public void setCLosingHours() {
+        //STUB
+    }
+
+    public void setCapacity() {
         //STUB
     }
 
