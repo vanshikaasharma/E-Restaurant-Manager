@@ -145,23 +145,23 @@ public class Restaurant {
         //STUB
     }
 
-    public void setIsDeliveryAvailable() {
+    public void setIsDeliveryAvailable(boolean isDeliveryAvailable) {
         //STUB
     }
 
-    public void setIsDineInAvailable() {
+    public void setIsDineInAvailable(boolean isDineInAvailable) {
         //STUB
     }
 
-    public void setOpeningHours() {
+    public void setOpeningHours(int openHours) {
         //STUB
     }
 
-    public void setCLosingHours() {
+    public void setCLosingHours(int closingHours) {
         //STUB
     }
 
-    public void setCapacity() {
+    public void setCapacity(int capacity) {
         //STUB
     }
 
