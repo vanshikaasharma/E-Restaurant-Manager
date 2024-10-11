@@ -79,7 +79,7 @@ public class TestRestaurant {
 
     @Test
     public void testAddReservation() {
-        Reservation reservation = new Reservation("John Doe", "2024-10-12", "19:00", 4);
+        Reservation reservation = new Reservation("Peggy", "2024-10-12", "19:00", 4);
         restaurant.addReservation(reservation);
         assertEquals(1, restaurant.getReservations().size());
         assertEquals("Peggy", restaurant.getReservations().get(0).getCustomerName());

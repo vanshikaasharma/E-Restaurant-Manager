@@ -13,6 +13,7 @@ public class Customer {
      * 
      */
     public Customer(String name) {
+        this.name = name;
     }
 
     /*
@@ -52,13 +53,14 @@ public class Customer {
         restaurant.addOrder(order);
     }
 
+
     // Getters
     public String getName() {
-        return "";
+        return this.name;
     }
 
     // Setters
     public void setName(String name) {
-        // STUB
+        this.name = name;
     }
 }

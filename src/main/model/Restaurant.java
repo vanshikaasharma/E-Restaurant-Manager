@@ -32,6 +32,9 @@ public class Restaurant {
         this.capacity = 10;
         this.restaurantMenu = new Menu();
         this.restaurantReviews = new ArrayList<>();
+
+        this.reservations = new ArrayList<>(); 
+        this.orders = new ArrayList<>();
     }
 
 
@@ -73,7 +76,7 @@ public class Restaurant {
      * EFFECTS: adds a reservation for the restaurant
      */
     public void addReservation(Reservation reservation) {
-        reservations.add(reservation);
+        this.reservations.add(reservation);
     }
 
     /*
@@ -93,35 +96,35 @@ public class Restaurant {
 
     // Getters
     public String getRestaurantName() {
-        return restaurantName;
+        return this.restaurantName;
     }
 
     public String getRestaurantLocation() {
-        return restaurantLocation;
+        return this.restaurantLocation;
     }
 
     public String getCuisineType() {
-        return cuisineType;
+        return this.cuisineType;
     }
 
     public Menu getRestaurantMenu() {
-        return restaurantMenu;
+        return this.restaurantMenu;
     }
 
     public ArrayList<Review> getRestaurantReviews() {
-        return restaurantReviews;
+        return this.restaurantReviews;
     }
 
     public ArrayList<OrderFood> getOrders(){
-        return orders;
+        return this.orders;
     }
 
     public ArrayList<Reservation> getReservations(){
-        return reservations;
+        return this.reservations;
     }
 
     public int getCapacity() {
-        return capacity;
+        return this.capacity;
     }
 
 
