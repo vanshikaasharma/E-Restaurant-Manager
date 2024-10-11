@@ -9,10 +9,10 @@ public class Restaurant {
     private String restaurantName;                  //name of the restaurant
     private String restaurantLocation;              //location of the restaurant
     private String cuisineType;                     //the cuisine that is being served in the restaurant
-    private Menu restaurantMenu;               //menu of the restaurant
+    private Menu restaurantMenu;                    //menu of the restaurant
     private int capacity;                           //capacity of the restaurant
     private ArrayList<Review> restaurantReviews;     //reviews of the restaurant
-   
+
 
     /*
      * REQUIRES: restaurant, cuisine, has a non-zero length 
@@ -27,8 +27,8 @@ public class Restaurant {
         this.restaurantName = restaurantName;
         this.restaurantLocation = restaurantLocation;
         this.cuisineType = cuisineType;
-        this.capacity = 10; 
-        this.restaurantMenu = new Menu(); 
+        this.capacity = 10;
+        this.restaurantMenu = new Menu();
         this.restaurantReviews = new ArrayList<>();
     }
 
@@ -69,13 +69,11 @@ public class Restaurant {
     /* 
      * EFFECTS: returns the items in the menu of the restaurant
      */
-    public ArrayList<Menu> viewMenu() {
-        ArrayList<Menu> menuList = new ArrayList<>();
-        menuList.add(restaurantMenu);
-        return menuList;
+    public ArrayList<MenuItems> viewMenu() {
+        return restaurantMenu.getMenuItems(); // return the actual menu items, not the entire menu
     }
 
-    //getters
+    // Getters
     public String getRestaurantName() {
         return restaurantName;
     }
@@ -101,21 +99,18 @@ public class Restaurant {
     }
 
 
-    //setters
+    // Setters
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
-
     }
 
-    public void setLocation(String restauarantLocation) {
+    public void setLocation(String restaurantLocation) {
         this.restaurantLocation = restaurantLocation;
     }
-    
 
     public void setCuisineType(String cuisineType) {
         this.cuisineType = cuisineType;
     }
-    
 
     public void setRestaurantMenu(Menu menu) {
         this.restaurantMenu = menu;
