@@ -42,9 +42,6 @@ public class MenuItems {
 
     // Setters
     public void setItemName(String name) {
-        if (name.length() == 0) {
-            throw new IllegalArgumentException("Item name must be non-empty.");
-        }
         this.itemName = name;
     }
 
@@ -53,9 +50,6 @@ public class MenuItems {
     }
 
     public void setItemPrice(double price) {
-        if (price <= 0) {
-            throw new IllegalArgumentException("Item price must be greater than 0.");
-        }
         this.itemPrice = price;
     }
 
