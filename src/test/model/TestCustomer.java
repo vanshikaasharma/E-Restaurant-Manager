@@ -16,7 +16,7 @@ public class TestCustomer {
     @BeforeEach
     public void setUp() {
         customer = new Customer("Katie");
-        r1 = new Restaurant("Cactus club", "765 Broadway" , "Fusion");
+        r1 = new Restaurant("Cactus club", "765 Broadway", "Fusion");
         menuItem = new MenuItems("Pizza", "cheese pizza", 9.99, "Main Course");
     }
     
