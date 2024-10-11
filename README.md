@@ -13,15 +13,16 @@ I chose the E-Restaurant Manager idea because I often find interesting restauran
 
 **For Restaurant Owners:**
 
-- As a user, I want to be able to add a new restaurant to the system and specify the name, location, cuisine type, and menu items.
-- As a user, I want to be able to add, update, or remove menu items for my restaurant, including the item name, description, price, and category
+- As a user, I want to be able to add a new restaurant to the system and specify the name, location, cuisine type.
+- As a user, I want to be able to add menu items with name, description, price, and category.
+- As a user, I want to be able to update items for my restaurant.
+- As a user, I want to be able to remove menu items for my restaurant.
 - As a user, I want to be able to view customer reviews and ratings for my restaurant.
 
 **For Customers:**
 
-- As a user, I want to be able to view a list of all available restaurants and filter my choices.
-- As a user, I want to be able to make a reservation at a specific restaurant and specify the date, time, and 
-number of guests.
-- As a customer, I want to be able to read reviews for a restaurant, including rating and comments.
-- As a user, I want to be able to leave a review for a restaurant I have visited, including a rating and comments.
-- As a user, I want to be able to select menu items from a restaurant and place an order for delivery.
+- As a user, I want to be able to view a list of all available restaurants.
+- As a user, I want to be able to make a reservation at a specific restaurant and specify the date, time, and number of guests.
+- As a user, I want to be able to read reviews for a restaurant, including rating and comments.
+- As a user, I want to be able to leave a review for a restaurant by rating and comments.
+- As a user, I want to be able to read the menu items from a restaurant and place an order.
