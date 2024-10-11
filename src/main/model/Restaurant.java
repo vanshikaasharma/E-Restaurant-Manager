@@ -6,24 +6,23 @@ import java.util.ArrayList;
 //capacity of the restaurant and review of the restaurant 
 public class Restaurant {
 
-    private String restaurantName;                  //name of the restaurant
-    private String restaurantLocation;              //location of the restaurant
-    private String cuisineType;                     //the cuisine that is being served in the restaurant
-    private Menu restaurantMenu;                    //menu of the restaurant
-    private int capacity;                           //capacity of the restaurant
-    private ArrayList<Review> restaurantReviews;     //reviews of the restaurant
-    private ArrayList<Reservation> reservations;     //reservations made in the restaurant
-    private ArrayList<OrderFood> orders;             //orders made in the restaurant
-
+    private String restaurantName; // name of the restaurant
+    private String restaurantLocation; // location of the restaurant
+    private String cuisineType; // the cuisine that is being served in the restaurant
+    private Menu restaurantMenu; // menu of the restaurant
+    private int capacity; // capacity of the restaurant
+    private ArrayList<Review> restaurantReviews; // reviews of the restaurant
+    private ArrayList<Reservation> reservations; // reservations made in the restaurant
+    private ArrayList<OrderFood> orders; // orders made in the restaurant
 
     /*
-     * REQUIRES: restaurant, cuisine, has a non-zero length 
-     * EFFECTS: name of the restaurant is set to restaurantName; location of 
-     *          the restaurant is set to restaurantLocation; the cuisine of 
-     *          the restaurant is cuisineType; the capacity of the restaurant
-     *          is set to 10; an ArrayList of 
-     *          restaurantMenu is instantiated; an ArrayList of 
-     *          restaurantReview is instantiated;
+     * REQUIRES: restaurant, cuisine, has a non-zero length
+     * EFFECTS: name of the restaurant is set to restaurantName; location of
+     * the restaurant is set to restaurantLocation; the cuisine of
+     * the restaurant is cuisineType; the capacity of the restaurant
+     * is set to 10; an ArrayList of
+     * restaurantMenu is instantiated; an ArrayList of
+     * restaurantReview is instantiated;
      */
     public Restaurant(String restaurantName, String restaurantLocation, String cuisineType) {
         this.restaurantName = restaurantName;
@@ -33,12 +32,11 @@ public class Restaurant {
         this.restaurantMenu = new Menu();
         this.restaurantReviews = new ArrayList<>();
 
-        this.reservations = new ArrayList<>(); 
+        this.reservations = new ArrayList<>();
         this.orders = new ArrayList<>();
     }
 
-
-    /* 
+    /*
      * MODIFIES: this and Review
      * EFFECTS: adds a Review for the restaurant
      */
@@ -46,7 +44,7 @@ public class Restaurant {
         restaurantReviews.add(review);
     }
 
-    /* 
+    /*
      * MODIFIES: this and Menu
      * EFFECTS: adds a the item to the menu of the restaurant
      */
@@ -55,7 +53,7 @@ public class Restaurant {
         restaurantMenu.addMenuItem(newItem);
     }
 
-    /* 
+    /*
      * MODIFIES: this and Menu
      * EFFECTS: removes the item from the menu of the restaurant
      */
@@ -63,7 +61,7 @@ public class Restaurant {
         restaurantMenu.removeMenuItem(itemName);
     }
 
-    /* 
+    /*
      * MODIFIES: this and Menu
      * EFFECTS: updates the item in the menu of the restaurant
      */
@@ -71,7 +69,7 @@ public class Restaurant {
         restaurantMenu.updateMenuItem(name, description, price);
     }
 
-    /* 
+    /*
      * MODIFIES: this and Reservation
      * EFFECTS: adds a reservation for the restaurant
      */
@@ -87,7 +85,20 @@ public class Restaurant {
         orders.add(order);
     }
 
-    /* 
+    /*
+     * EFFECTS: searches the restaurant's menu for an item with the given name
+     * and returns the MenuItem if found, or null if not found.
+     */
+    public MenuItems findMenuItem(String itemName) {
+        for (MenuItems item : restaurantMenu.getMenuItems()) {
+            if (item.getItemName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null; 
+    }
+
+    /*
      * EFFECTS: returns the items in the menu of the restaurant
      */
     public ArrayList<MenuItems> viewMenu() {
@@ -126,7 +137,6 @@ public class Restaurant {
     public int getCapacity() {
         return this.capacity;
     }
-
 
     // Setters
     public void setRestaurantName(String restaurantName) {
