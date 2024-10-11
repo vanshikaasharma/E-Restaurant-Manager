@@ -86,7 +86,19 @@ public class TestRestaurant {
     }
 
     @Test
-    public void testAddOrderValid() {
+    void testFindMenuItem() {
+        restaurant.addMenuItem("Spaghetti", "red sauce spaghetti with meatballs", 12.99, "Main Course");
+        MenuItems foundItem1 = restaurant.findMenuItem("Spaghetti");
+        MenuItems foundItem2 = restaurant.findMenuItem("Pizza");
+        assertNull(foundItem2);
+        assertNotNull(foundItem1);
+        assertEquals("Spaghetti", foundItem1.getItemName());
+        assertEquals(12.99, foundItem1.getItemPrice());
+    }
+    
+
+    @Test
+    public void testAddOrder() {
         MenuItems menuItem = new MenuItems("Tea","Boba Tea", 12.50, "Beverages"); 
         ArrayList<MenuItems> items = new ArrayList<>();
         items.add(menuItem);
