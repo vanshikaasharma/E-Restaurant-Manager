@@ -9,7 +9,7 @@ public class Restaurant {
     private String restaurantName;                  //name of the restaurant
     private String restaurantLocation;              //location of the restaurant
     private String cuisineType;                     //the cuisine that is being served in the restaurant
-    private MenuItems restaurantMenu;               //menu of the restaurant
+    private Menu restaurantMenu;               //menu of the restaurant
     private int capacity;                           //capacity of the restaurant
     private ArrayList<Review> restaurantReviews;     //reviews of the restaurant
    
@@ -24,7 +24,12 @@ public class Restaurant {
      *          restaurantReview is instantiated;
      */
     public Restaurant(String restaurantName, String restaurantLocation, String cuisineType) {
-  
+        this.restaurantName = restaurantName;
+        this.restaurantLocation = restaurantLocation;
+        this.cuisineType = cuisineType;
+        this.capacity = 10; 
+        this.restaurantMenu = new Menu(); 
+        this.restaurantReviews = new ArrayList<>();
     }
 
 
@@ -33,7 +38,7 @@ public class Restaurant {
      * EFFECTS: adds a Review for the restaurant
      */
     public void addReview(Review review) {
-        //STUB
+        restaurantReviews.add(review);
     }
 
     /* 
@@ -41,7 +46,8 @@ public class Restaurant {
      * EFFECTS: adds a the item to the menu of the restaurant
      */
     public void addMenuItem(String itemName, String itemDescription, double itemPrice, String itemCategory) {
-        //STUB
+        MenuItems newItem = new MenuItems(itemName, itemDescription, itemPrice, itemCategory);
+        restaurantMenu.addMenuItem(newItem);
     }
 
     /* 
@@ -49,7 +55,7 @@ public class Restaurant {
      * EFFECTS: removes the item from the menu of the restaurant
      */
     public void removeMenuItem(String itemName) {
-        //STUB
+        restaurantMenu.removeMenuItem(itemName);
     }
 
     /* 
@@ -57,73 +63,70 @@ public class Restaurant {
      * EFFECTS: updates the item in the menu of the restaurant
      */
     public void updateMenuItem(String name, String description, double price) {
-        //STUB
+        restaurantMenu.updateMenuItem(name, description, price);
     }
 
     /* 
      * EFFECTS: returns the items in the menu of the restaurant
      */
-    public ArrayList<MenuItems> viewMenu() {
-        return null;
+    public ArrayList<Menu> viewMenu() {
+        ArrayList<Menu> menuList = new ArrayList<>();
+        menuList.add(restaurantMenu);
+        return menuList;
     }
-
-    /* 
-     * EFFECTS: returns the reviews the restaurant has recieved
-     */
-    public ArrayList<Review> viewReviews() {
-        return null;
-    }
-
 
     //getters
     public String getRestaurantName() {
-        return "";
+        return restaurantName;
     }
 
     public String getRestaurantLocation() {
-        return "";
+        return restaurantLocation;
     }
 
     public String getCuisineType() {
-        return "";
+        return cuisineType;
     }
 
-    public MenuItems getRestaurantMenu() {
-        return null;
+    public Menu getRestaurantMenu() {
+        return restaurantMenu;
     }
 
     public ArrayList<Review> getRestaurantReviews() {
-        return null;
+        return restaurantReviews;
     }
 
     public int getCapacity() {
-        return 0;
+        return capacity;
     }
 
 
     //setters
     public void setRestaurantName(String restaurantName) {
-        //STUB
+        this.restaurantName = restaurantName;
+
     }
 
     public void setLocation(String restauarantLocation) {
-        //STUB
+        this.restaurantLocation = restaurantLocation;
     }
+    
 
     public void setCuisineType(String cuisineType) {
-        //STUB
+        this.cuisineType = cuisineType;
     }
+    
 
-    public void setRestaurantMenu(MenuItems menu) {
-        //STUB
+    public void setRestaurantMenu(Menu menu) {
+        this.restaurantMenu = menu;
     }
 
     public void setReviews(ArrayList<Review> reviews) {
-        //STUB
+        this.restaurantReviews = reviews;
     }
 
     public void setCapacity(int capacity) {
-        //STUB
+        this.capacity = capacity;
     }
 
 }
