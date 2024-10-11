@@ -147,7 +147,7 @@ public class ERestaurantManager {
             default:
                 System.out.println("Invalid choice. Please try again.");
         }
-        return true; 
+        return true;
     }
 
     /*
@@ -214,54 +214,79 @@ public class ERestaurantManager {
      * EFFECTS: places an order for a customer using user input
      */
     private void placeOrder() {
-    System.out.print("Enter restaurant name: ");
-    String restaurantName = scanner.nextLine();
-
-    displayMenu(restaurantName); // Display the menu of the restaurant
-
-    Restaurant restaurant = findRestaurant(restaurantName);
-    if (restaurant == null) {
-        System.out.println("Restaurant not found.");
-        return;
-    }
-
-    System.out.print("Enter customer name: ");
-    String customerName = scanner.nextLine();
-
-    ArrayList<MenuItems> orderItems = new ArrayList<>();
-    boolean addingItems = true;
-
-    while (addingItems) {
-        System.out.print("Enter item name (or 'done' to finish): ");
-        String itemName = scanner.nextLine();
-        if (itemName.equalsIgnoreCase("done")) {
-            addingItems = false;
-            continue;
+        String restaurantName = enterRestaurantName();
+        Restaurant restaurant = findRestaurant(restaurantName);
+        if (restaurant == null) {
+            System.out.println("Restaurant not found.");
+            return;
         }
-
-        MenuItems menuItem = restaurant.findMenuItem(itemName);
-        if (menuItem != null) {
-            orderItems.add(menuItem); // Add the menu item directly
-            System.out.println(itemName + " added to the order.");
+    
+        String customerName = enterCustomerName();
+        ArrayList<MenuItems> orderItems = enterOrderItems(restaurant);
+    
+        if (!orderItems.isEmpty()) {
+            placeCustomerOrder(customerName, restaurant, orderItems);
         } else {
-            System.out.println("Item not found on the menu.");
+            System.out.println("No items added to the order.");
         }
     }
 
-    if (!orderItems.isEmpty()) {
+    /*
+     * EFFECTS: prompts the user to input the restaurant name
+     */
+    private String enterRestaurantName() {
+        System.out.print("Enter restaurant name: ");
+        return scanner.nextLine();
+    }
+    
+    /*
+     * EFFECTS: prompts the user to input the their name
+     */
+    private String enterCustomerName() {
+        System.out.print("Enter customer name: ");
+        return scanner.nextLine();
+    }
+    
+    /*
+     * EFFECTS: prompts the user to input menu item names for an order
+     */
+    private ArrayList<MenuItems> enterOrderItems(Restaurant restaurant) {
+        ArrayList<MenuItems> orderItems = new ArrayList<>();
+        boolean addingItems = true;
+    
+        while (addingItems) {
+            System.out.print("Enter item name (or 'done' to finish): ");
+            String itemName = scanner.nextLine();
+            if (itemName.equalsIgnoreCase("done")) {
+                addingItems = false;
+            } else {
+                MenuItems menuItem = restaurant.findMenuItem(itemName);
+                if (menuItem != null) {
+                    orderItems.add(menuItem);
+                    System.out.println(itemName + " added to the order.");
+                } else {
+                    System.out.println("Item not found on the menu.");
+                }
+            }
+        }
+        return orderItems;
+    }
+
+    /*
+     * EFFECTS: lets the user place the order
+     */
+    private void placeCustomerOrder(String customerName, Restaurant restaurant, ArrayList<MenuItems> orderItems) {
         OrderFood order = new OrderFood();
         order.setCustomerName(customerName);
         order.setRestaurantName(restaurant.getRestaurantName());
         order.setOrderItems(orderItems);
         order.setTotalPrice(orderItems.stream().mapToDouble(MenuItems::getItemPrice).sum());
         restaurant.addOrder(order);
-        orders.add(order); // Add the order to the orders list
+        orders.add(order);
         System.out.println("Order placed successfully for " + customerName);
-    } else {
-        System.out.println("No items added to the order.");
     }
-}
-
+    
+    
 
     /*
      * EFFECTS: retrieves a list of all orders
@@ -338,8 +363,8 @@ public class ERestaurantManager {
                 System.out.println("No menu items available.");
             } else {
                 for (MenuItems item : restaurant.viewMenu()) {
-                    System.out.println(" - " + item.getItemName() + ": " + item.getItemDescription() +
-                            " (Price: $" + item.getItemPrice() + ", Category: " + item.getItemCategory() + ")");
+                    System.out.println(" - " + item.getItemName() + ": " + item.getItemDescription()
+                            + " (Price: $" + item.getItemPrice() + ", Category: " + item.getItemCategory() + ")");
                 }
             }
         } else {
