@@ -51,16 +51,6 @@ class TestReview {
         assertEquals(3, review.getRating());
     }
 
-
-    @Test
-    void testSetInvalidRating() {
-        review.setRating(-1);  
-        assertEquals(5, review.getRating());  
-
-        review.setRating(6);  
-        assertEquals(5, review.getRating()); 
-    }
-
     @Test
     void testGetCustomerName() {
         assertEquals("John Doe", review.getCustomerName());

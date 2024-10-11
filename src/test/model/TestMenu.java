@@ -48,7 +48,7 @@ class MenuTest {
     public void testUpdateMenuItem() {
         menu.addMenuItem(item1);
 
-        menu.updateMenuItem("CheeseBurger", "A double cheeseburger", 11.99);
+        menu.updateMenuItem("CheeseBurger", "Double cheeseburger", 11.99);
         MenuItems updatedItem = menu.getMenuItems().get(0);
 
         assertEquals("Double cheeseburger", updatedItem.getItemDescription());
