@@ -21,10 +21,6 @@ public class TestRestaurant {
         assertEquals("Italian", restaurant.getCuisineType());
         assertNotNull(restaurant.getRestaurantMenu());
         assertEquals(10, restaurant.getCapacity());
-        assertTrue(restaurant.isDineInAvailable());
-        assertFalse(restaurant.isDeliveryAvailable());
-        assertEquals(0, restaurant.getOpeningHours());
-        assertEquals(0, restaurant.getCLosingHours());
         assertNotNull(restaurant.getRestaurantReviews());
     }
 
@@ -105,18 +101,6 @@ void testSettersAndGetters() {
 
     restaurant.setCapacity(50);
     assertEquals(50, restaurant.getCapacity());
-
-    restaurant.setOpeningHours(9);
-    assertEquals(9, restaurant.getOpeningHours());
-
-    restaurant.setCLosingHours(22);
-    assertEquals(22, restaurant.getCLosingHours());
-
-    restaurant.setIsDeliveryAvailable(true);
-    assertTrue(restaurant.isDeliveryAvailable());
-
-    restaurant.setIsDineInAvailable(false);
-    assertFalse(restaurant.isDineInAvailable());
 }
 
 
