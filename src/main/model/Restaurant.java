@@ -73,7 +73,7 @@ public class Restaurant {
      * EFFECTS: adds a reservation for the restaurant
      */
     public void addReservation(Reservation reservation) {
-        //STUB
+        reservations.add(reservation);
     }
 
     /*
@@ -81,7 +81,7 @@ public class Restaurant {
      * EFFECTS: Adds a new order to the list of orders
      */
     public void addOrder(OrderFood order) {
-        //STUB
+        orders.add(order);
     }
 
     /* 
