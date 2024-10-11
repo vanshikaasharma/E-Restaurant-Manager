@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public class Customer {
 
     private String name;            //name of the customer
-    private String email;           // email of the customer
-    private String phoneNumber;     //phone number of the customer
 
     /*
      * REQUIRES: name has a non-zero length and phonenumber has 10 digits
@@ -15,10 +13,8 @@ public class Customer {
      *          the email of the customer is set to email;
      *          the phone number is set to phoneNumber.
      */
-    public Customer(String name, String email, String phoneNumber) {
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public Customer(String name) {
+        
     }
 
      /* 
