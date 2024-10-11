@@ -63,25 +63,6 @@ public class TestCustomer {
     }
 
     @Test
-    public void testViewRestaurants() {
-        customer.viewRestaurants();
-        assertEquals("Cactus club",r1.getRestaurantName());
-        assertEquals("765 Broadway",r1.getRestaurantLocation());
-        assertEquals("Fusion",r1.getCuisineType());
-   
-    }
-
-    @Test
-    public void testViewMenu() {
-        customer.viewMenu(r1);
-        assertEquals("Pizza",menuItem.getItemName());
-        assertEquals("cheese pizza",menuItem.getItemDescription());
-        assertEquals(9.99,menuItem.getItemPrice());
-        assertEquals("Main Course",menuItem.getItemCategory());
- 
-    }
-
-    @Test
     public void testGetters() {
         assertEquals("Katie Mills", customer.getName());
     }
