@@ -10,7 +10,7 @@ public class Restaurant {
     private String restaurantName;                  //name of the restaurant
     private String restaurantLocation;              //location of the restaurant
     private String cuisineType;                     //the cuisine that is being served in the restaurant
-    private Menu restaurantMenu;         //menu of the restaurant
+    private MenuItems restaurantMenu;         //menu of the restaurant
     private int openingHours;                        //the time the restaurant is open 
     private int closingHours;                        //the time the restaurant is closed
     private int capacity;                           //capacity of the restaurant
@@ -70,7 +70,7 @@ public class Restaurant {
     /* 
      * EFFECTS: returns the items in the menu of the restaurant
      */
-    public ArrayList<Menu> viewMenu() {
+    public ArrayList<MenuItems> viewMenu() {
         return null;
     }
 
@@ -95,7 +95,7 @@ public class Restaurant {
         return "";
     }
 
-    public Menu getRestaurantMenu() {
+    public MenuItems getRestaurantMenu() {
         return null;
     }
 
@@ -137,7 +137,7 @@ public class Restaurant {
         //STUB
     }
 
-    public void setRestaurantMenu(Menu menu) {
+    public void setRestaurantMenu(MenuItems menu) {
         //STUB
     }
 

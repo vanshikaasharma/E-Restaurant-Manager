@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class OrderFood {
 
-    private ArrayList<Menu> items;      //items available to order from Menu
+    private ArrayList<MenuItems> items;      //items available to order from Menu
     private double totalPrice;          //total price of food that is ordered
     private Restaurant restaurant;      //the restraurant from which the food is ordered
     private String deliveryAddress;     // the address at which the food is delivered
@@ -28,7 +28,7 @@ public class OrderFood {
      * MODIFIES: this
      * EFFECTS: lets the customer add item to the order 
      */
-    public void addItem(Menu item) {
+    public void addItem(MenuItems item) {
         //STUB
     }
 
@@ -37,7 +37,7 @@ public class OrderFood {
      * MODIFIES: this
      * EFFECTS: lets the customer remove item to the order 
      */
-    public void removeItem(Menu item) {
+    public void removeItem(MenuItems item) {
         //STUB
     }
 
@@ -53,7 +53,7 @@ public class OrderFood {
     
 
     // Getters
-    public ArrayList<Menu> getItems() {
+    public ArrayList<MenuItems> getItems() {
         return null;
     }
 
@@ -70,7 +70,7 @@ public class OrderFood {
     }
 
     // Setters
-    public void setItems(ArrayList<Menu> items) {
+    public void setItems(ArrayList<MenuItems> items) {
         //STUB
     }
 

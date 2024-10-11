@@ -1,8 +1,8 @@
 package model;
 
-// Represents a Menu having an item name, item description, item price and
+// Represents the Menu items having an item name, item description, item price and
 // the category of the item
-public class Menu {
+public class MenuItems {
 
         private String itemName;            //name of the item
         private String itemDescription;     // description of the item
@@ -17,7 +17,7 @@ public class Menu {
         *          given by itemPrice; the category in which the item belongs
         *          is set to itemCategory.
         */
-        public Menu(String itemName, String itemDescription, double itemPrice, String itemCategory) {
+        public MenuItems(String itemName, String itemDescription, double itemPrice, String itemCategory) {
            //STUB
         }
     
