@@ -47,7 +47,6 @@ class MenuTest {
     @Test
     public void testUpdateMenuItem() {
         menu.addMenuItem(item1);
-
         menu.updateMenuItem("CheeseBurger", "Double cheeseburger", 11.99);
         MenuItems updatedItem = menu.getMenuItems().get(0);
 

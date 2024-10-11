@@ -48,7 +48,7 @@ public class Review {
     }
 
     public void setRating(int rating) {
-            this.rating = rating;
+        this.rating = rating;
     }
 
     public void setCustomerName(String customerName) {

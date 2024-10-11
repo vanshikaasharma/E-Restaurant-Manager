@@ -115,11 +115,11 @@ public class Restaurant {
         return this.restaurantReviews;
     }
 
-    public ArrayList<OrderFood> getOrders(){
+    public ArrayList<OrderFood> getOrders() {
         return this.orders;
     }
 
-    public ArrayList<Reservation> getReservations(){
+    public ArrayList<Reservation> getReservations() {
         return this.reservations;
     }
 
