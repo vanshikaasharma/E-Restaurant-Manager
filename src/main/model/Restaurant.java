@@ -67,6 +67,22 @@ public class Restaurant {
     }
 
     /* 
+     * MODIFIES: this and Reservation
+     * EFFECTS: adds a reservation for the restaurant
+     */
+    public void addReservation(Reservation reservation) {
+        //STUB
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Adds a new order to the list of orders
+     */
+    public void addOrder(OrderFood order) {
+        //STUB
+    }
+
+    /* 
      * EFFECTS: returns the items in the menu of the restaurant
      */
     public ArrayList<MenuItems> viewMenu() {
