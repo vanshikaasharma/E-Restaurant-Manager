@@ -220,7 +220,8 @@ public class ERestaurantManager {
             System.out.println("Restaurant not found.");
             return;
         }
-    
+        displayMenu(restaurantName);
+        
         String customerName = enterCustomerName();
         ArrayList<MenuItems> orderItems = enterOrderItems(restaurant);
     
@@ -284,6 +285,7 @@ public class ERestaurantManager {
         restaurant.addOrder(order);
         orders.add(order);
         System.out.println("Order placed successfully for " + customerName);
+        System.out.println("your total cost is " + order.getTotalPrice());
     }
     
     

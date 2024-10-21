@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Test class for MenuItems
-public class MenuItemsTest {
+public class TestMenuItems {
 
     @Test
     public void testConstructor() {

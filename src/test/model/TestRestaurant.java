@@ -95,11 +95,10 @@ public class TestRestaurant {
         assertEquals("Spaghetti", foundItem1.getItemName());
         assertEquals(12.99, foundItem1.getItemPrice());
     }
-    
 
     @Test
     public void testAddOrder() {
-        MenuItems menuItem = new MenuItems("Tea","Boba Tea", 12.50, "Beverages"); 
+        MenuItems menuItem = new MenuItems("Tea", "Boba Tea", 12.50, "Beverages");
         ArrayList<MenuItems> items = new ArrayList<>();
         items.add(menuItem);
         OrderFood order = new OrderFood();
@@ -113,7 +112,6 @@ public class TestRestaurant {
         assertEquals(1, restaurant.getOrders().get(0).getOrderItems().size());
         assertEquals(12.50, restaurant.getOrders().get(0).getTotalPrice());
     }
-
 
     @Test
     void testSettersAndGetters() {
@@ -130,4 +128,53 @@ public class TestRestaurant {
         assertEquals(50, restaurant.getCapacity());
 
     }
+
+    @Test
+    void testSetRestaurantMenu() {
+        Menu newMenu = new Menu();
+        newMenu.addMenuItem(new MenuItems("Burger", "Beef burger with cheese", 10.99, "Main Course"));
+        restaurant.setRestaurantMenu(newMenu);
+        assertEquals(1, restaurant.getRestaurantMenu().getMenuItems().size());
+        assertEquals("Burger", restaurant.getRestaurantMenu().getMenuItems().get(0).getItemName());
+    }
+
+    @Test
+    void testSetReviews() {
+        ArrayList<Review> newReviews = new ArrayList<>();
+        newReviews.add(new Review("Alice", "Amazing experience!", 5));
+        restaurant.setReviews(newReviews);
+        assertEquals(1, restaurant.getRestaurantReviews().size());
+        assertEquals("Amazing experience!", restaurant.getRestaurantReviews().get(0).getReviewComment());
+    }
+
+    @Test
+    void testSetReservations() {
+        ArrayList<Reservation> newReservations = new ArrayList<>();
+        newReservations.add(new Reservation("Bob", "2024-11-01", "18:30", 2));
+        restaurant.setReservation(newReservations);
+        assertEquals(1, restaurant.getReservations().size());
+        assertEquals("Bob", restaurant.getReservations().get(0).getCustomerName());
+    }
+
+    @Test
+    void testSetOrders() {
+        ArrayList<OrderFood> newOrders = new ArrayList<>();
+        MenuItems item = new MenuItems("Latte", "Café Latte", 4.50, "Beverages");
+        ArrayList<MenuItems> items = new ArrayList<>();
+        items.add(item);
+
+        OrderFood order = new OrderFood();
+        order.setCustomerName("Charlie");
+        order.setDeliveryAddress("789 Oak Street");
+        order.setRestaurantName("Coffee House");
+        order.setOrderItems(items);
+        newOrders.add(order);
+
+        restaurant.setOrders(newOrders);
+        assertEquals(1, restaurant.getOrders().size());
+        assertEquals("Charlie", restaurant.getOrders().get(0).getCustomerName());
+        assertEquals(1, restaurant.getOrders().get(0).getOrderItems().size());
+        assertEquals(4.50, restaurant.getOrders().get(0).getTotalPrice());
+    }
+
 }

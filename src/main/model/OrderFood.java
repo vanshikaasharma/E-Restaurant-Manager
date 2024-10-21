@@ -40,9 +40,8 @@ public class OrderFood {
      * EFFECTS: lets the customer remove item from the order 
      */
     public void removeItem(MenuItems item) {
-        if (orderItems.remove(item)) {
-            totalPrice -= item.getItemPrice();
-        }
+        orderItems.remove(item);
+        totalPrice -= item.getItemPrice();
     }
 
     // Getters

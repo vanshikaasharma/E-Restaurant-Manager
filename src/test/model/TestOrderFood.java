@@ -28,6 +28,7 @@ public class TestOrderFood  {
 
     @Test
     public void testRemoveItem() {
+        assertFalse(order.getOrderItems().contains(item1));
         order.addItem(item1);
         order.removeItem(item1);
         assertFalse(order.getOrderItems().contains(item1));
@@ -71,4 +72,11 @@ public class TestOrderFood  {
         order.setDeliveryAddress(deliveryAddress);
         assertEquals(deliveryAddress, order.getDeliveryAddress());
     }
+
+    @Test
+    public void testSetTotalPrice() {
+        order.setTotalPrice(25.99);
+        assertEquals(25.99, order.getTotalPrice());
+    }
+ 
 }
