@@ -64,8 +64,10 @@ public class ERestaurantManager {
         System.out.println("\nWhat are you looking for:");
         System.out.println("1: Add Restaurant");
         System.out.println("2: Add Menu Item");
-        System.out.println("3: Read Reviews");
-        System.out.println("4: Exit to Main Menu");
+        System.out.println("3: Update Menu Item");
+        System.out.println("4: Remove Menu Item");
+        System.out.println("5: Read Reviews");
+        System.out.println("6: Exit to Main Menu");
     }
 
     /*
@@ -98,9 +100,15 @@ public class ERestaurantManager {
                     addMenuItem();
                     break;
                 case 3:
-                    readReviews();
+                    updateMenuItem();
                     break;
                 case 4:
+                    removeMenuItem();
+                    break;
+                case 5:
+                    readReviews();
+                    break;
+                case 6:
                     running = false; // Exit to main menu
                     break;
                 default:
@@ -221,10 +229,10 @@ public class ERestaurantManager {
             return;
         }
         displayMenu(restaurantName);
-        
+
         String customerName = enterCustomerName();
         ArrayList<MenuItems> orderItems = enterOrderItems(restaurant);
-    
+
         if (!orderItems.isEmpty()) {
             placeCustomerOrder(customerName, restaurant, orderItems);
         } else {
@@ -239,7 +247,7 @@ public class ERestaurantManager {
         System.out.print("Enter restaurant name: ");
         return scanner.nextLine();
     }
-    
+
     /*
      * EFFECTS: prompts the user to input the their name
      */
@@ -247,14 +255,14 @@ public class ERestaurantManager {
         System.out.print("Enter customer name: ");
         return scanner.nextLine();
     }
-    
+
     /*
      * EFFECTS: prompts the user to input menu item names for an order
      */
     private ArrayList<MenuItems> enterOrderItems(Restaurant restaurant) {
         ArrayList<MenuItems> orderItems = new ArrayList<>();
         boolean addingItems = true;
-    
+
         while (addingItems) {
             System.out.print("Enter item name (or 'done' to finish): ");
             String itemName = scanner.nextLine();
@@ -287,8 +295,6 @@ public class ERestaurantManager {
         System.out.println("Order placed successfully for " + customerName);
         System.out.println("your total cost is " + order.getTotalPrice());
     }
-    
-    
 
     /*
      * EFFECTS: retrieves a list of all orders
@@ -389,12 +395,67 @@ public class ERestaurantManager {
             String itemDescription = scanner.nextLine();
             System.out.print("Enter item price: ");
             double itemPrice = scanner.nextDouble();
-            scanner.nextLine(); // Consume newline character
+            scanner.nextLine();
             System.out.print("Enter item category: ");
             String itemCategory = scanner.nextLine();
 
             restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory); // Call method with parameters
             System.out.println("Menu item added to " + restaurantName + ": " + itemName);
+        } else {
+            System.out.println("Restaurant not found.");
+        }
+    }
+
+    /*
+     * EFFECTS: lets the owner update a menu item of a specific restaurant
+     */
+    private void updateMenuItem() {
+        System.out.print("Enter the restaurant name to update a menu item: ");
+        String restaurantName = scanner.nextLine();
+        Restaurant restaurant = findRestaurant(restaurantName);
+
+        if (restaurant != null) {
+            System.out.print("Enter the name of the item to update: ");
+            String itemName = scanner.nextLine();
+            MenuItems menuItem = restaurant.findMenuItem(itemName);
+
+            if (menuItem != null) {
+                System.out.print("Enter new item description: ");
+                String newDescription = scanner.nextLine();
+                System.out.print("Enter new item price: ");
+                double newPrice = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.print("Enter new item category: ");
+
+                restaurant.updateMenuItem(itemName, newDescription, newPrice);
+                System.out.println("Menu item updated for " + restaurantName + ": " + itemName);
+            } else {
+                System.out.println("Item not found in the menu.");
+            }
+        } else {
+            System.out.println("Restaurant not found.");
+        }
+    }
+
+    /*
+     * EFFECTS: lets the owner remove a menu item from a specific restaurant
+     */
+    private void removeMenuItem() {
+        System.out.print("Enter the restaurant name to remove a menu item: ");
+        String restaurantName = scanner.nextLine();
+        Restaurant restaurant = findRestaurant(restaurantName);
+
+        if (restaurant != null) {
+            System.out.print("Enter the name of the item to remove: ");
+            String itemName = scanner.nextLine();
+
+            MenuItems menuItem = restaurant.findMenuItem(itemName);
+            if (menuItem != null) {
+                restaurant.removeMenuItem(itemName);
+                System.out.println("Menu item removed from " + restaurantName + ": " + itemName);
+            } else {
+                System.out.println("Item not found in the menu.");
+            }
         } else {
             System.out.println("Restaurant not found.");
         }
