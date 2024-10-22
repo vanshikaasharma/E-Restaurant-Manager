@@ -18,7 +18,6 @@ public class JsonReader {
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
-        this.source = source;
     }
 
     // EFFECTS: reads list of restaurants from file and returns them;
@@ -41,5 +40,18 @@ public class JsonReader {
     private Restaurant parseRestaurant(JSONObject jsonObject) {
         return null;
     }
+
+    // MODIFIES: restaurant
+    // EFFECTS: parses menu items from JSON object and adds them to restaurant
+    private void addMenuItems(Restaurant restaurant, JSONObject jsonObject) {
+        //STUB
+    }
+
+    // MODIFIES: restaurant
+    // EFFECTS: parses reviews from JSON object and adds them to restaurant
+    private void addReviews(Restaurant restaurant, JSONObject jsonObject) {
+        //STUB
+    }
+
 
 }
