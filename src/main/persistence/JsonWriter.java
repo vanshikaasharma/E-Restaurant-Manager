@@ -7,7 +7,8 @@ import model.Reservation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;;
+import java.io.*;
+import java.util.ArrayList;;
 
 // Represents a writer that writes JSON representation of restaurants to a file
 public class JsonWriter {
@@ -27,7 +28,7 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of the restaurant to file
-    public void write(Restaurant restaurant) {
+    public void write(ArrayList<Restaurant> restaurants) {
         //STUB
     }
 
