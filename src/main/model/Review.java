@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents a review from a customer with the review 
 //comment, the rating of the restaurant, and the name of the customer
 public class Review {
@@ -53,5 +55,10 @@ public class Review {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    // EFFECTS: returns this review as a JSON object
+    public JSONObject toJson() {
+        return null;
     }
 }
