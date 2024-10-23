@@ -175,19 +175,32 @@ public class Restaurant {
     }
 
     // EFFECTS: returns this as a JSON object
-    // EFFECTS: returns this as a JSON object
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("restaurantName", restaurantName);
+        json.put("restaurantLocation", restaurantLocation);
+        json.put("cuisineType", cuisineType);
+        json.put("menuItems", menuItemsToJson());
+        json.put("reviews", reviewsToJson());
+        return json;
     }
 
     // EFFECTS: returns menu items as a JSON array
     protected JSONArray menuItemsToJson() {
-        return null;
+        JSONArray jsonArray = new JSONArray();
+        for (MenuItems item : restaurantMenu.getMenuItems()) {
+            jsonArray.put(item.toJson()); 
+        }
+        return jsonArray;
     }
 
     // EFFECTS: returns reviews as a JSON array
     protected JSONArray reviewsToJson() {
-        return null;
+        JSONArray jsonArray = new JSONArray();
+        for (Review review : restaurantReviews) {
+            jsonArray.put(review.toJson()); 
+        }
+        return jsonArray;
     }
 
 }

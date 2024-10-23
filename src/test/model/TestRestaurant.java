@@ -203,7 +203,7 @@ public class TestRestaurant {
         assertEquals(1, reviewsJson.length());
         JSONObject reviewJson = reviewsJson.getJSONObject(0);
         assertEquals("Caleb", reviewJson.getString("customerName"));
-        assertEquals("Great food and service!", reviewJson.getString("comment"));
+        assertEquals("Great food and service!", reviewJson.getString("reviewComment"));
         assertEquals(5, reviewJson.getInt("rating"));
     }
 
