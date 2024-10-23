@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents the Menu items having an item name, item description, item price and
 // the category of the item
 public class MenuItems {
@@ -55,5 +57,9 @@ public class MenuItems {
 
     public void setItemCategory(String category) {
         this.itemCategory = category;
+    }
+
+    public JSONObject toJson() {
+        return null;
     }
 }
