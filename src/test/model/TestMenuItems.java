@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.json.JSONObject;
+
 // Test class for MenuItems
 public class TestMenuItems {
 
@@ -75,5 +77,16 @@ public class TestMenuItems {
         MenuItems item = new MenuItems("Ice Cream", "Vanilla ice cream", 4.99, "Dessert");
         item.setItemCategory("Snack");
         assertEquals("Snack", item.getItemCategory());
+    }
+
+    @Test
+    void testToJson() {
+        MenuItems menuItem = new MenuItems("Pasta", "Creamy Alfredo Pasta", 12.99, "Main Course");
+        JSONObject json = menuItem.toJson();
+
+        assertEquals("Pasta", json.getString("itemName"));
+        assertEquals("Creamy Alfredo Pasta", json.getString("description"));
+        assertEquals(12.99, json.getDouble("price"));
+        assertEquals("Main Course", json.getString("category"));
     }
 }
