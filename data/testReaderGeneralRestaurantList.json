@@ -14,7 +14,7 @@
         ],
         "reviews": [
           {
-            "CustomerName": "Mariana",
+            "customerName": "Mariana",
             "reviewComment": "Amazing sushi!",
             "rating": 5
           }

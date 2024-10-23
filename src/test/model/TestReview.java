@@ -74,7 +74,7 @@ class TestReview {
     void testToJson() {
         JSONObject json = review.toJson();
 
-        assertEquals("Caleb", json.getString("CustomerName"));
+        assertEquals("Caleb", json.getString("customerName"));
         assertEquals("Great food and service!", json.getString("reviewComment"));
         assertEquals(5, json.getInt("rating"));
     }
