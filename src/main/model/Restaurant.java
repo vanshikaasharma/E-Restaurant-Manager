@@ -2,18 +2,21 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 // Represents a restaurant having an name, location, cuisine type, menu, 
 //capacity of the restaurant and review of the restaurant 
 public class Restaurant {
 
-    private String restaurantName;                  // name of the restaurant
-    private String restaurantLocation;              // location of the restaurant
-    private String cuisineType;                     // the cuisine that is being served in the restaurant
-    private Menu restaurantMenu;                    // menu of the restaurant
-    private int capacity;                           // capacity of the restaurant
-    private ArrayList<Review> restaurantReviews;    // reviews of the restaurant
-    private ArrayList<Reservation> reservations;    // reservations made in the restaurant
-    private ArrayList<OrderFood> orders;            // orders made in the restaurant
+    private String restaurantName; // name of the restaurant
+    private String restaurantLocation; // location of the restaurant
+    private String cuisineType; // the cuisine that is being served in the restaurant
+    private Menu restaurantMenu; // menu of the restaurant
+    private int capacity; // capacity of the restaurant
+    private ArrayList<Review> restaurantReviews; // reviews of the restaurant
+    private ArrayList<Reservation> reservations; // reservations made in the restaurant
+    private ArrayList<OrderFood> orders; // orders made in the restaurant
 
     /*
      * REQUIRES: restaurant, cuisine, has a non-zero length
@@ -95,7 +98,7 @@ public class Restaurant {
                 return item;
             }
         }
-        return null; 
+        return null;
     }
 
     /*
@@ -169,6 +172,22 @@ public class Restaurant {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    // EFFECTS: returns this as a JSON object
+    // EFFECTS: returns this as a JSON object
+    public JSONObject toJson() {
+        return null;
+    }
+
+    // EFFECTS: returns menu items as a JSON array
+    private JSONArray menuItemsToJson() {
+        return null;
+    }
+
+    // EFFECTS: returns reviews as a JSON array
+    private JSONArray reviewsToJson() {
+        return null;
     }
 
 }
