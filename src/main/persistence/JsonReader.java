@@ -92,7 +92,7 @@ public class JsonReader {
 
         for (Object json : jsonArray) {
             JSONObject nextReview = (JSONObject) json;
-            String customerName = nextReview.getString("CustomerName");
+            String customerName = nextReview.getString("customerName");
             String reviewComment = nextReview.getString("reviewComment");
             int rating = nextReview.getInt("rating");
             Review review = new Review(customerName, reviewComment, rating);

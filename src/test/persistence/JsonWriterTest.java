@@ -44,7 +44,6 @@ class JsonWriterTest {
     @Test
     void testWriterGeneralRestaurants() {
         try {
-            // Create restaurant data
             ArrayList<Restaurant> restaurants = new ArrayList<>();
             Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
             restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
@@ -56,18 +55,15 @@ class JsonWriterTest {
             restaurant2.addReview(new Review("Bob", "Amazing sushi!", 4));
             restaurants.add(restaurant2);
 
-            // Write to file
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralRestaurants.json");
             writer.open();
             writer.write(restaurants);
             writer.close();
 
-            // Read back the data and check
             JsonReader reader = new JsonReader("./data/testWriterGeneralRestaurants.json");
             restaurants = reader.read();
             assertEquals(2, restaurants.size());
 
-            // Check first restaurant
             Restaurant parsedRestaurant1 = restaurants.get(0);
             assertEquals("Pasta Palace", parsedRestaurant1.getRestaurantName());
             assertEquals("123 Noodle St.", parsedRestaurant1.getRestaurantLocation());
@@ -75,7 +71,6 @@ class JsonWriterTest {
             assertEquals(1, parsedRestaurant1.getRestaurantMenu().getMenuItems().size());
             assertEquals(1, parsedRestaurant1.getRestaurantReviews().size());
     
-            // Check second restaurant
             Restaurant parsedRestaurant2 = restaurants.get(1);
             assertEquals("Sushi World", parsedRestaurant2.getRestaurantName());
             assertEquals("456 Fish Ave.", parsedRestaurant2.getRestaurantLocation());

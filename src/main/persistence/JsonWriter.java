@@ -32,8 +32,8 @@ public class JsonWriter {
 
         // Convert each restaurant to JSON and add to JSONArray
         for (Restaurant restaurant : restaurants) {
-            //JSONObject jsonRestaurant = restaurant.toJson();
-            //jsonArray.put(jsonRestaurant);
+            JSONObject jsonRestaurant = restaurant.toJson();
+            jsonArray.put(jsonRestaurant);
         }
 
         // Create a main object to hold the list of restaurants
