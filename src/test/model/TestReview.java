@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.json.JSONObject;
+
 // Unit tests for the Review class
 class TestReview {
 
@@ -13,13 +15,13 @@ class TestReview {
     @BeforeEach
     void setUp() {
         // Set up an initial review object before each test
-        review = new Review("John Doe", "Great food and service!", 5);
+        review = new Review("Caleb", "Great food and service!", 5);
     }
 
     // Test the constructor and initialization of the Review object
     @Test
     void testConstructor() {
-        assertEquals("John Doe", review.getCustomerName());
+        assertEquals("Caleb", review.getCustomerName());
         assertEquals("Great food and service!", review.getReviewComment());
         assertEquals(5, review.getRating());
     }
@@ -52,7 +54,7 @@ class TestReview {
 
     @Test
     void testGetCustomerName() {
-        assertEquals("John Doe", review.getCustomerName());
+        assertEquals("Caleb", review.getCustomerName());
     }
 
     @Test
@@ -68,9 +70,16 @@ class TestReview {
         assertEquals(0, review.getRating());        
     }
 
+    @Test
+    void testToJson() {
+        JSONObject json = review.toJson();
+
+        assertEquals("Caleb", json.getString("customer name"));
+        assertEquals("Great food and service!", json.getString("comment"));
+        assertEquals(5, json.getInt("rating"));
+    }
+
     
 
-
-    
 }
 
