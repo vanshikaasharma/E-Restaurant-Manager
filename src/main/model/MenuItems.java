@@ -59,7 +59,13 @@ public class MenuItems {
         this.itemCategory = category;
     }
 
+    // EFFECTS: returns this menu item as a JSON object
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("itemName", itemName);
+        json.put("description", itemDescription);
+        json.put("price", itemPrice);
+        json.put("category", itemCategory);
+        return json;
     }
 }
