@@ -181,12 +181,12 @@ public class Restaurant {
     }
 
     // EFFECTS: returns menu items as a JSON array
-    private JSONArray menuItemsToJson() {
+    protected JSONArray menuItemsToJson() {
         return null;
     }
 
     // EFFECTS: returns reviews as a JSON array
-    private JSONArray reviewsToJson() {
+    protected JSONArray reviewsToJson() {
         return null;
     }
 

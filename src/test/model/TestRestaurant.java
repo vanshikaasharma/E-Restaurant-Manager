@@ -2,6 +2,9 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -175,6 +178,33 @@ public class TestRestaurant {
         assertEquals("Charlie", restaurant.getOrders().get(0).getCustomerName());
         assertEquals(1, restaurant.getOrders().get(0).getOrderItems().size());
         assertEquals(4.50, restaurant.getOrders().get(0).getTotalPrice());
+    }
+
+    @Test
+    void testToJson() {
+        restaurant.addMenuItem("Pasta", "Creamy Alfredo Pasta", 12.99, "Main Course");
+        restaurant.addReview(new Review("Caleb", "Great food and service!", 5));
+
+        JSONObject json = restaurant.toJson();
+
+        assertEquals("Old Spaghetti Factory", json.getString("restaurantName"));
+        assertEquals("Kelowna", json.getString("restaurantLocation"));
+        assertEquals("Italian", json.getString("cuisineType"));
+
+        JSONArray menuItemsJson = json.getJSONArray("menuItems");
+        assertEquals(1, menuItemsJson.length());
+        JSONObject menuItemJson = menuItemsJson.getJSONObject(0);
+        assertEquals("Pasta", menuItemJson.getString("itemName"));
+        assertEquals("Creamy Alfredo Pasta", menuItemJson.getString("description"));
+        assertEquals(12.99, menuItemJson.getDouble("price"));
+        assertEquals("Main Course", menuItemJson.getString("category"));
+
+        JSONArray reviewsJson = json.getJSONArray("reviews");
+        assertEquals(1, reviewsJson.length());
+        JSONObject reviewJson = reviewsJson.getJSONObject(0);
+        assertEquals("Caleb", reviewJson.getString("customerName"));
+        assertEquals("Great food and service!", reviewJson.getString("comment"));
+        assertEquals(5, reviewJson.getInt("rating"));
     }
 
 }
