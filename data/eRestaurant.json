@@ -1,0 +1,38 @@
+{"restaurants": [
+    {
+        "reviews": [{
+            "reviewComment": "Too crowded!",
+            "rating": 4,
+            "customerName": "Greg"
+        }],
+        "restaurantName": "Chipotle",
+        "restaurantLocation": "UBC",
+        "menuItems": [{
+            "itemName": "bowl",
+            "price": 14.99,
+            "description": "chicken with guac",
+            "category": "entree"
+        }],
+        "cuisineType": "Mexican"
+    },
+    {
+        "reviews": [],
+        "restaurantName": "McDonalds",
+        "restaurantLocation": "UBC",
+        "menuItems": [
+            {
+                "itemName": "McNuggets",
+                "price": 12.99,
+                "description": "6 piece chicken nuggets",
+                "category": "Sides"
+            },
+            {
+                "itemName": "Fries",
+                "price": 9.99,
+                "description": "french fries",
+                "category": "Sides"
+            }
+        ],
+        "cuisineType": "FastFood"
+    }
+]}

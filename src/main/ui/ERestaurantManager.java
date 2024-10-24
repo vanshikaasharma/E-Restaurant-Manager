@@ -5,26 +5,35 @@ import model.MenuItems;
 import model.Reservation;
 import model.Restaurant;
 import model.Review;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // Represents the E Restaurant Manager that manages the restaurants
 public class ERestaurantManager {
 
+    private static final String JSON_STORE = "./data/eRestaurant.json"; // JSON file path
     private ArrayList<Restaurant> restaurants; // the list of restaurants on the E restaurant manager
     private ArrayList<OrderFood> orders; // the list of orders
     private Scanner scanner; // Scanner for user input
+    private JsonWriter jsonWriter; // JSON writer
+    private JsonReader jsonReader; // JSON reader
 
     /*
      * EFFECTS: creates a list of restaurants, initializes customers and orders
      * lists,
      * and sets up the scanner for user input
      */
-    public ERestaurantManager() {
+    public ERestaurantManager() throws FileNotFoundException {
         this.restaurants = new ArrayList<>();
         this.orders = new ArrayList<>();
         this.scanner = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runInterface();
     }
 
@@ -66,7 +75,7 @@ public class ERestaurantManager {
         System.out.println("2: Add Menu Item");
         System.out.println("3: Update Menu Item");
         System.out.println("4: Remove Menu Item");
-        System.out.println("5: Read Reviews");
+        System.out.println("5: Read Reviews for available restaurants");
         System.out.println("6: Exit to Main Menu");
     }
 
@@ -79,7 +88,7 @@ public class ERestaurantManager {
         System.out.println("2: Place Order");
         System.out.println("3: Leave Review");
         System.out.println("4: View all Restaurants");
-        System.out.println("5: Read Reviews");
+        System.out.println("5: Read Reviews for available restaurants");
         System.out.println("6: Exit to Main Menu");
     }
 
@@ -170,14 +179,18 @@ public class ERestaurantManager {
         String cuisine = scanner.nextLine();
 
         Restaurant restaurant = new Restaurant(name, location, cuisine);
-        restaurants.add(restaurant);
+        if (!restaurants.contains(restaurant)) {
+            restaurants.add(restaurant);
+        }
         System.out.println("Restaurant added: " + name);
+        saveData();
     }
 
     /*
-     * EFFECTS: lets the user read reviews for all restaurants
+     * EFFECTS: lets the user read reviews for the given restaurant
      */
     private void readReviews() {
+        loadData();
         for (Restaurant restaurant : restaurants) {
             System.out.println("\nReviews for " + restaurant.getRestaurantName() + ":");
             if (restaurant.getRestaurantReviews().isEmpty()) {
@@ -207,10 +220,11 @@ public class ERestaurantManager {
      * EFFECTS: retrieves a list of all restaurants
      */
     public void listRestaurants() {
+        loadData();
         if (restaurants.isEmpty()) {
             System.out.println("No restaurants available.");
         } else {
-            System.out.println("Available Restaurants:");
+            System.out.println("Available Restaurants:\n");
             for (Restaurant restaurant : restaurants) {
                 System.out.println(" - " + restaurant.getRestaurantName() + " (" + restaurant.getCuisineType() + ")");
             }
@@ -228,6 +242,7 @@ public class ERestaurantManager {
             System.out.println("Restaurant not found.");
             return;
         }
+
         displayMenu(restaurantName);
 
         String customerName = enterCustomerName();
@@ -310,22 +325,20 @@ public class ERestaurantManager {
     private void makeReservation() {
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
-
-        // Display menu before making a reservation
-        displayMenu(restaurantName);
-
-        System.out.print("Enter customer name: ");
-        String customerName = scanner.nextLine();
-        System.out.print("Enter reservation date (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
-        System.out.print("Enter reservation time (HH:MM): ");
-        String time = scanner.nextLine();
-        System.out.print("Enter number of guests: ");
-        int numberOfGuests = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
-
         Restaurant restaurant = findRestaurant(restaurantName);
+
         if (restaurant != null) {
+            displayMenu(restaurantName);
+            System.out.print("Enter customer name: ");
+            String customerName = scanner.nextLine();
+            System.out.print("Enter reservation date (YYYY-MM-DD): ");
+            String date = scanner.nextLine();
+            System.out.print("Enter reservation time (HH:MM): ");
+            String time = scanner.nextLine();
+            System.out.print("Enter number of guests: ");
+            int numberOfGuests = scanner.nextInt();
+            scanner.nextLine();
+
             Reservation reservation = new Reservation(customerName, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
             System.out.println("Reservation made successfully for " + customerName);
@@ -341,20 +354,20 @@ public class ERestaurantManager {
     private void leaveReview() {
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
-
-        System.out.print("Enter customer name: ");
-        String customerName = scanner.nextLine();
-        System.out.print("Enter review comment: ");
-        String comment = scanner.nextLine();
-        System.out.print("Enter rating (1-5): ");
-        int rating = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
-
         Restaurant restaurant = findRestaurant(restaurantName);
+
         if (restaurant != null) {
+            System.out.print("Enter customer name: ");
+            String customerName = scanner.nextLine();
+            System.out.print("Enter review comment: ");
+            String comment = scanner.nextLine();
+            System.out.print("Enter rating (1-5): ");
+            int rating = scanner.nextInt();
+            scanner.nextLine();
             Review review = new Review(customerName, comment, rating);
             restaurant.addReview(review);
-            System.out.println("Review submitted successfully.");
+            saveData();
+            System.out.println("\nReview submitted successfully.");
         } else {
             System.out.println("Restaurant not found.");
         }
@@ -364,9 +377,9 @@ public class ERestaurantManager {
      * EFFECTS: displays the menu of the specified restaurant
      */
     private void displayMenu(String restaurantName) {
+        loadData();
         Restaurant restaurant = findRestaurant(restaurantName);
         if (restaurant != null) {
-            System.out.println("\nMenu for " + restaurant.getRestaurantName() + ":");
             if (restaurant.viewMenu().isEmpty()) {
                 System.out.println("No menu items available.");
             } else {
@@ -399,15 +412,16 @@ public class ERestaurantManager {
             System.out.print("Enter item category: ");
             String itemCategory = scanner.nextLine();
 
-            restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory); // Call method with parameters
+            restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory);
             System.out.println("Menu item added to " + restaurantName + ": " + itemName);
+            saveData();
         } else {
             System.out.println("Restaurant not found.");
         }
     }
 
     /*
-     * EFFECTS: lets the owner update a menu item of a specific restaurant
+     * EFFECTS: lets the user update a menu item of a specific restaurant
      */
     private void updateMenuItem() {
         System.out.print("Enter the restaurant name to update a menu item: ");
@@ -429,6 +443,7 @@ public class ERestaurantManager {
 
                 restaurant.updateMenuItem(itemName, newDescription, newPrice);
                 System.out.println("Menu item updated for " + restaurantName + ": " + itemName);
+                saveData();
             } else {
                 System.out.println("Item not found in the menu.");
             }
@@ -438,7 +453,7 @@ public class ERestaurantManager {
     }
 
     /*
-     * EFFECTS: lets the owner remove a menu item from a specific restaurant
+     * EFFECTS: lets the user remove a menu item from a specific restaurant
      */
     private void removeMenuItem() {
         System.out.print("Enter the restaurant name to remove a menu item: ");
@@ -453,11 +468,42 @@ public class ERestaurantManager {
             if (menuItem != null) {
                 restaurant.removeMenuItem(itemName);
                 System.out.println("Menu item removed from " + restaurantName + ": " + itemName);
+                saveData();
             } else {
                 System.out.println("Item not found in the menu.");
             }
         } else {
             System.out.println("Restaurant not found.");
+        }
+    }
+
+    /*
+     * EFFECTS: Loads data from the file
+     */
+    private void loadData() {
+        try {
+            restaurants = jsonReader.read();
+            System.out.println("Data loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("Unable to load data: " + e.getMessage());
+        }
+    }
+
+    /*
+     * EFFECTS: Prompts user to save data
+     */
+    private void saveData() {
+        System.out.print("Do you wish to save the changes you made? (yes/no): ");
+        String response = scanner.nextLine();
+        if (response.equalsIgnoreCase("yes")) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(restaurants);
+                jsonWriter.close();
+                System.out.println("Data saved successfully.");
+            } catch (IOException e) {
+                System.out.println("Unable to save data: " + e.getMessage());
+            }
         }
     }
 
