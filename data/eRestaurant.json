@@ -1,38 +1,45 @@
 {"restaurants": [
     {
-        "reviews": [{
-            "reviewComment": "Too crowded!",
-            "rating": 4,
-            "customerName": "Greg"
-        }],
-        "restaurantName": "Chipotle",
-        "restaurantLocation": "UBC",
+        "reviews": [
+            {
+                "reviewComment": "good",
+                "rating": 4,
+                "customer": {
+                    "name": "katie",
+                    "email": "katie.gmail.com"
+                }
+            },
+            {
+                "reviewComment": "Too crowded!",
+                "rating": 2,
+                "customer": {
+                    "name": "Kesha",
+                    "email": "kesha@hotmail.com"
+                }
+            }
+        ],
+        "reservations": [],
+        "restaurantName": "Subway",
+        "restaurantLocation": "ubc",
         "menuItems": [{
-            "itemName": "bowl",
-            "price": 14.99,
-            "description": "chicken with guac",
-            "category": "entree"
+            "itemName": "3 cheese",
+            "price": 3.99,
+            "description": "a sandwich with 3 cheese of your choice",
+            "category": "sides"
         }],
-        "cuisineType": "Mexican"
+        "cuisineType": "fastFood"
     },
     {
         "reviews": [],
-        "restaurantName": "McDonalds",
-        "restaurantLocation": "UBC",
-        "menuItems": [
-            {
-                "itemName": "McNuggets",
-                "price": 12.99,
-                "description": "6 piece chicken nuggets",
-                "category": "Sides"
-            },
-            {
-                "itemName": "Fries",
-                "price": 9.99,
-                "description": "french fries",
-                "category": "Sides"
-            }
-        ],
-        "cuisineType": "FastFood"
+        "reservations": [],
+        "restaurantName": "Chipotle",
+        "restaurantLocation": "Ubc",
+        "menuItems": [{
+            "itemName": "bowl",
+            "price": 13.99,
+            "description": "a chicken bowl eith guac",
+            "category": "entree"
+        }],
+        "cuisineType": "Mexican"
     }
 ]}

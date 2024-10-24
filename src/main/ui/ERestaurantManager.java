@@ -90,7 +90,11 @@ public class ERestaurantManager {
     public void displayCustomerOptions() {
         System.out.println("\nWhat are you looking for:");
         System.out.println("1: Make Reservation");
+<<<<<<< HEAD
         System.out.println("1: Modify Reservation");
+=======
+        System.out.println("2: Modify Reservation");
+>>>>>>> 5d9c7a5 (Fixed Bugs in ERestaurantManager)
         System.out.println("3: Cancel Reservation");
         System.out.println("4: Place Order");
         System.out.println("5: Leave Review");
@@ -434,7 +438,11 @@ private void cancelReservation() {
             for (Reservation reservation : restaurant.getReservations()) {
                 if (reservation.getCustomer().getEmail().equalsIgnoreCase(customerEmail)) {
                     reservationToCancel = reservation;
+<<<<<<< HEAD
                     break; // Exit the loop once the reservation is found
+=======
+                    break; 
+>>>>>>> 5d9c7a5 (Fixed Bugs in ERestaurantManager)
                 }
             }
             if (reservationToCancel != null) {
@@ -529,9 +537,9 @@ private void cancelReservation() {
                 System.out.println("\nNo menu items available.");
             } else {
                 for (MenuItems item : restaurant.viewMenu()) {
-                    System.out.println("Category: " + item.getItemCategory());
-                    System.out.println("\n - " + item.getItemName() + ": " + item.getItemDescription()
-                            + " (Price: $" + item.getItemPrice());
+                    System.out.println("\nCategory: " + item.getItemCategory());
+                    System.out.println("- " + item.getItemName() + ": " + item.getItemDescription()
+                            + " (Price: $" + item.getItemPrice()+ ")\n");
                 }
             }
         } else {

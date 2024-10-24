@@ -94,44 +94,49 @@ public class JsonReader {
     private void addReviews(Restaurant restaurant, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("reviews");
 
-        for (Object json : jsonArray) {
+        for (Object json : jsonArray) {   
             JSONObject nextReview = (JSONObject) json;
+            if (nextReview.has("customer")) {
             JSONObject customerJson = nextReview.getJSONObject("customer");
             Customer customer = parseCustomer(customerJson);
             String reviewComment = nextReview.getString("reviewComment");
             int rating = nextReview.getInt("rating");
             Review review = new Review(customer, reviewComment, rating);
             restaurant.addReview(review);
+            }
         }
     }
 
     // MODIFIES: restaurant
     // EFFECTS: parses reservations from JSON object and adds them to restaurant
     private void addReservations(Restaurant restaurant, JSONObject jsonObject) {
+        if (jsonObject.has("reservations")) { 
         JSONArray jsonArray = jsonObject.getJSONArray("reservations");
 
         for (Object json : jsonArray) {
             JSONObject nextReservation = (JSONObject) json;
-            JSONObject customerJson = nextReservation.getJSONObject("customer"); 
-            Customer customer = parseCustomer(customerJson);
-            String reservationDateString = nextReservation.getString("reservationDate");
-            String reservationTimeString = nextReservation.getString("reservationTime");
-            int numberOfGuests = nextReservation.getInt("numberOfGuests");
+            if (nextReservation.has("customer")) { 
+                JSONObject customerJson = nextReservation.getJSONObject("customer"); 
+                Customer customer = parseCustomer(customerJson);
+                String reservationDateString = nextReservation.getString("reservationDate");
+                String reservationTimeString = nextReservation.getString("reservationTime");
+                int numberOfGuests = nextReservation.getInt("numberOfGuests");
 
-            LocalDate reservationDate = LocalDate.parse(reservationDateString);
-            LocalTime reservationTime = LocalTime.parse(reservationTimeString);
+                LocalDate reservationDate = LocalDate.parse(reservationDateString);
+                LocalTime reservationTime = LocalTime.parse(reservationTimeString);
 
-            Reservation reservation = new Reservation(customer, reservationDate, reservationTime, numberOfGuests);
-            restaurant.addReservation(reservation);
+                Reservation reservation = new Reservation(customer, reservationDate, reservationTime, numberOfGuests);
+                restaurant.addReservation(reservation);
+            }
         }
+    }
     }
 
     // EFFECTS: parses customer from JSON object and returns it
     private Customer parseCustomer(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String email = jsonObject.getString("email");
-        // Add more fields as necessary
-        return new Customer(name, email); // Assuming Customer has a constructor that takes these fields
+        return new Customer(name, email); 
     }
 
 }

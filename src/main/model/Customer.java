@@ -85,4 +85,9 @@ public class Customer {
         json.put("email", email);
         return json;
     }
+
+    @Override
+    public String toString() {
+        return "Customer: " + name + " (" + email + ")";
+    }
 }
