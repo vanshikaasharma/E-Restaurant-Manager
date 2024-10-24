@@ -2,13 +2,19 @@
     "reviews": [{
         "reviewComment": "Great pasta!",
         "rating": 5,
-        "customerName": "Alice"
+        "customer": {
+            "name": "Alice",
+            "email": "Alice@email.com"
+        }
     }],
     "reservations": [{
         "reservationTime": "18:30",
         "numberOfGuests": 4,
         "reservationDate": "2024-11-23",
-        "customerName": "Maria"
+        "customer": {
+            "name": "Maria",
+            "email": "MariaeVon@email.com"
+        }
     }],
     "restaurantName": "Pasta Palace",
     "restaurantLocation": "123 Noodle St.",

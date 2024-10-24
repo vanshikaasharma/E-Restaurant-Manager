@@ -3,7 +3,10 @@
         "reviews": [{
             "reviewComment": "Great pasta!",
             "rating": 5,
-            "customerName": "Alice"
+            "customer": {
+                "name": "Alice",
+                "email": "Alice@email.com"
+            }
         }],
         "reservations": [],
         "restaurantName": "Pasta Palace",
@@ -20,7 +23,10 @@
         "reviews": [{
             "reviewComment": "Amazing sushi!",
             "rating": 4,
-            "customerName": "Bob"
+            "customer": {
+                "name": "Bob",
+                "email": "Bobb@email.com"
+            }
         }],
         "reservations": [],
         "restaurantName": "Sushi World",

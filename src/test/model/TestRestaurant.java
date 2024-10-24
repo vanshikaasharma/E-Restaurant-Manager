@@ -162,7 +162,7 @@ public class TestRestaurant {
         newReservations.add(new Reservation(customer, LocalDate.of(2024, 11, 01), LocalTime.of(18, 30), 2));
         restaurant.setReservation(newReservations);
         assertEquals(1, restaurant.getReservations().size());
-        assertEquals("Bob", restaurant.getReservations().get(0).getCustomer());
+        assertEquals(customer, restaurant.getReservations().get(0).getCustomer());
     }
 
     @Test
@@ -210,7 +210,7 @@ public class TestRestaurant {
         JSONArray reviewsJson = json.getJSONArray("reviews");
         assertEquals(1, reviewsJson.length());
         JSONObject reviewJson = reviewsJson.getJSONObject(0);
-        assertEquals("Caleb", reviewJson.getString("customerName"));
+        assertEquals("Caleb", reviewJson.getString("customer"));
         assertEquals("Great food and service!", reviewJson.getString("reviewComment"));
         assertEquals(5, reviewJson.getInt("rating"));
     }
