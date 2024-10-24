@@ -11,10 +11,11 @@ import org.json.JSONObject;
 class TestReview {
 
     private Review review;
+    private Customer c;
 
     @BeforeEach
     void setUp() {
-        Customer c = new Customer("Caleb", "caleb@gmail.com");
+        c = new Customer("Caleb", "caleb@gmail.com");
         review = new Review(c, "Great food and service!", 5);
     }
 
@@ -54,34 +55,32 @@ class TestReview {
 
     @Test
     void testGetCustomer() {
-        Customer c1 = new Customer("Jane Smith", "jane.smith@hotmail.com");
-        assertEquals( c1 , review.getCustomer());
+        assertEquals(c, review.getCustomer());
     }
 
     @Test
     void testSetCustomer() {
         Customer c2 = new Customer("Jane Smith", "jane.smith@hotmail.com");
         review.setCustomer(c2);
-        assertEquals("Jane Smith", review.getCustomer());
+        assertEquals(c2, review.getCustomer());
     }
 
     @Test
     void testDeleteReview() {
         review.deleteReview();
-        assertEquals("", review.getReviewComment()); 
-        assertEquals(0, review.getRating());        
+        assertEquals("", review.getReviewComment());
+        assertEquals(0, review.getRating());
     }
 
     @Test
     void testToJson() {
         JSONObject json = review.toJson();
+        JSONObject customerJson = json.getJSONObject("customer");
 
-        assertEquals("Caleb", json.getString("customerName"));
+        assertEquals("Caleb", customerJson.getString("name"));
+        assertEquals("caleb@gmail.com", customerJson.getString("email"));
         assertEquals("Great food and service!", json.getString("reviewComment"));
         assertEquals(5, json.getInt("rating"));
     }
 
-    
-
 }
-
