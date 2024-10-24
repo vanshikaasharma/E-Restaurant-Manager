@@ -90,12 +90,13 @@ public class ERestaurantManager {
     public void displayCustomerOptions() {
         System.out.println("\nWhat are you looking for:");
         System.out.println("1: Make Reservation");
-        System.out.println("2: Cancel Reservation");
-        System.out.println("3: Place Order");
-        System.out.println("4: Leave Review");
-        System.out.println("5: View all Restaurants");
-        System.out.println("6: Read Reviews for available restaurants");
-        System.out.println("7: Exit to Main Menu");
+        System.out.println("1: Modify Reservation");
+        System.out.println("3: Cancel Reservation");
+        System.out.println("4: Place Order");
+        System.out.println("5: Leave Review");
+        System.out.println("6: View all Restaurants");
+        System.out.println("7: Read Reviews for available restaurants");
+        System.out.println("8: Exit to Main Menu");
     }
 
     /*
@@ -158,18 +159,24 @@ public class ERestaurantManager {
                 makeReservation();
                 break;
             case 2:
-                placeOrder();
+                modifyReservation();
                 break;
             case 3:
-                leaveReview();
+                cancelReservation();
                 break;
             case 4:
-                listRestaurants();
+                placeOrder();
                 break;
             case 5:
-                readReviews();
+                leaveReview();
                 break;
             case 6:
+                listRestaurants();
+                break;
+            case 7:
+                readReviews();
+                break;
+            case 8:
                 return false;
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -181,6 +188,7 @@ public class ERestaurantManager {
      * EFFECTS: adds a restaurant using user input
      */
     private void addRestaurant() {
+        loadData();
         System.out.print("Enter restaurant name: ");
         String name = scanner.nextLine();
         System.out.print("Enter restaurant location: ");
@@ -191,6 +199,8 @@ public class ERestaurantManager {
         Restaurant restaurant = new Restaurant(name, location, cuisine);
         if (!restaurants.contains(restaurant)) {
             restaurants.add(restaurant);
+        } else {
+            System.out.println("Restaurant is already available.");
         }
         System.out.println("Restaurant added: " + name);
         saveData();
@@ -404,6 +414,80 @@ public class ERestaurantManager {
             }
         }
         return time;
+    }
+
+    /*
+ * EFFECTS: cancels an existing reservation for a customer using user input
+ */
+private void cancelReservation() {
+    loadData();
+    listRestaurants();
+    System.out.print("\nEnter restaurant name: ");
+    String restaurantName = scanner.nextLine();
+    Restaurant restaurant = findRestaurant(restaurantName);
+
+    if (restaurant != null) {
+        System.out.print("\nEnter the customer's email to modify the reservation: ");
+        String customerEmail = scanner.nextLine();
+
+        Reservation reservationToCancel = null;
+            for (Reservation reservation : restaurant.getReservations()) {
+                if (reservation.getCustomer().getEmail().equalsIgnoreCase(customerEmail)) {
+                    reservationToCancel = reservation;
+                    break; // Exit the loop once the reservation is found
+                }
+            }
+            if (reservationToCancel != null) {
+            reservationToCancel.cancelReservation();
+            saveData();
+            System.out.println("Reservation canceled successfully for " + customerEmail);
+        } else {
+            System.out.println("Reservation not found for " + customerEmail);
+        }
+    } else {
+        System.out.println("Restaurant not found.");
+    }
+}
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: modifies an existing reservation for a customer using user input
+     */
+    private void modifyReservation() {
+        loadData();
+        listRestaurants();
+        System.out.print("\nEnter restaurant name: ");
+        String restaurantName = scanner.nextLine();
+        Restaurant restaurant = findRestaurant(restaurantName);
+
+        if (restaurant != null) {
+
+            System.out.print("\nEnter the customer's email to modify the reservation: ");
+            String customerEmail = scanner.nextLine();
+
+            Reservation reservationToModify = null;
+            for (Reservation reservation : restaurant.getReservations()) {
+                if (reservation.getCustomer().getEmail().equalsIgnoreCase(customerEmail)) {
+                    reservationToModify = reservation;
+                    break; // Exit the loop once the reservation is found
+                }
+            }
+            if (reservationToModify != null) {
+                LocalDate newDate = getReservationDate();
+                LocalTime newTime = getReservationTime();
+                System.out.print("Enter new number of guests: ");
+                int newNumberOfGuests = scanner.nextInt();
+                scanner.nextLine();
+
+                reservationToModify.modifyReservation(newDate, newTime, newNumberOfGuests);
+                saveData();
+                System.out.println("Reservation modified successfully for " + customerEmail);
+            } else {
+                System.out.println("Reservation not found for " + customerEmail);
+            }
+        } else {
+            System.out.println("Restaurant not found.");
+        }
     }
 
     /*
