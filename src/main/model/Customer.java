@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 // represents a Customer with name
 public class Customer {
 
@@ -74,5 +76,13 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    // EFFECTS: returns this customer as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("email", email);
+        return json;
     }
 }
