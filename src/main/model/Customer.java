@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Customer {
 
     private String name; // name of the customer
-
+    
     /*
      * REQUIRES: name has a non-zero length
      * EFFECTS: the name of the customer is set to name;

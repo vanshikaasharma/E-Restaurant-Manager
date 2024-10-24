@@ -22,6 +22,7 @@ public class ERestaurantManager {
     private static final String JSON_STORE = "./data/eRestaurant.json"; // JSON file path
     private ArrayList<Restaurant> restaurants; // the list of restaurants on the E restaurant manager
     private ArrayList<OrderFood> orders; // the list of orders
+    private ArrayList<Reservation> reservations; //the list of reservations
     private Scanner scanner; // Scanner for user input
     private JsonWriter jsonWriter; // JSON writer
     private JsonReader jsonReader; // JSON reader
@@ -88,11 +89,12 @@ public class ERestaurantManager {
     public void displayCustomerOptions() {
         System.out.println("\nWhat are you looking for:");
         System.out.println("1: Make Reservation");
-        System.out.println("2: Place Order");
-        System.out.println("3: Leave Review");
-        System.out.println("4: View all Restaurants");
-        System.out.println("5: Read Reviews for available restaurants");
-        System.out.println("6: Exit to Main Menu");
+        System.out.println("2: Cancel Reservation");
+        System.out.println("3: Place Order");
+        System.out.println("4: Leave Review");
+        System.out.println("5: View all Restaurants");
+        System.out.println("6: Read Reviews for available restaurants");
+        System.out.println("7: Exit to Main Menu");
     }
 
     /*
@@ -331,6 +333,7 @@ public class ERestaurantManager {
      * EFFECTS: makes a reservation for a customer using user input
      */
     private void makeReservation() {
+        loadData();
         listRestaurants();
         System.out.print("\nEnter restaurant name: ");
         String restaurantName = scanner.nextLine();
@@ -348,6 +351,7 @@ public class ERestaurantManager {
 
             Reservation reservation = new Reservation(customerName, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
+            saveData();
             System.out.println("Reservation made successfully for " + customerName);
         } else {
             System.out.println("Restaurant not found.");
@@ -387,8 +391,8 @@ public class ERestaurantManager {
         }
         return time;
     }
-    
 
+   
     /*
      * REQUIRES: restaurant != null
      * EFFECTS: lets customer leave a review for the restaurant using user input
@@ -527,7 +531,7 @@ public class ERestaurantManager {
         try {
             restaurants = jsonReader.read();
         } catch (IOException e) {
-            System.out.println("Unable to load data: " + e.getMessage());
+            System.out.println("Unable to load data");
         }
     }
 
@@ -544,7 +548,7 @@ public class ERestaurantManager {
                 jsonWriter.close();
                 System.out.println("Data saved successfully.");
             } catch (IOException e) {
-                System.out.println("Unable to save data: " + e.getMessage());
+                System.out.println("Unable to save data ");
             }
         }
     }
