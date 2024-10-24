@@ -10,7 +10,7 @@ import persistence.JsonWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
+import java.time.format.DateTimeParseException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,28 +104,7 @@ public class ERestaurantManager {
             displayOwnerOptions();
             int choice = scanner.nextInt();
             scanner.nextLine();
-            switch (choice) {
-                case 1:
-                    addRestaurant();
-                    break;
-                case 2:
-                    addMenuItem();
-                    break;
-                case 3:
-                    updateMenuItem();
-                    break;
-                case 4:
-                    removeMenuItem();
-                    break;
-                case 5:
-                    readReviews();
-                    break;
-                case 6:
-                    running = false; // Exit to main menu
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
+            running = processOwnerChoice(choice);
         }
     }
 
@@ -142,8 +121,33 @@ public class ERestaurantManager {
         }
     }
 
+    private boolean processOwnerChoice(int choice) {
+        switch (choice) {
+            case 1:
+                addRestaurant();
+                break;
+            case 2:
+                addMenuItem();
+                break;
+            case 3:
+                updateMenuItem();
+                break;
+            case 4:
+                removeMenuItem();
+                break;
+            case 5:
+                readReviews();
+                break;
+            case 6:
+                return false;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+        return true;
+    }
+
     /*
-     * EFFECTS: stores the chpice made by the Customer
+     * EFFECTS: stores the choice made by the Customer
      */
     private boolean processCustomerChoice(int choice) {
         switch (choice) {
@@ -264,6 +268,7 @@ public class ERestaurantManager {
     private String enterRestaurantName() {
         System.out.print("Enter restaurant name: ");
         return scanner.nextLine();
+
     }
 
     /*
@@ -326,7 +331,8 @@ public class ERestaurantManager {
      * EFFECTS: makes a reservation for a customer using user input
      */
     private void makeReservation() {
-        System.out.print("Enter restaurant name: ");
+        listRestaurants();
+        System.out.print("\nEnter restaurant name: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
 
@@ -334,12 +340,8 @@ public class ERestaurantManager {
             displayMenu(restaurantName);
             System.out.print("Enter customer name: ");
             String customerName = scanner.nextLine();
-            System.out.print("Enter reservation date (YYYY-MM-DD): ");
-            String dateInput = scanner.nextLine();
-            LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ISO_LOCAL_DATE);
-            System.out.print("Enter reservation time (HH:MM): ");
-            String timeInput = scanner.nextLine();
-            LocalTime time = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
+            LocalDate date = getReservationDate();
+            LocalTime time = getReservationTime();
             System.out.print("Enter number of guests: ");
             int numberOfGuests = scanner.nextInt();
             scanner.nextLine();
@@ -351,6 +353,41 @@ public class ERestaurantManager {
             System.out.println("Restaurant not found.");
         }
     }
+
+    /*
+     * EFFECTS: returns a valid reservation date from the user
+     */
+    private LocalDate getReservationDate() {
+        LocalDate date = null;
+        while (date == null) {
+            try {
+                System.out.print("Enter reservation date (YYYY-MM-DD): ");
+                String dateInput = scanner.nextLine();
+                date = LocalDate.parse(dateInput, DateTimeFormatter.ISO_LOCAL_DATE);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter a valid date (YYYY-MM-DD).");
+            }
+        }
+        return date;
+    }
+
+    /*
+     * EFFECTS: returns a valid reservation time from the user
+     */
+    private LocalTime getReservationTime() {
+        LocalTime time = null;
+        while (time == null) {
+            try {
+                System.out.print("Enter reservation time (HH:MM): ");
+                String timeInput = scanner.nextLine();
+                time = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid time format. Please enter a valid time (HH:MM).");
+            }
+        }
+        return time;
+    }
+    
 
     /*
      * REQUIRES: restaurant != null
@@ -386,11 +423,12 @@ public class ERestaurantManager {
         Restaurant restaurant = findRestaurant(restaurantName);
         if (restaurant != null) {
             if (restaurant.viewMenu().isEmpty()) {
-                System.out.println("No menu items available.");
+                System.out.println("\nNo menu items available.");
             } else {
                 for (MenuItems item : restaurant.viewMenu()) {
-                    System.out.println(" - " + item.getItemName() + ": " + item.getItemDescription()
-                            + " (Price: $" + item.getItemPrice() + ", Category: " + item.getItemCategory() + ")");
+                    System.out.println("Category: " + item.getItemCategory());
+                    System.out.println("\n - " + item.getItemName() + ": " + item.getItemDescription()
+                            + " (Price: $" + item.getItemPrice());
                 }
             }
         } else {
@@ -488,7 +526,6 @@ public class ERestaurantManager {
     private void loadData() {
         try {
             restaurants = jsonReader.read();
-            System.out.println("Data loaded successfully.");
         } catch (IOException e) {
             System.out.println("Unable to load data: " + e.getMessage());
         }
