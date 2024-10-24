@@ -1,8 +1,12 @@
 package persistence;
 
 import model.MenuItems;
+import model.Reservation;
 import model.Restaurant;
 import model.Review;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -52,7 +56,7 @@ public class JsonReader {
             restaurants.add(parseRestaurant(nextRestaurant));
         }
 
-        return restaurants; 
+        return restaurants;
     }
 
     // EFFECTS: parses restaurant from JSON object and returns it
@@ -64,6 +68,7 @@ public class JsonReader {
         Restaurant restaurant = new Restaurant(name, location, cuisineType);
         addMenuItems(restaurant, jsonObject);
         addReviews(restaurant, jsonObject);
+        addReservations(restaurant, jsonObject);
 
         return restaurant;
     }
@@ -97,6 +102,28 @@ public class JsonReader {
             int rating = nextReview.getInt("rating");
             Review review = new Review(customerName, reviewComment, rating);
             restaurant.addReview(review);
+        }
+    }
+
+    // MODIFIES: restaurant
+    // EFFECTS: parses reservations from JSON object and adds them to restaurant
+    private void addReservations(Restaurant restaurant, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("reservations");
+
+        for (Object json : jsonArray) {
+            JSONObject nextReservation = (JSONObject) json;
+            String customerName = nextReservation.getString("customerName");
+            String reservationDateString = nextReservation.getString("reservationDate");
+            String reservationTimeString = nextReservation.getString("reservationTime");
+            int numberOfGuests = nextReservation.getInt("numberOfGuests");
+
+            // Parse LocalDate and LocalTime from strings
+            LocalDate reservationDate = LocalDate.parse(reservationDateString);
+            LocalTime reservationTime = LocalTime.parse(reservationTimeString);
+
+            // Create the reservation with the correct parameters
+            Reservation reservation = new Reservation(customerName, reservationDate, reservationTime, numberOfGuests);
+            restaurant.addReservation(reservation); // Ensure your Restaurant class has this method
         }
     }
 
