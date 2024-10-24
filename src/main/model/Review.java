@@ -5,18 +5,18 @@ import org.json.JSONObject;
 // Represents a review from a customer with the review 
 //comment, the rating of the restaurant, and the name of the customer
 public class Review {
-    private String reviewComment;       // the comment of the review
-    private int rating;                 // rating of the restaurant out of 5
-    private String customerName;        // the name of the customer giving the review
+    private String reviewComment;         // the comment of the review
+    private int rating;                   // rating of the restaurant out of 5
+    private Customer customer;        // the customer giving the review
 
     /*
      * REQUIRES: rating must be between 1 and 5 inclusive, reviewComment has a non-zero length 
      * EFFECTS: the rating of the restaurant is set to rating;
      *          the comment in the review is set to reviewComment;
-     *          the customer giving the review is set to customerName.
+     *          the customer giving the review is set to customer.
      */
-    public Review(String customerName, String reviewComment, int rating) {
-        this.customerName = customerName;
+    public Review(Customer customer, String reviewComment, int rating) {
+        this.customer = customer;
         this.reviewComment = reviewComment;
         this.rating = rating;
 
@@ -40,8 +40,8 @@ public class Review {
         return rating;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
     // Setters
@@ -53,14 +53,14 @@ public class Review {
         this.rating = rating;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     // EFFECTS: returns this review as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("customerName", customerName);
+        json.put("customer", customer);
         json.put("reviewComment", reviewComment);
         json.put("rating", rating);
         return json;

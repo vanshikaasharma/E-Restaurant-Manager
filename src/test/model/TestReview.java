@@ -14,14 +14,14 @@ class TestReview {
 
     @BeforeEach
     void setUp() {
-        // Set up an initial review object before each test
-        review = new Review("Caleb", "Great food and service!", 5);
+        Customer c = new Customer("Caleb", "caleb@gmail.com");
+        review = new Review(c, "Great food and service!", 5);
     }
 
-    // Test the constructor and initialization of the Review object
     @Test
     void testConstructor() {
-        assertEquals("Caleb", review.getCustomerName());
+        assertEquals("Caleb", review.getCustomer().getName());
+        assertEquals("caleb@gmail.com", review.getCustomer().getEmail());
         assertEquals("Great food and service!", review.getReviewComment());
         assertEquals(5, review.getRating());
     }
@@ -53,14 +53,16 @@ class TestReview {
     }
 
     @Test
-    void testGetCustomerName() {
-        assertEquals("Caleb", review.getCustomerName());
+    void testGetCustomer() {
+        Customer c1 = new Customer("Jane Smith", "jane.smith@hotmail.com");
+        assertEquals( c1 , review.getCustomer());
     }
 
     @Test
-    void testSetCustomerName() {
-        review.setCustomerName("Jane Smith");
-        assertEquals("Jane Smith", review.getCustomerName());
+    void testSetCustomer() {
+        Customer c2 = new Customer("Jane Smith", "jane.smith@hotmail.com");
+        review.setCustomer(c2);
+        assertEquals("Jane Smith", review.getCustomer());
     }
 
     @Test

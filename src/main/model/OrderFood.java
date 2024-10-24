@@ -6,7 +6,7 @@ import java.util.ArrayList;
 // the total cost, the restaurant from which the food is ordered, and the delivery address
 public class OrderFood {
 
-    private String customerName;               // name of the customer ordering food
+    private Customer customer;                  // name of the customer ordering food
     private String restaurantName;             // name of the restaurant
     private ArrayList<MenuItems> orderItems;   // items available to order from Menu
     private double totalPrice;                  // total price of food that is ordered
@@ -57,8 +57,8 @@ public class OrderFood {
         return restaurantName;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public String getDeliveryAddress() {
@@ -82,8 +82,8 @@ public class OrderFood {
         this.totalPrice = totalPrice;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setDeliveryAddress(String deliveryAddress) {

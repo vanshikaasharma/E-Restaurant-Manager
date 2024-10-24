@@ -13,21 +13,21 @@ public class Reservation {
     private LocalTime reservationTime; // the time of the reservation
     private int numberOfGuests; // the number of guests for the reservation
     private boolean isReserved; // the table is reserved
-    private String customerName; // the name of the customer making the reservation
+    private Customer customer; // the name of the customer making the reservation
 
     /*
      * REQUIRES: date and time have a non-zero length and numberOfGuests > 0
      * EFFECTS: the date of the reservation is set to date;
      * the time of the reservation is set to time;
      * the number of guests for the reservation is set to numberOfGuests;
-     * the name of the customer is set to customerName.
+     * the customer is set to customer.
      */
-    public Reservation(String customerName, LocalDate date, LocalTime time, int numberOfGuests) {
-        this.customerName = customerName;
+    public Reservation(Customer customer, LocalDate date, LocalTime time, int numberOfGuests) {
+        this.customer = customer;
         this.reservationDate = date;
         this.reservationTime = time;
         this.numberOfGuests = numberOfGuests;
-        this.isReserved = true; // Set to true when a reservation is created
+        this.isReserved = true; 
     }
 
     /*
@@ -53,7 +53,7 @@ public class Reservation {
      // EFFECTS: returns reservation as a JSON object
      public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("customerName", customerName);
+        json.put("customer", customer);
         json.put("reservationDate", reservationDate.toString()); 
         json.put("reservationTime", reservationTime.toString()); 
         json.put("numberOfGuests", numberOfGuests);
@@ -73,8 +73,8 @@ public class Reservation {
         return numberOfGuests;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public boolean getIsReserved() {
@@ -94,8 +94,8 @@ public class Reservation {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setIsReserved(boolean isReserved) {

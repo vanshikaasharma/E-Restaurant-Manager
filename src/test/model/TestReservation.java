@@ -11,11 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestReservation {
 
     private Reservation reservation;
+    private Customer c1;
 
     @BeforeEach
     public void setUp() {
-        // Create a reservation with LocalDate and LocalTime
-        reservation = new Reservation("Shirley", LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
+        c1 = new Customer("Shirley", "shirley@example.com");
+        reservation = new Reservation(c1, LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
     }
 
     @Test
@@ -23,7 +24,7 @@ public class TestReservation {
         assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
         assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
-        assertEquals("Shirley", reservation.getCustomerName());
+        assertEquals(c1, reservation.getCustomer());
         assertTrue(reservation.getIsReserved());
     }
 
@@ -47,22 +48,23 @@ public class TestReservation {
         assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
         assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
-        assertEquals("Shirley", reservation.getCustomerName());
+        assertEquals(c1, reservation.getCustomer());
         assertTrue(reservation.getIsReserved());
     }
 
     @Test
     public void testSetters() {
+        Customer c2 = new Customer("Marco", "marco@example.com");
         reservation.setReservationDate(LocalDate.of(2024, 11, 17));
         reservation.setReservationTime(LocalTime.of(21, 0));
         reservation.setNumberOfGuests(6);
-        reservation.setCustomerName("Marco");
+        reservation.setCustomer(c2);
         reservation.setIsReserved(true);
 
         assertEquals(LocalDate.of(2024, 11, 17), reservation.getReservationDate());
         assertEquals(LocalTime.of(21, 0), reservation.getReservationTime());
         assertEquals(6, reservation.getNumberOfGuests());
-        assertEquals("Marco", reservation.getCustomerName());
+        assertEquals(c2, reservation.getCustomer());
         assertTrue(reservation.getIsReserved());
     }
 }

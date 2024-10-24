@@ -4,6 +4,7 @@ import model.MenuItems;
 import model.Reservation;
 import model.Restaurant;
 import model.Review;
+import model.Customer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -97,7 +98,8 @@ public class JsonReader {
 
         for (Object json : jsonArray) {
             JSONObject nextReview = (JSONObject) json;
-            String customerName = nextReview.getString("customerName");
+            JSONObject customerJson = nextReview.getJSONObject("customer"); // Get the customer as a JSONObject
+            Customer customer = parseCustomer(customerJson);
             String reviewComment = nextReview.getString("reviewComment");
             int rating = nextReview.getInt("rating");
             Review review = new Review(customerName, reviewComment, rating);
@@ -112,7 +114,7 @@ public class JsonReader {
 
         for (Object json : jsonArray) {
             JSONObject nextReservation = (JSONObject) json;
-            String customerName = nextReservation.getString("customerName");
+            Customer customerName = nextReservation.getString("customerName");
             String reservationDateString = nextReservation.getString("reservationDate");
             String reservationTimeString = nextReservation.getString("reservationTime");
             int numberOfGuests = nextReservation.getInt("numberOfGuests");

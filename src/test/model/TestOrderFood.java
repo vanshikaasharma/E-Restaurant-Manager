@@ -60,11 +60,12 @@ public class TestOrderFood  {
     }
 
     @Test
-    public void testSetCustomerName() {
-        String customerName = "Kevin";
-        order.setCustomerName(customerName);
-        assertEquals(customerName, order.getCustomerName());
-    }
+    public void testSetCustomer() { 
+    Customer customer = new Customer("Kevin", "kevin@example.com");
+    order.setCustomer(customer);
+    assertEquals(customer, order.getCustomer());
+}
+
 
     @Test
     public void testSetDeliveryAddress() {

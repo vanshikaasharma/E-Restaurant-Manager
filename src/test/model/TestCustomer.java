@@ -17,7 +17,7 @@ public class TestCustomer {
 
     @BeforeEach
     public void setUp() {
-        customer = new Customer("Katie");
+        customer = new Customer("Katie", "katie@hotmail.com");
         r1 = new Restaurant("Cactus club", "765 Broadway", "Fusion");
         menuItem = new MenuItems("Pizza", "cheese pizza", 9.99, "Main Course");
     }
@@ -25,10 +25,10 @@ public class TestCustomer {
 
     @Test
     public void testMakeReservation() {
-        customer.makeReservation(r1, "Katie", LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
+        customer.makeReservation(r1, customer, LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
         ArrayList<Reservation> reservations = r1.getReservations();
         Reservation reservation = reservations.get(0);
-        assertEquals("Katie", reservation.getCustomerName());
+        assertEquals(customer, reservation.getCustomer());
         assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
         assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
@@ -39,7 +39,7 @@ public class TestCustomer {
         customer.leaveReview(r1, 5, "Amazing food and great service!");
         ArrayList<Review> reviews = r1.getRestaurantReviews();
         Review review = reviews.get(0);
-        assertEquals("Katie", review.getCustomerName());
+        assertEquals(customer, review.getCustomer());
         assertEquals(5, review.getRating());
         assertEquals("Amazing food and great service!", review.getReviewComment());
     }
@@ -64,11 +64,15 @@ public class TestCustomer {
     @Test
     public void testGetters() {
         assertEquals("Katie", customer.getName());
+        assertEquals("katie@hotmail.com", customer.getEmail());
     }
+
 
     @Test
     public void testSetters() {
         customer.setName("Jude");
+        customer.setEmail("jude@cardan.com");
         assertEquals("Jude", customer.getName());
+        assertEquals("jude@cardan.com", customer.getEmail());
     }
 }

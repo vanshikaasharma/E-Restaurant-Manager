@@ -74,7 +74,7 @@ public class JsonReaderTest {
         ArrayList<Review> reviews = restaurant.getRestaurantReviews();
         assertEquals(1, reviews.size());
         Review review = reviews.get(0);
-        assertEquals("Mariana", review.getCustomerName());
+        assertEquals("Mariana", review.getCustomer());
         assertEquals("Amazing sushi!", review.getReviewComment());
         assertEquals(5, review.getRating());
     }
@@ -83,7 +83,7 @@ public class JsonReaderTest {
         ArrayList<Reservation> reservations = restaurant.getReservations();
         assertEquals(1, reservations.size());
         Reservation reservation = reservations.get(0);
-        assertEquals("Maria", reservation.getCustomerName());
+        assertEquals("Maria", reservation.getCustomer());
 
         LocalDate expectedDate = LocalDate.of(2024, 11, 23);
         LocalTime expectedTime = LocalTime.of(18, 30);

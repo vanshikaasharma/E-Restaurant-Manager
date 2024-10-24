@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Customer;
 import model.Reservation;
 import model.Restaurant;
 import model.Review;
@@ -48,8 +49,10 @@ class JsonWriterTest {
             ArrayList<Restaurant> restaurants = new ArrayList<>();
             Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
             restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
-            restaurant1.addReview(new Review("Alice", "Great pasta!", 5));
-            restaurant1.addReservation(new Reservation("Maria", LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 4));
+            Customer customer1 = new Customer("Alice", "Alice@email.com");
+            restaurant1.addReview(new Review(customer1, "Great pasta!", 5));
+            Customer customer2 = new Customer("Maria", "MariaeVon@email.com");
+            restaurant1.addReservation(new Reservation(customer2, LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 4));
             restaurants.add(restaurant1);
 
             JsonWriter writer = new JsonWriter("./data/testWriterSingleRestaurant.json");
@@ -71,7 +74,7 @@ class JsonWriterTest {
             ArrayList<Reservation> reservations = parsedRestaurant1.getReservations();
             assertEquals(1, reservations.size());
             Reservation reservation = reservations.get(0);
-            assertEquals("Maria", reservation.getCustomerName());
+            assertEquals(customer2, reservation.getCustomer());
             assertEquals(LocalDate.of(2024, 11, 23), reservation.getReservationDate());
             assertEquals(LocalTime.of(18, 30), reservation.getReservationTime());
             assertEquals(4, reservation.getNumberOfGuests());
@@ -86,12 +89,14 @@ class JsonWriterTest {
             ArrayList<Restaurant> restaurants = new ArrayList<>();
             Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
             restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
-            restaurant1.addReview(new Review("Alice", "Great pasta!", 5));
+            Customer customer1 = new Customer("Alice", "Alice@email.com");
+            restaurant1.addReview(new Review(customer1, "Great pasta!", 5));
             restaurants.add(restaurant1);
 
             Restaurant restaurant2 = new Restaurant("Sushi World", "456 Fish Ave.", "Japanese");
             restaurant2.addMenuItem("Sushi Roll", "Fresh tuna sushi roll", 8.99, "Appetizer");
-            restaurant2.addReview(new Review("Bob", "Amazing sushi!", 4));
+            Customer customer2 = new Customer("Bob", "Bobb@email.com");
+            restaurant2.addReview(new Review(customer2, "Amazing sushi!", 4));
             restaurants.add(restaurant2);
 
             JsonWriter writer = new JsonWriter("./data/testWriterMultipleRestaurants.json");

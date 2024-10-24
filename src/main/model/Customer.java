@@ -7,15 +7,17 @@ import java.util.ArrayList;
 // represents a Customer with name
 public class Customer {
 
-    private String name; // name of the customer
+    private String name;    // name of the customer
+    private String email;   //email of the customer
     
     /*
      * REQUIRES: name has a non-zero length
      * EFFECTS: the name of the customer is set to name;
      * 
      */
-    public Customer(String name) {
+    public Customer(String name, String email) {
         this.name = name;
+        this.email = email;
     }
 
     /*
@@ -24,9 +26,9 @@ public class Customer {
      * MODIFIES: Resevation
      * EFFECTS: lets the customer make a reservatiionb at a restaurant
      */
-    public void makeReservation(Restaurant restaurant, String customerName, LocalDate date, LocalTime time,
+    public void makeReservation(Restaurant restaurant, Customer customer, LocalDate date, LocalTime time,
             int numberOfGuests) {
-        Reservation newReservation = new Reservation(customerName, date, time, numberOfGuests);
+        Reservation newReservation = new Reservation(customer, date, time, numberOfGuests);
         restaurant.addReservation(newReservation);
     }
 
@@ -37,7 +39,7 @@ public class Customer {
      * EFFECTS: lets the customer leave a review
      */
     public void leaveReview(Restaurant restaurant, int rating, String comment) {
-        Review newReview = new Review(this.name, comment, rating);
+        Review newReview = new Review(this, comment, rating);
         restaurant.addReview(newReview);
     }
 
@@ -49,7 +51,7 @@ public class Customer {
      */
     public void placeOrder(Restaurant restaurant, ArrayList<MenuItems> items) {
         OrderFood order = new OrderFood();
-        order.setCustomerName(this.name);
+        order.setCustomer(this);
         order.setRestaurantName(restaurant.getRestaurantName());
         order.setOrderItems(items);
         restaurant.addOrder(order);
@@ -61,8 +63,16 @@ public class Customer {
         return this.name;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
     // Setters
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
