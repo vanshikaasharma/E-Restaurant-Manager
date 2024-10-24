@@ -60,7 +60,7 @@ public class Review {
     // EFFECTS: returns this review as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("customer", customer);
+        json.put("customer", customer.toJson());
         json.put("reviewComment", reviewComment);
         json.put("rating", rating);
         return json;

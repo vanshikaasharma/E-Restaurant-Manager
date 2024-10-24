@@ -53,7 +53,7 @@ public class Reservation {
      // EFFECTS: returns reservation as a JSON object
      public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("customer", customer);
+        json.put("customer", customer.toJson());
         json.put("reservationDate", reservationDate.toString()); 
         json.put("reservationTime", reservationTime.toString()); 
         json.put("numberOfGuests", numberOfGuests);
