@@ -3,35 +3,37 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.json.JSONObject;
+
 //Represents a reservation made having details of the date,
 //time, number of guests, and the customer who is making the booking
 public class Reservation {
-    
-    private LocalDate reservationDate;            //the date of the reservation
-    private LocalTime reservationTime;            //the time of the reservation
-    private int numberOfGuests;                //the number of guests for the reservation
-    private boolean isReserved;                //the table is reserved
-    private String customerName;               //the name of the customer making the reservation
+
+    private LocalDate reservationDate; // the date of the reservation
+    private LocalTime reservationTime; // the time of the reservation
+    private int numberOfGuests; // the number of guests for the reservation
+    private boolean isReserved; // the table is reserved
+    private String customerName; // the name of the customer making the reservation
 
     /*
      * REQUIRES: date and time have a non-zero length and numberOfGuests > 0
      * EFFECTS: the date of the reservation is set to date;
-     *          the time of the reservation is set to time;
-     *          the number of guests for the reservation is set to numberOfGuests;
-     *          the name of the customer is set to customerName.
+     * the time of the reservation is set to time;
+     * the number of guests for the reservation is set to numberOfGuests;
+     * the name of the customer is set to customerName.
      */
     public Reservation(String customerName, LocalDate date, LocalTime time, int numberOfGuests) {
         this.customerName = customerName;
         this.reservationDate = date;
         this.reservationTime = time;
         this.numberOfGuests = numberOfGuests;
-        this.isReserved = true;  // Set to true when a reservation is created
+        this.isReserved = true; // Set to true when a reservation is created
     }
 
-    /* 
+    /*
      * REQUIRES: the reservation to exist
      * MODIFIES: this
-     * EFFECTS: lets the customer modify reservation 
+     * EFFECTS: lets the customer modify reservation
      */
     public void modifyReservation(LocalDate date, LocalTime time, int newNumberOfGuests) {
         this.reservationDate = date;
@@ -39,13 +41,18 @@ public class Reservation {
         this.numberOfGuests = newNumberOfGuests;
     }
 
-    /* 
+    /*
      * REQUIRES: the reservation to exist
      * MODIFIES: this
      * EFFECTS: lets the customer cancel the reservation
      */
     public void cancelReservation() {
         this.isReserved = false;
+    }
+
+    // EFFECTS: returns this as a JSON object
+    public JSONObject toJson() {
+        return null;
     }
 
     // Getters

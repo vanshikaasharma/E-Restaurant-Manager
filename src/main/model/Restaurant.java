@@ -203,4 +203,9 @@ public class Restaurant {
         return jsonArray;
     }
 
+    // EFFECTS: returns reservations as a JSON array
+    protected JSONArray reservationsToJson() {
+        return null; //STUB
+    }
+
 }
