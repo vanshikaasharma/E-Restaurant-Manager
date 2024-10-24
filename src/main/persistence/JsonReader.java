@@ -1,6 +1,5 @@
 package persistence;
 
-import model.MenuItems;
 import model.Reservation;
 import model.Restaurant;
 import model.Review;
@@ -86,7 +85,6 @@ public class JsonReader {
             double itemPrice = nextMenuItem.getDouble("price");
             String itemCategory = nextMenuItem.getString("category");
 
-            MenuItems menuItem = new MenuItems(itemName, itemDescription, itemPrice, itemCategory);
             restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory);
         }
     }
@@ -98,11 +96,11 @@ public class JsonReader {
 
         for (Object json : jsonArray) {
             JSONObject nextReview = (JSONObject) json;
-            JSONObject customerJson = nextReview.getJSONObject("customer"); // Get the customer as a JSONObject
+            JSONObject customerJson = nextReview.getJSONObject("customer");
             Customer customer = parseCustomer(customerJson);
             String reviewComment = nextReview.getString("reviewComment");
             int rating = nextReview.getInt("rating");
-            Review review = new Review(customerName, reviewComment, rating);
+            Review review = new Review(customer, reviewComment, rating);
             restaurant.addReview(review);
         }
     }
@@ -114,7 +112,8 @@ public class JsonReader {
 
         for (Object json : jsonArray) {
             JSONObject nextReservation = (JSONObject) json;
-            Customer customerName = nextReservation.getString("customerName");
+            JSONObject customerJson = nextReservation.getJSONObject("customer"); 
+            Customer customer = parseCustomer(customerJson);
             String reservationDateString = nextReservation.getString("reservationDate");
             String reservationTimeString = nextReservation.getString("reservationTime");
             int numberOfGuests = nextReservation.getInt("numberOfGuests");
@@ -122,9 +121,17 @@ public class JsonReader {
             LocalDate reservationDate = LocalDate.parse(reservationDateString);
             LocalTime reservationTime = LocalTime.parse(reservationTimeString);
 
-            Reservation reservation = new Reservation(customerName, reservationDate, reservationTime, numberOfGuests);
+            Reservation reservation = new Reservation(customer, reservationDate, reservationTime, numberOfGuests);
             restaurant.addReservation(reservation);
         }
+    }
+
+    // EFFECTS: parses customer from JSON object and returns it
+    private Customer parseCustomer(JSONObject jsonObject) {
+        String name = jsonObject.getString("name");
+        String email = jsonObject.getString("email");
+        // Add more fields as necessary
+        return new Customer(name, email); // Assuming Customer has a constructor that takes these fields
     }
 
 }
