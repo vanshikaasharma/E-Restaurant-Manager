@@ -50,9 +50,14 @@ public class Reservation {
         this.isReserved = false;
     }
 
-    // EFFECTS: returns this as a JSON object
-    public JSONObject toJson() {
-        return null;
+     // EFFECTS: returns reservation as a JSON object
+     public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("customerName", customerName);
+        json.put("reservationDate", reservationDate.toString()); 
+        json.put("reservationTime", reservationTime.toString()); 
+        json.put("numberOfGuests", numberOfGuests);
+        return json;
     }
 
     // Getters

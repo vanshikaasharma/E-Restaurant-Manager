@@ -4,6 +4,12 @@
         "rating": 5,
         "customerName": "Alice"
     }],
+    "reservations": [{
+        "reservationTime": "18:30",
+        "numberOfGuests": 4,
+        "reservationDate": "2024-11-23",
+        "customerName": "Maria"
+    }],
     "restaurantName": "Pasta Palace",
     "restaurantLocation": "123 Noodle St.",
     "menuItems": [{

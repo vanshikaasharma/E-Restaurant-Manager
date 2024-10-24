@@ -182,6 +182,7 @@ public class Restaurant {
         json.put("cuisineType", cuisineType);
         json.put("menuItems", menuItemsToJson());
         json.put("reviews", reviewsToJson());
+        json.put("reservations", reservationsToJson());
         return json;
     }
 
@@ -205,7 +206,10 @@ public class Restaurant {
 
     // EFFECTS: returns reservations as a JSON array
     protected JSONArray reservationsToJson() {
-        return null; //STUB
+        JSONArray jsonArray = new JSONArray();
+        for (Reservation reservation : reservations) {
+            jsonArray.put(reservation.toJson());
+        }
+        return jsonArray;
     }
-
 }
