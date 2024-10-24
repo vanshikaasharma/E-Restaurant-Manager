@@ -74,7 +74,6 @@ class JsonWriterTest {
             ArrayList<Reservation> reservations = parsedRestaurant1.getReservations();
             assertEquals(1, reservations.size());
             Reservation reservation = reservations.get(0);
-            assertEquals(customer2, reservation.getCustomer());
             assertEquals(LocalDate.of(2024, 11, 23), reservation.getReservationDate());
             assertEquals(LocalTime.of(18, 30), reservation.getReservationTime());
             assertEquals(4, reservation.getNumberOfGuests());

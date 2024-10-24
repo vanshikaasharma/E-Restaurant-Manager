@@ -14,19 +14,26 @@
         ],
         "reviews": [
           {
-            "customerName": "Mariana",
             "reviewComment": "Amazing sushi!",
-            "rating": 5
+            "rating": 5,
+            "customer": {
+                "name": "Mariana",
+                "email": "mariana@example.com"
+            }
           }
         ],
         "reservations": [
           {
-            "customerName": "Maria",
             "reservationDate": "2024-11-23",
             "reservationTime": "18:30",
-            "numberOfGuests": 4
+            "numberOfGuests": 4,
+            "customer": {
+                "name": "Maria",
+                "email": "maria@example.com"
+            }
           }
         ]
       }
     ]
-}
+  }
+  
