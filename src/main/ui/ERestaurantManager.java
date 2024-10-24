@@ -1,6 +1,7 @@
 package ui;
 
 import model.OrderFood;
+import model.Customer;
 import model.MenuItems;
 import model.Reservation;
 import model.Restaurant;
@@ -22,7 +23,7 @@ public class ERestaurantManager {
     private static final String JSON_STORE = "./data/eRestaurant.json"; // JSON file path
     private ArrayList<Restaurant> restaurants; // the list of restaurants on the E restaurant manager
     private ArrayList<OrderFood> orders; // the list of orders
-    private ArrayList<Reservation> reservations; //the list of reservations
+    private ArrayList<Reservation> reservations; // the list of reservations
     private Scanner scanner; // Scanner for user input
     private JsonWriter jsonWriter; // JSON writer
     private JsonReader jsonReader; // JSON reader
@@ -206,7 +207,7 @@ public class ERestaurantManager {
                 System.out.println("No reviews available.");
             } else {
                 for (Review review : restaurant.getRestaurantReviews()) {
-                    System.out.println(" - " + review.getCustomerName() + ": " + review.getReviewComment()
+                    System.out.println(" - " + review.getCustomer() + ": " + review.getReviewComment()
                             + " (Rating: " + review.getRating() + ")");
                 }
             }
@@ -255,10 +256,13 @@ public class ERestaurantManager {
         displayMenu(restaurantName);
 
         String customerName = enterCustomerName();
+        String customerEmail = enterCustomerEmail();
+
+        Customer customer = new Customer(customerName, customerEmail);
         ArrayList<MenuItems> orderItems = enterOrderItems(restaurant);
 
         if (!orderItems.isEmpty()) {
-            placeCustomerOrder(customerName, restaurant, orderItems);
+            placeCustomerOrder(customer, restaurant, orderItems);
         } else {
             System.out.println("No items added to the order.");
         }
@@ -278,6 +282,14 @@ public class ERestaurantManager {
      */
     private String enterCustomerName() {
         System.out.print("Enter customer name: ");
+        return scanner.nextLine();
+    }
+
+    /*
+     * EFFECTS: prompts the user to input the their name
+     */
+    private String enterCustomerEmail() {
+        System.out.print("Enter customer email: ");
         return scanner.nextLine();
     }
 
@@ -309,15 +321,15 @@ public class ERestaurantManager {
     /*
      * EFFECTS: lets the user place the order
      */
-    private void placeCustomerOrder(String customerName, Restaurant restaurant, ArrayList<MenuItems> orderItems) {
+    private void placeCustomerOrder(Customer customer, Restaurant restaurant, ArrayList<MenuItems> orderItems) {
         OrderFood order = new OrderFood();
-        order.setCustomerName(customerName);
+        order.setCustomer(customer);
         order.setRestaurantName(restaurant.getRestaurantName());
         order.setOrderItems(orderItems);
         order.setTotalPrice(orderItems.stream().mapToDouble(MenuItems::getItemPrice).sum());
         restaurant.addOrder(order);
         orders.add(order);
-        System.out.println("Order placed successfully for " + customerName);
+        System.out.println("Order placed successfully for " + customer);
         System.out.println("your total cost is " + order.getTotalPrice());
     }
 
@@ -341,15 +353,17 @@ public class ERestaurantManager {
 
         if (restaurant != null) {
             displayMenu(restaurantName);
-            System.out.print("Enter customer name: ");
-            String customerName = scanner.nextLine();
+            String customerName = enterCustomerName();
+            String customerEmail = enterCustomerEmail();
+
+            Customer customer = new Customer(customerName, customerEmail);
             LocalDate date = getReservationDate();
             LocalTime time = getReservationTime();
             System.out.print("Enter number of guests: ");
             int numberOfGuests = scanner.nextInt();
             scanner.nextLine();
 
-            Reservation reservation = new Reservation(customerName, date, time, numberOfGuests);
+            Reservation reservation = new Reservation(customer, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
             saveData();
             System.out.println("Reservation made successfully for " + customerName);
@@ -392,7 +406,6 @@ public class ERestaurantManager {
         return time;
     }
 
-   
     /*
      * REQUIRES: restaurant != null
      * EFFECTS: lets customer leave a review for the restaurant using user input
@@ -403,14 +416,16 @@ public class ERestaurantManager {
         Restaurant restaurant = findRestaurant(restaurantName);
 
         if (restaurant != null) {
-            System.out.print("Enter customer name: ");
-            String customerName = scanner.nextLine();
+            String customerName = enterCustomerName();
+            String customerEmail = enterCustomerEmail();
+
+            Customer customer = new Customer(customerName, customerEmail);
             System.out.print("Enter review comment: ");
             String comment = scanner.nextLine();
             System.out.print("Enter rating (1-5): ");
             int rating = scanner.nextInt();
             scanner.nextLine();
-            Review review = new Review(customerName, comment, rating);
+            Review review = new Review(customer, comment, rating);
             restaurant.addReview(review);
             saveData();
             System.out.println("\nReview submitted successfully.");
