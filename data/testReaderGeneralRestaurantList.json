@@ -18,6 +18,13 @@
             "reviewComment": "Amazing sushi!",
             "rating": 5
           }
+        ],
+        "reservations": [
+                {
+                    "customerName": "Maria",
+                    "reservationTime": "2024-11-23T18:30",
+                    "numberOfGuests": 4
+                }
         ]
       }
     ]

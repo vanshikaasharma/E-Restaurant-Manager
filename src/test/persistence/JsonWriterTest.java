@@ -49,7 +49,7 @@ class JsonWriterTest {
             Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
             restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
             restaurant1.addReview(new Review("Alice", "Great pasta!", 5));
-            restaurant1.addReservation(new Reservation("Maria", LocalDate.of(2024, 11, 01), LocalTime.of(18, 30), 2));
+            restaurant1.addReservation(new Reservation("Maria", LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 4));
             restaurants.add(restaurant1);
 
             JsonWriter writer = new JsonWriter("./data/testWriterSingleRestaurant.json");
@@ -71,9 +71,9 @@ class JsonWriterTest {
             ArrayList<Reservation> reservations = parsedRestaurant1.getReservations();
             assertEquals(1, reservations.size());
             Reservation reservation = reservations.get(0);
-            assertEquals("Alice", reservation.getCustomerName());
-            assertEquals(LocalDate.of(2023, 10, 23), reservation.getReservationDate());
-            assertEquals(LocalTime.of(19, 30), reservation.getReservationTime());
+            assertEquals("Maria", reservation.getCustomerName());
+            assertEquals(LocalDate.of(2024, 11, 23), reservation.getReservationDate());
+            assertEquals(LocalTime.of(18, 30), reservation.getReservationTime());
             assertEquals(4, reservation.getNumberOfGuests());
         } catch (IOException e) {
             fail("Exception should not have been thrown");

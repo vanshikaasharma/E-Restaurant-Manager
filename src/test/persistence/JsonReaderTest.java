@@ -1,6 +1,7 @@
 package persistence;
 
 import model.MenuItems;
+import model.Reservation;
 import model.Restaurant;
 import model.Review;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,7 @@ public class JsonReaderTest {
 
         testMenuItems(restaurant);
         testReviews(restaurant);
+        testReservations(restaurant);
     }
 
     private void testMenuItems(Restaurant restaurant) {
@@ -72,6 +74,15 @@ public class JsonReaderTest {
         assertEquals("Mariana", review.getCustomerName());
         assertEquals("Amazing sushi!", review.getReviewComment());
         assertEquals(5, review.getRating());
+    }
+
+    private void testReservations(Restaurant restaurant) {
+        ArrayList<Reservation> reservations = restaurant.getReservations();
+        assertEquals(1, reservations.size());
+        Reservation reservation = reservations.get(0);
+        assertEquals("Maria", reservation.getCustomerName());
+        assertEquals("2024-11-23T18:30", reservation.getReservationTime());
+        assertEquals(4, reservation.getNumberOfGuests());
     }
 
 }
