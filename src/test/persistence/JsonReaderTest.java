@@ -6,6 +6,9 @@ import model.Restaurant;
 import model.Review;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -81,8 +84,14 @@ public class JsonReaderTest {
         assertEquals(1, reservations.size());
         Reservation reservation = reservations.get(0);
         assertEquals("Maria", reservation.getCustomerName());
-        assertEquals("2024-11-23T18:30", reservation.getReservationTime());
+
+        LocalDate expectedDate = LocalDate.of(2024, 11, 23);
+        LocalTime expectedTime = LocalTime.of(18, 30);
+    
+        assertEquals(expectedDate, reservation.getReservationDate());
+        assertEquals(expectedTime, reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
     }
+    
 
 }

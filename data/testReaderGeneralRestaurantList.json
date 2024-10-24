@@ -20,12 +20,13 @@
           }
         ],
         "reservations": [
-                {
-                    "customerName": "Maria",
-                    "reservationTime": "2024-11-23T18:30",
-                    "numberOfGuests": 4
-                }
+          {
+            "customerName": "Maria",
+            "reservationDate": "2024-11-23",
+            "reservationTime": "18:30",
+            "numberOfGuests": 4
+          }
         ]
       }
     ]
-  }
+}

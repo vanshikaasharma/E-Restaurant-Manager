@@ -117,13 +117,11 @@ public class JsonReader {
             String reservationTimeString = nextReservation.getString("reservationTime");
             int numberOfGuests = nextReservation.getInt("numberOfGuests");
 
-            // Parse LocalDate and LocalTime from strings
             LocalDate reservationDate = LocalDate.parse(reservationDateString);
             LocalTime reservationTime = LocalTime.parse(reservationTimeString);
 
-            // Create the reservation with the correct parameters
             Reservation reservation = new Reservation(customerName, reservationDate, reservationTime, numberOfGuests);
-            restaurant.addReservation(reservation); // Ensure your Restaurant class has this method
+            restaurant.addReservation(reservation);
         }
     }
 
