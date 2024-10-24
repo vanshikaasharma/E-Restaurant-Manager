@@ -1,0 +1,16 @@
+{"restaurants": [{
+    "reviews": [{
+        "reviewComment": "Great pasta!",
+        "rating": 5,
+        "customerName": "Alice"
+    }],
+    "restaurantName": "Pasta Palace",
+    "restaurantLocation": "123 Noodle St.",
+    "menuItems": [{
+        "itemName": "Spaghetti",
+        "price": 12.99,
+        "description": "Classic spaghetti with marinara sauce",
+        "category": "Main Course"
+    }],
+    "cuisineType": "Italian"
+}]}

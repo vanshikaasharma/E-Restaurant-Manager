@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 //Represents a reservation made having details of the date,
 //time, number of guests, and the customer who is making the booking
 public class Reservation {

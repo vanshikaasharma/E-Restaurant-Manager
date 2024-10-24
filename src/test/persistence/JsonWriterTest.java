@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JsonWriterTest {
 
+
     @Test
     void testWriterInvalidFile() {
         try {
@@ -42,7 +43,36 @@ class JsonWriterTest {
     }
 
     @Test
-    void testWriterGeneralRestaurants() {
+    void testWriterSingleRestaurant() {
+        try {
+            ArrayList<Restaurant> restaurants = new ArrayList<>();
+            Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
+            restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
+            restaurant1.addReview(new Review("Alice", "Great pasta!", 5));
+            restaurants.add(restaurant1);
+
+            JsonWriter writer = new JsonWriter("./data/testWriterSingleRestaurant.json");
+            writer.open();
+            writer.write(restaurants);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterSingleRestaurant.json");
+            restaurants = reader.read();
+            assertEquals(1, restaurants.size());
+
+            Restaurant parsedRestaurant1 = restaurants.get(0);
+            assertEquals("Pasta Palace", parsedRestaurant1.getRestaurantName());
+            assertEquals("123 Noodle St.", parsedRestaurant1.getRestaurantLocation());
+            assertEquals("Italian", parsedRestaurant1.getCuisineType());
+            assertEquals(1, parsedRestaurant1.getRestaurantMenu().getMenuItems().size());
+            assertEquals(1, parsedRestaurant1.getRestaurantReviews().size());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testWriterMultipleRestaurants() {
         try {
             ArrayList<Restaurant> restaurants = new ArrayList<>();
             Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
@@ -55,30 +85,37 @@ class JsonWriterTest {
             restaurant2.addReview(new Review("Bob", "Amazing sushi!", 4));
             restaurants.add(restaurant2);
 
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralRestaurants.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterMultipleRestaurants.json");
             writer.open();
             writer.write(restaurants);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralRestaurants.json");
+            JsonReader reader = new JsonReader("./data/testWriterMultipleRestaurants.json");
             restaurants = reader.read();
             assertEquals(2, restaurants.size());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testParsedRestaurantDetails() {
+        try {
+            JsonReader reader = new JsonReader("./data/testWriterMultipleRestaurants.json");
+            ArrayList<Restaurant> restaurants = reader.read();
 
             Restaurant parsedRestaurant1 = restaurants.get(0);
             assertEquals("Pasta Palace", parsedRestaurant1.getRestaurantName());
             assertEquals("123 Noodle St.", parsedRestaurant1.getRestaurantLocation());
             assertEquals("Italian", parsedRestaurant1.getCuisineType());
-            assertEquals(1, parsedRestaurant1.getRestaurantMenu().getMenuItems().size());
-            assertEquals(1, parsedRestaurant1.getRestaurantReviews().size());
-    
+
             Restaurant parsedRestaurant2 = restaurants.get(1);
             assertEquals("Sushi World", parsedRestaurant2.getRestaurantName());
             assertEquals("456 Fish Ave.", parsedRestaurant2.getRestaurantLocation());
             assertEquals("Japanese", parsedRestaurant2.getCuisineType());
-            assertEquals(1, parsedRestaurant2.getRestaurantMenu().getMenuItems().size());
-            assertEquals(1, parsedRestaurant2.getRestaurantReviews().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
     }
+
 }

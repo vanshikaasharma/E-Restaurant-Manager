@@ -40,32 +40,38 @@ public class JsonReaderTest {
         try {
             ArrayList<Restaurant> restaurants = reader.read();
             assertEquals(1, restaurants.size());
-
-            // Test Restaurant 
-            Restaurant restaurant = restaurants.get(0);
-            assertEquals("Sushi World", restaurant.getRestaurantName());
-            assertEquals("456 Ocean Blvd", restaurant.getRestaurantLocation());
-            assertEquals("Japanese", restaurant.getCuisineType());
-
-            // Test Menu Items
-            ArrayList<MenuItems> menuItems = restaurant.viewMenu();
-            assertEquals(1, menuItems.size());
-            MenuItems menuItem = menuItems.get(0);
-            assertEquals("Sushi Platter", menuItem.getItemName());
-            assertEquals("Assorted sushi", menuItem.getItemDescription());
-            assertEquals(25.99, menuItem.getItemPrice());
-            assertEquals("Main", menuItem.getItemCategory());
-
-            // Test Reviews
-            ArrayList<Review> reviews = restaurant.getRestaurantReviews();
-            assertEquals(1, reviews.size());
-            Review review = reviews.get(0);
-            assertEquals("Mariana", review.getCustomerName());
-            assertEquals("Amazing sushi!", review.getReviewComment());
-            assertEquals(5, review.getRating());
-
+            testRestaurantDetails(restaurants.get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
     }
+
+    private void testRestaurantDetails(Restaurant restaurant) {
+        assertEquals("Sushi World", restaurant.getRestaurantName());
+        assertEquals("456 Ocean Blvd", restaurant.getRestaurantLocation());
+        assertEquals("Japanese", restaurant.getCuisineType());
+
+        testMenuItems(restaurant);
+        testReviews(restaurant);
+    }
+
+    private void testMenuItems(Restaurant restaurant) {
+        ArrayList<MenuItems> menuItems = restaurant.viewMenu();
+        assertEquals(1, menuItems.size());
+        MenuItems menuItem = menuItems.get(0);
+        assertEquals("Sushi Platter", menuItem.getItemName());
+        assertEquals("Assorted sushi", menuItem.getItemDescription());
+        assertEquals(25.99, menuItem.getItemPrice());
+        assertEquals("Main", menuItem.getItemCategory());
+    }
+
+    private void testReviews(Restaurant restaurant) {
+        ArrayList<Review> reviews = restaurant.getRestaurantReviews();
+        assertEquals(1, reviews.size());
+        Review review = reviews.get(0);
+        assertEquals("Mariana", review.getCustomerName());
+        assertEquals("Amazing sushi!", review.getReviewComment());
+        assertEquals(5, review.getRating());
+    }
+
 }
