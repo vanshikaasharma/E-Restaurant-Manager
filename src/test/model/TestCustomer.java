@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,12 +25,12 @@ public class TestCustomer {
 
     @Test
     public void testMakeReservation() {
-        customer.makeReservation(r1, "Katie", "2024-10-15", "19:00", 4);
+        customer.makeReservation(r1, "Katie", LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
         ArrayList<Reservation> reservations = r1.getReservations();
         Reservation reservation = reservations.get(0);
         assertEquals("Katie", reservation.getCustomerName());
-        assertEquals("2024-10-15", reservation.getReservationDate());
-        assertEquals("19:00", reservation.getReservationTime());
+        assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
+        assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
     }
 

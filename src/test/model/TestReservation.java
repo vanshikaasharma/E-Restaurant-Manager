@@ -2,6 +2,10 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestReservation {
@@ -10,13 +14,14 @@ public class TestReservation {
 
     @BeforeEach
     public void setUp() {
-        reservation = new Reservation("Shirley", "2024-10-15", "19:00", 4);
+        // Create a reservation with LocalDate and LocalTime
+        reservation = new Reservation("Shirley", LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
     }
 
     @Test
     public void testConstructor() {
-        assertEquals("2024-10-15", reservation.getReservationDate());
-        assertEquals("19:00", reservation.getReservationTime());
+        assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
+        assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
         assertEquals("Shirley", reservation.getCustomerName());
         assertTrue(reservation.getIsReserved());
@@ -24,9 +29,10 @@ public class TestReservation {
 
     @Test
     public void testModifyReservation() {
-        reservation.modifyReservation("2024-10-16", "20:00", 5);
-        assertEquals("2024-10-16", reservation.getReservationDate());
-        assertEquals("20:00", reservation.getReservationTime());
+        // Modify reservation with new LocalDate and LocalTime
+        reservation.modifyReservation(LocalDate.of(2024, 11, 16), LocalTime.of(20, 0), 5);
+        assertEquals(LocalDate.of(2024, 11, 16), reservation.getReservationDate());
+        assertEquals(LocalTime.of(20, 0), reservation.getReservationTime());
         assertEquals(5, reservation.getNumberOfGuests());
     }
 
@@ -38,8 +44,8 @@ public class TestReservation {
 
     @Test
     public void testGetters() {
-        assertEquals("2024-10-15", reservation.getReservationDate());
-        assertEquals("19:00", reservation.getReservationTime());
+        assertEquals(LocalDate.of(2024, 11, 15), reservation.getReservationDate());
+        assertEquals(LocalTime.of(19, 0), reservation.getReservationTime());
         assertEquals(4, reservation.getNumberOfGuests());
         assertEquals("Shirley", reservation.getCustomerName());
         assertTrue(reservation.getIsReserved());
@@ -47,14 +53,14 @@ public class TestReservation {
 
     @Test
     public void testSetters() {
-        reservation.setReservationDate("2024-10-17");
-        reservation.setReservationTime("21:00");
+        reservation.setReservationDate(LocalDate.of(2024, 11, 17));
+        reservation.setReservationTime(LocalTime.of(21, 0));
         reservation.setNumberOfGuests(6);
         reservation.setCustomerName("Marco");
         reservation.setIsReserved(true);
 
-        assertEquals("2024-10-17", reservation.getReservationDate());
-        assertEquals("21:00", reservation.getReservationTime());
+        assertEquals(LocalDate.of(2024, 11, 17), reservation.getReservationDate());
+        assertEquals(LocalTime.of(21, 0), reservation.getReservationTime());
         assertEquals(6, reservation.getNumberOfGuests());
         assertEquals("Marco", reservation.getCustomerName());
         assertTrue(reservation.getIsReserved());

@@ -2,7 +2,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +83,7 @@ public class TestRestaurant {
 
     @Test
     public void testAddReservation() {
-        Reservation reservation = new Reservation("Peggy", "2024-10-12", "19:00", 4);
+        Reservation reservation = new Reservation("Peggy", LocalDate.of(2024, 11, 15), LocalTime.of(19, 0), 4);
         restaurant.addReservation(reservation);
         assertEquals(1, restaurant.getReservations().size());
         assertEquals("Peggy", restaurant.getReservations().get(0).getCustomerName());
@@ -153,7 +154,7 @@ public class TestRestaurant {
     @Test
     void testSetReservations() {
         ArrayList<Reservation> newReservations = new ArrayList<>();
-        newReservations.add(new Reservation("Bob", "2024-11-01", "18:30", 2));
+        newReservations.add(new Reservation("Bob", LocalDate.of(2024, 11, 01), LocalTime.of(18, 30), 2));
         restaurant.setReservation(newReservations);
         assertEquals(1, restaurant.getReservations().size());
         assertEquals("Bob", restaurant.getReservations().get(0).getCustomerName());

@@ -7,6 +7,9 @@ import model.Restaurant;
 import model.Review;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -332,9 +335,11 @@ public class ERestaurantManager {
             System.out.print("Enter customer name: ");
             String customerName = scanner.nextLine();
             System.out.print("Enter reservation date (YYYY-MM-DD): ");
-            String date = scanner.nextLine();
+            String dateInput = scanner.nextLine();
+            LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ISO_LOCAL_DATE);
             System.out.print("Enter reservation time (HH:MM): ");
-            String time = scanner.nextLine();
+            String timeInput = scanner.nextLine();
+            LocalTime time = LocalTime.parse(timeInput, DateTimeFormatter.ofPattern("HH:mm"));
             System.out.print("Enter number of guests: ");
             int numberOfGuests = scanner.nextInt();
             scanner.nextLine();

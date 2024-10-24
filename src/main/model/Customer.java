@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 // represents a Customer with name
@@ -22,7 +24,7 @@ public class Customer {
      * MODIFIES: Resevation
      * EFFECTS: lets the customer make a reservatiionb at a restaurant
      */
-    public void makeReservation(Restaurant restaurant, String customerName, String date, String time,
+    public void makeReservation(Restaurant restaurant, String customerName, LocalDate date, LocalTime time,
             int numberOfGuests) {
         Reservation newReservation = new Reservation(customerName, date, time, numberOfGuests);
         restaurant.addReservation(newReservation);
