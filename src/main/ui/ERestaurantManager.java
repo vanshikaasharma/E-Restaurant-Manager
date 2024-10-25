@@ -365,7 +365,6 @@ public class ERestaurantManager {
             scanner.nextLine();
             Reservation reservation = new Reservation(customer, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
-            System.out.println(restaurant.getReservations());
             saveData();
             System.out.println("Reservation made successfully for " + customerName);
         } else {
@@ -429,7 +428,6 @@ public class ERestaurantManager {
             scanner.nextLine();
             Review review = new Review(customer, comment, rating);
             restaurant.addReview(review);
-            System.out.println(restaurant.getRestaurantReviews());
             saveData();
             System.out.println("\nReview submitted successfully.");
         } else {
