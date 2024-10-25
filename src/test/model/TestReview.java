@@ -11,12 +11,12 @@ import org.json.JSONObject;
 class TestReview {
 
     private Review review;
-    private Customer c;
+    private Customer c1;
 
     @BeforeEach
     void setUp() {
-        c = new Customer("Caleb", "caleb@gmail.com");
-        review = new Review(c, "Great food and service!", 5);
+        c1 = new Customer("Caleb", "caleb@gmail.com");
+        review = new Review(c1, "Great food and service!", 5);
     }
 
     @Test
@@ -55,7 +55,7 @@ class TestReview {
 
     @Test
     void testGetCustomer() {
-        assertEquals(c, review.getCustomer());
+        assertEquals(c1, review.getCustomer());
     }
 
     @Test

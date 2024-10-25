@@ -47,12 +47,7 @@ class JsonWriterTest {
     void testWriterSingleRestaurant() {
         try {
             ArrayList<Restaurant> restaurants = new ArrayList<>();
-            Restaurant restaurant1 = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
-            restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
-            Customer customer1 = new Customer("Alice", "Alice@email.com");
-            restaurant1.addReview(new Review(customer1, "Great pasta!", 5));
-            Customer customer2 = new Customer("Maria", "MariaeVon@email.com");
-            restaurant1.addReservation(new Reservation(customer2, LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 4));
+            Restaurant restaurant1 = createRestaurantWithMenuAndReviews();
             restaurants.add(restaurant1);
 
             JsonWriter writer = new JsonWriter("./data/testWriterSingleRestaurant.json");
@@ -60,26 +55,47 @@ class JsonWriterTest {
             writer.write(restaurants);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterSingleRestaurant.json");
-            restaurants = reader.read();
-            assertEquals(1, restaurants.size());
-
-            Restaurant parsedRestaurant1 = restaurants.get(0);
-            assertEquals("Pasta Palace", parsedRestaurant1.getRestaurantName());
-            assertEquals("123 Noodle St.", parsedRestaurant1.getRestaurantLocation());
-            assertEquals("Italian", parsedRestaurant1.getCuisineType());
-            assertEquals(1, parsedRestaurant1.getRestaurantMenu().getMenuItems().size());
-            assertEquals(1, parsedRestaurant1.getRestaurantReviews().size());
-
-            ArrayList<Reservation> reservations = parsedRestaurant1.getReservations();
-            assertEquals(1, reservations.size());
-            Reservation reservation = reservations.get(0);
-            assertEquals(LocalDate.of(2024, 11, 23), reservation.getReservationDate());
-            assertEquals(LocalTime.of(18, 30), reservation.getReservationTime());
-            assertEquals(4, reservation.getNumberOfGuests());
+            verifyWrittenData();
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
+    }
+
+    private Restaurant createRestaurantWithMenuAndReviews() {
+        Restaurant restaurant = new Restaurant("Pasta Palace", "123 Noodle St.", "Italian");
+        restaurant.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
+
+        Customer customer1 = new Customer("Alice", "Alice@email.com");
+        restaurant.addReview(new Review(customer1, "Great pasta!", 5));
+
+        Customer customer2 = new Customer("Maria", "MariaeVon@email.com");
+        restaurant.addReservation(new Reservation(customer2, LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 4));
+
+        return restaurant;
+    }
+
+    private void verifyWrittenData() throws IOException {
+        JsonReader reader = new JsonReader("./data/testWriterSingleRestaurant.json");
+        ArrayList<Restaurant> restaurants = reader.read();
+        assertEquals(1, restaurants.size());
+
+        Restaurant parsedRestaurant1 = restaurants.get(0);
+        assertEquals("Pasta Palace", parsedRestaurant1.getRestaurantName());
+        assertEquals("123 Noodle St.", parsedRestaurant1.getRestaurantLocation());
+        assertEquals("Italian", parsedRestaurant1.getCuisineType());
+        assertEquals(1, parsedRestaurant1.getRestaurantMenu().getMenuItems().size());
+        assertEquals(1, parsedRestaurant1.getRestaurantReviews().size());
+
+        verifyReservation(parsedRestaurant1);
+    }
+
+    private void verifyReservation(Restaurant restaurant) {
+        ArrayList<Reservation> reservations = restaurant.getReservations();
+        assertEquals(1, reservations.size());
+        Reservation reservation = reservations.get(0);
+        assertEquals(LocalDate.of(2024, 11, 23), reservation.getReservationDate());
+        assertEquals(LocalTime.of(18, 30), reservation.getReservationTime());
+        assertEquals(4, reservation.getNumberOfGuests());
     }
 
     @Test

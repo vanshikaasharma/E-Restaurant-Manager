@@ -27,7 +27,7 @@ public class Reservation {
         this.reservationDate = date;
         this.reservationTime = time;
         this.numberOfGuests = numberOfGuests;
-        this.isReserved = true; 
+        this.isReserved = true;
     }
 
     /*
@@ -50,12 +50,12 @@ public class Reservation {
         this.isReserved = false;
     }
 
-     // EFFECTS: returns reservation as a JSON object
-     public JSONObject toJson() {
+    // EFFECTS: returns reservation as a JSON object
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("customer", customer.toJson());
-        json.put("reservationDate", reservationDate.toString()); 
-        json.put("reservationTime", reservationTime.toString()); 
+        json.put("reservationDate", reservationDate.toString());
+        json.put("reservationTime", reservationTime.toString());
         json.put("numberOfGuests", numberOfGuests);
         return json;
     }

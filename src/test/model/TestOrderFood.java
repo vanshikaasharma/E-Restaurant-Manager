@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestOrderFood  {
+public class TestOrderFood {
 
     private OrderFood order;
     private MenuItems item1;
@@ -60,12 +60,11 @@ public class TestOrderFood  {
     }
 
     @Test
-    public void testSetCustomer() { 
-    Customer customer = new Customer("Kevin", "kevin@example.com");
-    order.setCustomer(customer);
-    assertEquals(customer, order.getCustomer());
-}
-
+    public void testSetCustomer() {
+        Customer customer = new Customer("Kevin", "kevin@example.com");
+        order.setCustomer(customer);
+        assertEquals(customer, order.getCustomer());
+    }
 
     @Test
     public void testSetDeliveryAddress() {
@@ -79,5 +78,5 @@ public class TestOrderFood  {
         order.setTotalPrice(25.99);
         assertEquals(25.99, order.getTotalPrice());
     }
- 
+
 }
