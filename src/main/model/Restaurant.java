@@ -77,7 +77,7 @@ public class Restaurant {
      * EFFECTS: adds a reservation for the restaurant
      */
     public void addReservation(Reservation reservation) {
-        this.reservations.add(reservation);
+        reservations.add(reservation);
     }
 
     /*

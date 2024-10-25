@@ -75,4 +75,14 @@ public class TestCustomer {
         assertEquals("Jude", customer.getName());
         assertEquals("jude@cardan.com", customer.getEmail());
     }
+
+    @Test
+    void testToString() {
+
+        String result = customer.toString();
+
+        String expectedOutput = "Customer: " + customer.getName() + " (" + customer.getEmail() + ")";
+        assertEquals(expectedOutput, result, "The toString method should return the correct format.");
+    }
+
 }

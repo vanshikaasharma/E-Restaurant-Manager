@@ -1,0 +1,30 @@
+{
+    "restaurants": [
+        {
+            "restaurantName": "Sushi World",
+            "restaurantLocation": "456 Ocean Blvd",
+            "cuisineType": "Japanese",
+            "menuItems": [
+                {
+                    "itemName": "Sushi Platter",
+                    "description": "Assorted sushi",
+                    "price": 25.99,
+                    "category": "Main"
+                }
+            ],
+            "reviews": [
+                {
+                    "reviewComment": "Decent sushi.",
+                    "rating": 3
+                }
+            ],
+            "reservations": [
+                {
+                    "reservationDate": "2024-11-24",
+                    "reservationTime": "19:00",
+                    "numberOfGuests": 2
+                }
+            ]
+        }
+    ]
+}

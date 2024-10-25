@@ -90,6 +90,7 @@ class JsonWriterTest {
             restaurant1.addMenuItem("Spaghetti", "Classic spaghetti with marinara sauce", 12.99, "Main Course");
             Customer customer1 = new Customer("Alice", "Alice@email.com");
             restaurant1.addReview(new Review(customer1, "Great pasta!", 5));
+            restaurant1.addReservation(new Reservation(customer1, LocalDate.of(2024, 11, 23), LocalTime.of(18, 30), 0));
             restaurants.add(restaurant1);
 
             Restaurant restaurant2 = new Restaurant("Sushi World", "456 Fish Ave.", "Japanese");

@@ -1,45 +1,8 @@
-{"restaurants": [
-    {
-        "reviews": [
-            {
-                "reviewComment": "good",
-                "rating": 4,
-                "customer": {
-                    "name": "katie",
-                    "email": "katie.gmail.com"
-                }
-            },
-            {
-                "reviewComment": "Too crowded!",
-                "rating": 2,
-                "customer": {
-                    "name": "Kesha",
-                    "email": "kesha@hotmail.com"
-                }
-            }
-        ],
-        "reservations": [],
-        "restaurantName": "Subway",
-        "restaurantLocation": "ubc",
-        "menuItems": [{
-            "itemName": "3 cheese",
-            "price": 3.99,
-            "description": "a sandwich with 3 cheese of your choice",
-            "category": "sides"
-        }],
-        "cuisineType": "fastFood"
-    },
-    {
-        "reviews": [],
-        "reservations": [],
-        "restaurantName": "Chipotle",
-        "restaurantLocation": "Ubc",
-        "menuItems": [{
-            "itemName": "bowl",
-            "price": 13.99,
-            "description": "a chicken bowl eith guac",
-            "category": "entree"
-        }],
-        "cuisineType": "Mexican"
-    }
-]}
+{"restaurants": [{
+    "reviews": [],
+    "reservations": [],
+    "restaurantName": "subway",
+    "restaurantLocation": "ubc",
+    "menuItems": [],
+    "cuisineType": "fastfood"
+}]}

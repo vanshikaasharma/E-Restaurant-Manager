@@ -23,7 +23,6 @@ public class ERestaurantManager {
     private static final String JSON_STORE = "./data/eRestaurant.json"; // JSON file path
     private ArrayList<Restaurant> restaurants; // the list of restaurants on the E restaurant manager
     private ArrayList<OrderFood> orders; // the list of orders
-    private ArrayList<Reservation> reservations; // the list of reservations
     private Scanner scanner; // Scanner for user input
     private JsonWriter jsonWriter; // JSON writer
     private JsonReader jsonReader; // JSON reader
@@ -90,11 +89,7 @@ public class ERestaurantManager {
     public void displayCustomerOptions() {
         System.out.println("\nWhat are you looking for:");
         System.out.println("1: Make Reservation");
-<<<<<<< HEAD
-        System.out.println("1: Modify Reservation");
-=======
         System.out.println("2: Modify Reservation");
->>>>>>> 5d9c7a5 (Fixed Bugs in ERestaurantManager)
         System.out.println("3: Cancel Reservation");
         System.out.println("4: Place Order");
         System.out.println("5: Leave Review");
@@ -376,9 +371,9 @@ public class ERestaurantManager {
             System.out.print("Enter number of guests: ");
             int numberOfGuests = scanner.nextInt();
             scanner.nextLine();
-
             Reservation reservation = new Reservation(customer, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
+            System.out.println(restaurant.getReservations());
             saveData();
             System.out.println("Reservation made successfully for " + customerName);
         } else {
@@ -438,11 +433,6 @@ private void cancelReservation() {
             for (Reservation reservation : restaurant.getReservations()) {
                 if (reservation.getCustomer().getEmail().equalsIgnoreCase(customerEmail)) {
                     reservationToCancel = reservation;
-<<<<<<< HEAD
-                    break; // Exit the loop once the reservation is found
-=======
-                    break; 
->>>>>>> 5d9c7a5 (Fixed Bugs in ERestaurantManager)
                 }
             }
             if (reservationToCancel != null) {
@@ -503,6 +493,7 @@ private void cancelReservation() {
      * EFFECTS: lets customer leave a review for the restaurant using user input
      */
     private void leaveReview() {
+        loadData();
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
@@ -519,6 +510,7 @@ private void cancelReservation() {
             scanner.nextLine();
             Review review = new Review(customer, comment, rating);
             restaurant.addReview(review);
+            System.out.println(restaurant.getRestaurantReviews());
             saveData();
             System.out.println("\nReview submitted successfully.");
         } else {

@@ -8,7 +8,15 @@
                 "email": "Alice@email.com"
             }
         }],
-        "reservations": [],
+        "reservations": [{
+            "reservationTime": "18:30",
+            "numberOfGuests": 0,
+            "reservationDate": "2024-11-23",
+            "customer": {
+                "name": "Alice",
+                "email": "Alice@email.com"
+            }
+        }],
         "restaurantName": "Pasta Palace",
         "restaurantLocation": "123 Noodle St.",
         "menuItems": [{
