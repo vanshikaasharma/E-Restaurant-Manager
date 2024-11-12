@@ -50,7 +50,8 @@ public class ERestaurantManager {
             System.out.print("\nEnter your choice:\n");
             System.out.println("1. Restaurant Owner");
             System.out.println("2. Customer");
-            System.out.println("3. Exit");
+            System.out.println("3. Load previous changes");
+            System.out.println("4. Exit");
             int userType = scanner.nextInt();
 
             switch (userType) {
@@ -61,6 +62,9 @@ public class ERestaurantManager {
                     handleCustomerOptions();
                     break;
                 case 3:
+                    loadData();
+                    break;
+                case 4:
                     running = false;
                     break;
                 default:
@@ -80,7 +84,8 @@ public class ERestaurantManager {
         System.out.println("3: Update Menu Item");
         System.out.println("4: Remove Menu Item");
         System.out.println("5: Read Reviews for available restaurants");
-        System.out.println("6: Exit to Main Menu");
+        System.out.println("6:Do you wish to save the changes you made?");
+        System.out.println("7: Exit to Main Menu");
     }
 
     /*
@@ -93,7 +98,8 @@ public class ERestaurantManager {
         System.out.println("3: Leave Review");
         System.out.println("4: View all Restaurants");
         System.out.println("5: Read Reviews for available restaurants");
-        System.out.println("6: Exit to Main Menu");
+        System.out.println("6: Do you wish to save the changes you made?");
+        System.out.println("7: Exit to Main Menu");
     }
 
     /*
@@ -140,6 +146,9 @@ public class ERestaurantManager {
                 readReviews();
                 break;
             case 6:
+                saveData();
+                break;
+            case 7:
                 return false;
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -168,6 +177,9 @@ public class ERestaurantManager {
                 readReviews();
                 break;
             case 6:
+                saveData();
+                break;
+            case 7:
                 return false;
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -179,7 +191,6 @@ public class ERestaurantManager {
      * EFFECTS: adds a restaurant using user input
      */
     private void addRestaurant() {
-        loadData();
         System.out.print("Enter restaurant name: ");
         String name = scanner.nextLine();
         System.out.print("Enter restaurant location: ");
@@ -194,14 +205,12 @@ public class ERestaurantManager {
             System.out.println("Restaurant is already available.");
         }
         System.out.println("Restaurant added: " + name);
-        saveData();
     }
 
     /*
      * EFFECTS: lets the user read reviews for the given restaurant
      */
     private void readReviews() {
-        loadData();
         for (Restaurant restaurant : restaurants) {
             System.out.println("\nReviews for " + restaurant.getRestaurantName() + ":");
             if (restaurant.getRestaurantReviews().isEmpty()) {
@@ -231,7 +240,6 @@ public class ERestaurantManager {
      * EFFECTS: retrieves a list of all restaurants
      */
     public void listRestaurants() {
-        loadData();
         if (restaurants.isEmpty()) {
             System.out.println("No restaurants available.");
         } else {
@@ -346,7 +354,6 @@ public class ERestaurantManager {
      * EFFECTS: makes a reservation for a customer using user input
      */
     private void makeReservation() {
-        loadData();
         listRestaurants();
         System.out.print("\nEnter restaurant name: ");
         String restaurantName = scanner.nextLine();
@@ -365,7 +372,6 @@ public class ERestaurantManager {
             scanner.nextLine();
             Reservation reservation = new Reservation(customer, date, time, numberOfGuests);
             restaurant.addReservation(reservation);
-            saveData();
             System.out.println("Reservation made successfully for " + customerName);
         } else {
             System.out.println("Restaurant not found.");
@@ -411,7 +417,6 @@ public class ERestaurantManager {
      * EFFECTS: lets customer leave a review for the restaurant using user input
      */
     private void leaveReview() {
-        loadData();
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
@@ -428,7 +433,6 @@ public class ERestaurantManager {
             scanner.nextLine();
             Review review = new Review(customer, comment, rating);
             restaurant.addReview(review);
-            saveData();
             System.out.println("\nReview submitted successfully.");
         } else {
             System.out.println("Restaurant not found.");
@@ -439,7 +443,6 @@ public class ERestaurantManager {
      * EFFECTS: displays the menu of the specified restaurant
      */
     private void displayMenu(String restaurantName) {
-        loadData();
         Restaurant restaurant = findRestaurant(restaurantName);
         if (restaurant != null) {
             if (restaurant.viewMenu().isEmpty()) {
@@ -477,7 +480,6 @@ public class ERestaurantManager {
 
             restaurant.addMenuItem(itemName, itemDescription, itemPrice, itemCategory);
             System.out.println("Menu item added to " + restaurantName + ": " + itemName);
-            saveData();
         } else {
             System.out.println("Restaurant not found.");
         }
@@ -506,7 +508,6 @@ public class ERestaurantManager {
 
                 restaurant.updateMenuItem(itemName, newDescription, newPrice);
                 System.out.println("Menu item updated for " + restaurantName + ": " + itemName);
-                saveData();
             } else {
                 System.out.println("Item not found in the menu.");
             }
@@ -531,7 +532,6 @@ public class ERestaurantManager {
             if (menuItem != null) {
                 restaurant.removeMenuItem(itemName);
                 System.out.println("Menu item removed from " + restaurantName + ": " + itemName);
-                saveData();
             } else {
                 System.out.println("Item not found in the menu.");
             }
@@ -555,9 +555,6 @@ public class ERestaurantManager {
      * EFFECTS: Prompts user to save data
      */
     private void saveData() {
-        System.out.print("Do you wish to save the changes you made? (yes/no): ");
-        String response = scanner.nextLine();
-        if (response.equalsIgnoreCase("yes")) {
             try {
                 jsonWriter.open();
                 jsonWriter.write(restaurants);
@@ -567,6 +564,5 @@ public class ERestaurantManager {
                 System.out.println("Unable to save data ");
             }
         }
-    }
 
 }

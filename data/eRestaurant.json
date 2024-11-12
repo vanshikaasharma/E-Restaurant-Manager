@@ -1,8 +1,52 @@
-{"restaurants": [{
-    "reviews": [],
-    "reservations": [],
-    "restaurantName": "subway",
-    "restaurantLocation": "ubc",
-    "menuItems": [],
-    "cuisineType": "fastfood"
-}]}
+{"restaurants": [
+    {
+        "reviews": [],
+        "reservations": [],
+        "restaurantName": "subway",
+        "restaurantLocation": "ubc",
+        "menuItems": [],
+        "cuisineType": "fastfood"
+    },
+    {
+        "reviews": [],
+        "reservations": [],
+        "restaurantName": "mcd",
+        "restaurantLocation": "ubc",
+        "menuItems": [{
+            "itemName": "fries",
+            "price": 199,
+            "description": "fries",
+            "category": "fod"
+        }],
+        "cuisineType": "f"
+    },
+    {
+        "reviews": [],
+        "reservations": [],
+        "restaurantName": "ubc",
+        "restaurantLocation": "ubc",
+        "menuItems": [{
+            "itemName": "taco",
+            "price": 12,
+            "description": "yes",
+            "category": "jf"
+        }],
+        "cuisineType": "a"
+    },
+    {
+        "reviews": [],
+        "reservations": [{
+            "reservationTime": "12:30",
+            "numberOfGuests": 4,
+            "reservationDate": "2024-12-12",
+            "customer": {
+                "name": "drek",
+                "email": "errrio"
+            }
+        }],
+        "restaurantName": "cactus club",
+        "restaurantLocation": "broadway",
+        "menuItems": [],
+        "cuisineType": "fusion"
+    }
+]}
