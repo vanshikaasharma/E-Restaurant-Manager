@@ -190,7 +190,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: adds a restaurant using user input
      */
-    private void addRestaurant() {
+    protected void addRestaurant() {
         System.out.print("Enter restaurant name: ");
         String name = scanner.nextLine();
         System.out.print("Enter restaurant location: ");
@@ -210,7 +210,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: lets the user read reviews for the given restaurant
      */
-    private void readReviews() {
+    protected void readReviews() {
         for (Restaurant restaurant : restaurants) {
             System.out.println("\nReviews for " + restaurant.getRestaurantName() + ":");
             if (restaurant.getRestaurantReviews().isEmpty()) {
@@ -254,7 +254,7 @@ public class ERestaurantManager {
      * REQUIRES: restaurant != null
      * EFFECTS: places an order for a customer using user input
      */
-    private void placeOrder() {
+    protected void placeOrder() {
         String restaurantName = enterRestaurantName();
         Restaurant restaurant = findRestaurant(restaurantName);
         if (restaurant == null) {
@@ -353,7 +353,7 @@ public class ERestaurantManager {
      * REQUIRES: restaurant != null
      * EFFECTS: makes a reservation for a customer using user input
      */
-    private void makeReservation() {
+    protected void makeReservation() {
         listRestaurants();
         System.out.print("\nEnter restaurant name: ");
         String restaurantName = scanner.nextLine();
@@ -416,7 +416,7 @@ public class ERestaurantManager {
      * REQUIRES: restaurant != null
      * EFFECTS: lets customer leave a review for the restaurant using user input
      */
-    private void leaveReview() {
+    protected void leaveReview() {
         System.out.print("Enter restaurant name: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
@@ -462,7 +462,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: lets the owner add menu items to a specific restaurant
      */
-    private void addMenuItem() {
+    protected void addMenuItem() {
         System.out.print("Enter the restaurant name to add a menu item: ");
         String restaurantName = scanner.nextLine();
         Restaurant restaurant = findRestaurant(restaurantName);
@@ -543,7 +543,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: Loads data from the file
      */
-    private void loadData() {
+    protected void loadData() {
         try {
             restaurants = jsonReader.read();
         } catch (IOException e) {
@@ -554,7 +554,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: Prompts user to save data
      */
-    private void saveData() {
+    protected void saveData() {
             try {
                 jsonWriter.open();
                 jsonWriter.write(restaurants);
