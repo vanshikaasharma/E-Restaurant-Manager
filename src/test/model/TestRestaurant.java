@@ -68,10 +68,11 @@ public class TestRestaurant {
     @Test
     void testUpdateMenuItem() {
         restaurant.addMenuItem("Salad", "Fresh Southwest salad", 5.99, "Appetizer");
-        restaurant.updateMenuItem("Salad", "Fresh Caesar salad", 6.99);
+        restaurant.updateMenuItem("Salad", "Fresh Caesar salad", 6.99, "entree");
         ArrayList<MenuItems> menuItems = restaurant.viewMenu();
         assertEquals("Fresh Caesar salad", menuItems.get(0).getItemDescription());
         assertEquals(6.99, menuItems.get(0).getItemPrice());
+        assertEquals("entree", menuItems.get(0).getItemCategory());
     }
 
     @Test

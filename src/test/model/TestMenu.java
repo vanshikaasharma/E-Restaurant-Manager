@@ -48,20 +48,20 @@ class TestMenu {
     public void testUpdateMenuItem() {
 
         menu.addMenuItem(item1);
-        menu.updateMenuItem("CheeseBurger", "Double cheeseburger", 11.99);
+        menu.updateMenuItem("CheeseBurger", "Double cheeseburger", 11.99, "main course");
         MenuItems updatedItem = menu.getMenuItems().get(0);
 
         assertEquals("Double cheeseburger", updatedItem.getItemDescription());
         assertEquals(11.99, updatedItem.getItemPrice());
 
         // Test trying to update a non-existent item
-        menu.updateMenuItem("Pizza", "Pepperoni Pizza", 12.99); // No Pizza in the menu
+        menu.updateMenuItem("Pizza", "Pepperoni Pizza", 12.9, "appetizer"); // No Pizza in the menu
         assertEquals(1, menu.getMenuItems().size()); // Size should remain 1
         assertEquals("CheeseBurger", menu.getMenuItems().get(0).getItemName()); // Still the same item
 
         // Test updating when the menu is empty
         Menu emptyMenu = new Menu();
-        emptyMenu.updateMenuItem("NonExistentItem", "Description", 5.99);
+        emptyMenu.updateMenuItem("NonExistentItem", "Description", 5.99, "no category");
         assertTrue(emptyMenu.getMenuItems().isEmpty());
 
     }

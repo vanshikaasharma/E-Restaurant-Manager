@@ -505,8 +505,8 @@ public class ERestaurantManager {
                 double newPrice = scanner.nextDouble();
                 scanner.nextLine();
                 System.out.print("Enter new item category: ");
-
-                restaurant.updateMenuItem(itemName, newDescription, newPrice);
+                String newCategory = scanner.nextLine();
+                restaurant.updateMenuItem(itemName, newDescription, newPrice, newCategory );
                 System.out.println("Menu item updated for " + restaurantName + ": " + itemName);
             } else {
                 System.out.println("Item not found in the menu.");

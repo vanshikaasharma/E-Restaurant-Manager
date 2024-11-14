@@ -33,11 +33,12 @@ public class Menu {
      * MODIFIES: this
      * EFFECTS: updates the menu item by name if it exists, changing its description and price
      */
-    public void updateMenuItem(String name, String description, double price) {
+    public void updateMenuItem(String name, String description, double price, String category) {
         for (MenuItems item : menuItems) {
             if (item.getItemName().equals(name)) {
                 item.setItemDescription(description);
                 item.setItemPrice(price);
+                item.setItemCategory(category);
                 break;
             }
         }

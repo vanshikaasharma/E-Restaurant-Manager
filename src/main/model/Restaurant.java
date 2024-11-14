@@ -68,8 +68,8 @@ public class Restaurant {
      * MODIFIES: this and Menu
      * EFFECTS: updates the item in the menu of the restaurant
      */
-    public void updateMenuItem(String name, String description, double price) {
-        restaurantMenu.updateMenuItem(name, description, price);
+    public void updateMenuItem(String name, String description, double price, String category) {
+        restaurantMenu.updateMenuItem(name, description, price, category);
     }
 
     /*
