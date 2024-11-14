@@ -2,12 +2,22 @@ package ui;
 
 import javax.swing.*;
 
+import model.Customer;
 import model.MenuItems;
+import model.OrderFood;
+import model.Reservation;
 import model.Restaurant;
+import model.Review;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 // Represents the E Restaurant Manager GUI that manages the restaurants
@@ -31,6 +41,14 @@ public class ERestaurantManagerGUI extends JFrame {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
+        mainMenuPanel();
+
+        setVisible(true);
+    }
+
+    // EFFECTS: Creates the main menu panel with options for owner, customer, load,
+    // and exit
+    private void mainMenuPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(4, 1, 10, 10));
 
@@ -51,13 +69,17 @@ public class ERestaurantManagerGUI extends JFrame {
         mainPanel.add(ownerCustomerPanel);
         mainPanel.add(loadButton);
         mainPanel.add(exitButton);
-        add(mainPanel);
 
+        // Set up action listeners for buttons
         ownerButton.addActionListener(e -> handleOwnerOptions());
         customerButton.addActionListener(e -> handleCustomerOptions());
         loadButton.addActionListener(e -> loadData());
         exitButton.addActionListener(e -> System.exit(0));
-        setVisible(true);
+
+        getContentPane().removeAll();
+        getContentPane().add(mainPanel);
+        revalidate();
+        repaint();
     }
 
     // EFFECTS: Owner options panel
@@ -150,13 +172,19 @@ public class ERestaurantManagerGUI extends JFrame {
     }
 
     // EFFECTS: Loads previous data (dummy action for now)
+
     private void loadData() {
-        JOptionPane.showMessageDialog(this, "Loading data...");
+        try {
+            restaurants = jsonReader.read();
+            JOptionPane.showMessageDialog(this, "Data loaded successfully.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage());
+        }
     }
 
     // EFFECTS: adds a restaurant using user input
     private void addRestaurant() {
-        JPanel panel = new JPanel(new GridLayout(5, 1));
+        JPanel panel = new JPanel(new GridLayout(4, 1));
         JTextField nameField = new JTextField();
         JTextField locationField = new JTextField();
         JTextField cuisineField = new JTextField();
@@ -276,102 +304,154 @@ public class ERestaurantManagerGUI extends JFrame {
 
             backButton.addActionListener(e -> returnToOwnerMenu());
 
-            // Step 6: Set the new panel and refresh the frame
             setContentPane(menuItemPanel);
             revalidate();
         } else {
-            // If restaurant not found
             JOptionPane.showMessageDialog(this, "Restaurant not found.");
         }
     }
 
     // EFFECTS: lets the user update a menu item of a specific restaurant
-private void updateMenuItem() {
-    Restaurant restaurant = checkRestaurant();
+    private void updateMenuItem() {
+        Restaurant restaurant = checkRestaurant();
 
-    if (restaurant != null) {
-        JTextField itemNameField = new JTextField();
-        
-        // Step 1: Prompt the user to enter the menu item to update
-        Object[] message = {
-            "Enter the name of the menu item to update:", itemNameField
-        };
-        
-        int option = JOptionPane.showConfirmDialog(this, message, "Find Menu Item", JOptionPane.OK_CANCEL_OPTION);
-        
-        if (option == JOptionPane.OK_OPTION) {
-            String itemName = itemNameField.getText();
-            MenuItems menuItem = restaurant.findMenuItem(itemName);
-            
-            if (menuItem != null) {
-                // Step 2: Create a panel for updating the menu item
-                JPanel updateItemPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        if (restaurant != null) {
+            JTextField itemNameField = new JTextField();
 
-                JTextField newDescriptionField = new JTextField(menuItem.getItemDescription());
-                JTextField newPriceField = new JTextField(String.valueOf(menuItem.getItemPrice()));
-                JTextField newCategoryField = new JTextField(menuItem.getItemCategory());
+            Object[] message = {
+                    "Enter the name of the menu item to update:", itemNameField
+            };
 
-                JButton updateButton = new JButton("Update Menu Item");
-                JButton backButton = new JButton("Back");
+            int option = JOptionPane.showConfirmDialog(this, message, "Find Menu Item", JOptionPane.OK_CANCEL_OPTION);
 
-                updateItemPanel.add(new JLabel("New Description:"));
-                updateItemPanel.add(newDescriptionField);
-                updateItemPanel.add(new JLabel("New Price:"));
-                updateItemPanel.add(newPriceField);
-                updateItemPanel.add(new JLabel("New Category:"));
-                updateItemPanel.add(newCategoryField);
-                updateItemPanel.add(updateButton);
-                updateItemPanel.add(backButton);
+            if (option == JOptionPane.OK_OPTION) {
+                String itemName = itemNameField.getText();
+                MenuItems menuItem = restaurant.findMenuItem(itemName);
 
-                updateButton.addActionListener(e -> {
-                    String newDescription = newDescriptionField.getText();
-                    String newCategory = newCategoryField.getText();
+                if (menuItem != null) {
+                    JPanel updateItemPanel = new JPanel(new GridLayout(6, 2, 10, 10));
 
-                    if (!newDescription.isEmpty() && !newCategory.isEmpty() && !newPriceField.getText().isEmpty()) {
-                        try {
-                            double newPrice = Double.parseDouble(newPriceField.getText());
+                    JTextField newDescriptionField = new JTextField(menuItem.getItemDescription());
+                    JTextField newPriceField = new JTextField(String.valueOf(menuItem.getItemPrice()));
+                    JTextField newCategoryField = new JTextField(menuItem.getItemCategory());
 
-                            restaurant.updateMenuItem(itemName, newDescription, newPrice, newCategory);
-                            JOptionPane.showMessageDialog(this, "Menu item updated successfully!");
-                            returnToOwnerMenu();
+                    JButton updateButton = new JButton("Update Menu Item");
+                    JButton backButton = new JButton("Back");
 
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(this, "Invalid price format. Please enter a valid number.");
+                    updateItemPanel.add(new JLabel("New Description:"));
+                    updateItemPanel.add(newDescriptionField);
+                    updateItemPanel.add(new JLabel("New Price:"));
+                    updateItemPanel.add(newPriceField);
+                    updateItemPanel.add(new JLabel("New Category:"));
+                    updateItemPanel.add(newCategoryField);
+                    updateItemPanel.add(updateButton);
+                    updateItemPanel.add(backButton);
+
+                    updateButton.addActionListener(e -> {
+                        String newDescription = newDescriptionField.getText();
+                        String newCategory = newCategoryField.getText();
+
+                        if (!newDescription.isEmpty() && !newCategory.isEmpty() && !newPriceField.getText().isEmpty()) {
+                            try {
+                                double newPrice = Double.parseDouble(newPriceField.getText());
+
+                                restaurant.updateMenuItem(itemName, newDescription, newPrice, newCategory);
+                                JOptionPane.showMessageDialog(this, "Menu item updated successfully!");
+                                returnToOwnerMenu();
+
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(this,
+                                        "Invalid price format. Please enter a valid number.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Please fill in all fields.");
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please fill in all fields.");
-                    }
-                });
+                    });
 
-                backButton.addActionListener(e -> returnToOwnerMenu());
+                    backButton.addActionListener(e -> returnToOwnerMenu());
 
-                // Step 6: Set the new panel and refresh the frame
-                setContentPane(updateItemPanel);
-                revalidate();
-            } else {
-                // If menu item not found
-                JOptionPane.showMessageDialog(this, "Menu item not found.");
+                    setContentPane(updateItemPanel);
+                    revalidate();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Menu item not found.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
         }
-    } else {
-        // If restaurant not found
-        JOptionPane.showMessageDialog(this, "Restaurant not found.");
     }
-}
 
-
-    /*
-     * EFFECTS: lets the user remove a menu item from a specific restaurant
-     */
+    // EFFECTS: lets the user remove a menu item from a specific restaurant
     private void removeMenuItem() {
-        JOptionPane.showMessageDialog(this, "Remove menu item...in progress...");
+        Restaurant restaurant = checkRestaurant();
+
+        if (restaurant != null) {
+            JPanel removeItemPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+
+            JTextField itemNameField = new JTextField();
+            JButton removeButton = new JButton("Remove Menu Item");
+            JButton backButton = new JButton("Back");
+
+            removeItemPanel.add(new JLabel("Enter Menu Item Name:"));
+            removeItemPanel.add(itemNameField);
+            removeItemPanel.add(removeButton);
+            removeItemPanel.add(backButton);
+
+            removeButton.addActionListener(e -> {
+                String itemName = itemNameField.getText();
+
+                if (!itemName.isEmpty()) {
+                    MenuItems menuItem = restaurant.findMenuItem(itemName);
+
+                    if (menuItem != null) {
+                        restaurant.removeMenuItem(itemName);
+                        JOptionPane.showMessageDialog(this, "Menu item removed successfully!");
+                        returnToOwnerMenu();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Menu item not found.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please enter the menu item name.");
+                }
+            });
+
+            backButton.addActionListener(e -> returnToOwnerMenu());
+            setContentPane(removeItemPanel);
+            revalidate();
+        } else {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
+        }
     }
 
     /*
      * EFFECTS: lets the user read reviews for the given restaurant
      */
     private void readReviews() {
-        JOptionPane.showMessageDialog(this, "Read reviews...in progress...");
+        Restaurant restaurant = checkRestaurant();
+
+        if (restaurant != null) {
+            if (restaurant.getRestaurantReviews().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No reviews available for this restaurant.");
+            } else {
+                StringBuilder reviewsList = new StringBuilder();
+                for (Review review : restaurant.getRestaurantReviews()) {
+                    reviewsList.append("Customer: ").append(review.getCustomer().getName())
+                            .append(", Rating: ").append(review.getRating())
+                            .append("\nComment: ").append(review.getReviewComment()).append("\n\n");
+                }
+
+                JTextArea textArea = new JTextArea(10, 30);
+                textArea.setText(reviewsList.toString());
+                textArea.setEditable(false);
+
+                JScrollPane scrollPane = new JScrollPane(textArea);
+
+                JOptionPane.showMessageDialog(this, scrollPane, "Reviews for " + restaurant.getRestaurantName(),
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
+        }
     }
 
     /*
@@ -379,15 +459,154 @@ private void updateMenuItem() {
      * EFFECTS: makes a reservation for a customer using user input
      */
     private void makeReservation() {
-        JOptionPane.showMessageDialog(this, "Making reservations...in progress...");
+        JPanel reservationPanel = new JPanel(new GridLayout(8, 2, 10, 10));
+
+        Restaurant restaurant = checkRestaurant();
+        if (restaurant != null) {
+            // Customer name and email
+            JTextField nameField = new JTextField();
+            JTextField emailField = new JTextField();
+            reservationPanel.add(new JLabel("Customer Name:"));
+            reservationPanel.add(nameField);
+            reservationPanel.add(new JLabel("Customer Email:"));
+            reservationPanel.add(emailField);
+
+            // Date input with validation
+            JTextField dateField = new JTextField();
+            reservationPanel.add(new JLabel("Reservation Date (YYYY-MM-DD):"));
+            reservationPanel.add(dateField);
+
+            // Time input with validation
+            JTextField timeField = new JTextField();
+            reservationPanel.add(new JLabel("Reservation Time (HH:MM):"));
+            reservationPanel.add(timeField);
+
+            // Number of guests with validation
+            JTextField guestsField = new JTextField();
+            reservationPanel.add(new JLabel("Number of Guests:"));
+            reservationPanel.add(guestsField);
+
+            // Buttons
+            JButton reserveButton = new JButton("Reserve");
+            JButton backButton = new JButton("Back");
+            reservationPanel.add(reserveButton);
+            reservationPanel.add(backButton);
+
+            reserveButton.addActionListener(e -> {
+                String customerName = nameField.getText();
+                String customerEmail = emailField.getText();
+                String date = dateField.getText();
+                String time = timeField.getText();
+                String guestsText = guestsField.getText();
+
+                // Validate fields
+                if (customerName.isEmpty() || customerEmail.isEmpty() || date.isEmpty() || time.isEmpty()
+                        || guestsText.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+                    return;
+                }
+
+                try {
+                    int guests = Integer.parseInt(guestsText);
+                    if (guests <= 0) {
+                        throw new NumberFormatException(); // For invalid number of guests
+                    }
+
+                    LocalDate reservationDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+                    LocalTime reservationTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+
+                    Customer customer = new Customer(customerName, customerEmail);
+                    Reservation reservation = new Reservation(customer, reservationDate, reservationTime, guests);
+                    restaurant.addReservation(reservation);
+                    JOptionPane.showMessageDialog(this, "Reservation made successfully for " + customerName);
+                    returnToCustomerMenu();
+
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Invalid date or time format.");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Invalid number of guests.");
+                }
+            });
+
+            backButton.addActionListener(e -> returnToCustomerMenu());
+
+            setContentPane(reservationPanel);
+            revalidate();
+        } else {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
+        }
     }
 
-    /*
-     * REQUIRES: restaurant != null
-     * EFFECTS: places an order for a customer using user input
-     */
+    // REQUIRES: restaurant != null
+    // EFFECTS: places an order for a customer using user input via a GUI
     private void placeOrder() {
-        JOptionPane.showMessageDialog(this, "placing order...in progress...");
+        Restaurant restaurant = checkRestaurant();
+        if (restaurant == null) {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
+            return;
+        }
+
+        displayMenu(restaurant);
+
+        JPanel orderPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+
+        JTextField customerNameField = new JTextField();
+        JTextField customerEmailField = new JTextField();
+
+        JComboBox<String> menuComboBox = new JComboBox<>();
+        for (MenuItems item : restaurant.getRestaurantMenu().getMenuItems()) {
+            menuComboBox.addItem(item.getItemName());
+        }
+
+        JButton addButton = new JButton("Add Item");
+        JButton placeOrderButton = new JButton("Place Order");
+        JButton backButton = new JButton("Back");
+
+        orderPanel.add(new JLabel("Customer Name:"));
+        orderPanel.add(customerNameField);
+        orderPanel.add(new JLabel("Customer Email:"));
+        orderPanel.add(customerEmailField);
+        orderPanel.add(new JLabel("Select Menu Item:"));
+        orderPanel.add(menuComboBox);
+        orderPanel.add(addButton);
+        orderPanel.add(placeOrderButton);
+        orderPanel.add(backButton);
+
+        ArrayList<MenuItems> orderItems = new ArrayList<>();
+
+        addButton.addActionListener(e -> {
+            String selectedItem = (String) menuComboBox.getSelectedItem();
+            MenuItems menuItem = restaurant.findMenuItem(selectedItem);
+            if (menuItem != null) {
+                orderItems.add(menuItem);
+                JOptionPane.showMessageDialog(this, selectedItem + " added to your order.");
+            }
+        });
+
+        placeOrderButton.addActionListener(e -> {
+            String customerName = customerNameField.getText();
+            String customerEmail = customerEmailField.getText();
+
+            if (!customerName.isEmpty() && !customerEmail.isEmpty() && !orderItems.isEmpty()) {
+                Customer customer = new Customer(customerName, customerEmail);
+                OrderFood order = new OrderFood();
+                order.setCustomer(customer);
+                order.setRestaurantName(restaurant.getRestaurantName());
+                order.setOrderItems(orderItems);
+                order.setTotalPrice(orderItems.stream().mapToDouble(MenuItems::getItemPrice).sum());
+                restaurant.addOrder(order);
+                restaurant.addOrder(order);
+                JOptionPane.showMessageDialog(this, "Order placed successfully!");
+                returnToCustomerMenu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Please complete all fields and add items to the order.");
+            }
+        });
+
+        backButton.addActionListener(e -> returnToCustomerMenu());
+
+        setContentPane(orderPanel);
+        revalidate();
     }
 
     /*
@@ -395,27 +614,143 @@ private void updateMenuItem() {
      * EFFECTS: lets customer leave a review for the restaurant using user input
      */
     private void leaveReview() {
-        JOptionPane.showMessageDialog(this, "leaving review...in progress...");
+        Restaurant restaurant = checkRestaurant();
+
+        if (restaurant != null) {
+            JPanel reviewPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+
+            JTextField customerNameField = new JTextField();
+            JTextField customerEmailField = new JTextField();
+            JTextField commentField = new JTextField();
+
+            // Create a JComboBox for the rating selection
+            String[] ratings = { "1", "2", "3", "4", "5" };
+            JComboBox<String> ratingComboBox = new JComboBox<>(ratings);
+
+            JButton submitButton = new JButton("Submit Review");
+            JButton backButton = new JButton("Back");
+
+            reviewPanel.add(new JLabel("Customer Name:"));
+            reviewPanel.add(customerNameField);
+            reviewPanel.add(new JLabel("Customer Email:"));
+            reviewPanel.add(customerEmailField);
+            reviewPanel.add(new JLabel("Comment:"));
+            reviewPanel.add(commentField);
+            reviewPanel.add(new JLabel("Rating (1-5):"));
+            reviewPanel.add(ratingComboBox);
+            reviewPanel.add(submitButton);
+            reviewPanel.add(backButton);
+
+            submitButton.addActionListener(e -> {
+                String customerName = customerNameField.getText();
+                String customerEmail = customerEmailField.getText();
+                String comment = commentField.getText();
+                String ratingText = (String) ratingComboBox.getSelectedItem(); // Get the selected rating
+
+                if (!customerName.isEmpty() && !customerEmail.isEmpty() && !comment.isEmpty()
+                        && ratingText != null) {
+                    try {
+                        int rating = Integer.parseInt(ratingText);
+
+                        if (rating >= 1 && rating <= 5) {
+                            Customer customer = new Customer(customerName, customerEmail);
+                            Review review = new Review(customer, comment, rating);
+                            restaurant.addReview(review);
+                            JOptionPane.showMessageDialog(this, "Review submitted successfully!");
+                            returnToCustomerMenu();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Please enter a valid rating between 1 and 5.");
+                        }
+
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "Invalid rating format. Please enter a valid number.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+                }
+            });
+
+            backButton.addActionListener(e -> returnToCustomerMenu());
+
+            // Set the new panel and refresh the frame
+            setContentPane(reviewPanel);
+            revalidate();
+        } else {
+            JOptionPane.showMessageDialog(this, "Restaurant not found.");
+        }
     }
 
     /*
      * EFFECTS: retrieves a list of all restaurants
      */
     private void listRestaurants() {
-        JOptionPane.showMessageDialog(this, "list restaurants...in progress...");
+        if (restaurants.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No restaurants available.");
+        } else {
+            StringBuilder restaurantList = new StringBuilder();
+            for (Restaurant restaurant : restaurants) {
+                restaurantList.append("Name: ").append(restaurant.getRestaurantName())
+                        .append(", Location: ").append(restaurant.getRestaurantLocation())
+                        .append(", Cuisine: ").append(restaurant.getCuisineType()).append("\n");
+            }
+
+            JTextArea textArea = new JTextArea(10, 30);
+            textArea.setText(restaurantList.toString());
+            textArea.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(textArea);
+
+            JOptionPane.showMessageDialog(this, scrollPane, "List of Restaurants", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    // REQUIRES: restaurant != null
+    // EFFECTS: displays the menu of the selected restaurant in a GUI
+    private void displayMenu(Restaurant restaurant) {
+
+        // Create a panel to display the menu
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new BorderLayout());
+
+        // Create a list of menu items to display
+        DefaultListModel<String> menuListModel = new DefaultListModel<>();
+        for (MenuItems item : restaurant.getRestaurantMenu().getMenuItems()) {
+            menuListModel.addElement(item.getItemName() + " - $" + item.getItemPrice());
+        }
+
+        // Create a JList to show menu items
+        JList<String> menuList = new JList<>(menuListModel);
+        menuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        menuList.setVisibleRowCount(10);
+        JScrollPane menuScrollPane = new JScrollPane(menuList);
+        menuPanel.add(menuScrollPane, BorderLayout.CENTER);
+
+        // Create a button for returning to the previous screen
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> returnToCustomerMenu());
+        menuPanel.add(backButton, BorderLayout.SOUTH);
+
+        // Set the content pane to the menu panel and refresh the frame
+        setContentPane(menuPanel);
+        revalidate();
     }
 
     /*
      * EFFECTS: Prompts user to save data
      */
-    protected void saveData() {
-        JOptionPane.showMessageDialog(this, "Save data...in progress...");
+    private void saveData() {
+        try {
+            jsonWriter.write(restaurants);
+            JOptionPane.showMessageDialog(this, "Data saved successfully.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error saving data: " + e.getMessage());
+        }
     }
 
     // EFFECTS: Return to main menu
     private void returnToMainMenu() {
         getContentPane().removeAll();
-        new ERestaurantManagerGUI(); // Reload main GUI
+        mainMenuPanel();
         revalidate();
         repaint();
     }
@@ -423,7 +758,7 @@ private void updateMenuItem() {
     // EFFECTS: Return to owner menu
     private void returnToOwnerMenu() {
         getContentPane().removeAll();
-        handleOwnerOptions(); // Open the owner options panel
+        handleOwnerOptions();
         revalidate();
         repaint();
     }
@@ -431,9 +766,13 @@ private void updateMenuItem() {
     // EFFECTS: Return to customer menu
     private void returnToCustomerMenu() {
         getContentPane().removeAll();
-        handleCustomerOptions(); // Open the customer options panel
+        handleCustomerOptions();
         revalidate();
         repaint();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new ERestaurantManagerGUI());
     }
 
 }
