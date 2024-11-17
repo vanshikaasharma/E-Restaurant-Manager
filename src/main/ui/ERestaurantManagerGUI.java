@@ -50,45 +50,52 @@ public class ERestaurantManagerGUI extends JFrame {
     // and exit
     private void mainMenuPanel() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        mainPanel.setLayout(new GridLayout(4, 1, 15, 15));
+
+        mainPanel.setBackground(new Color(245, 202, 195));
 
         JLabel welcomeLabel = new JLabel("Welcome to the E Restaurant Manager!", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         mainPanel.add(welcomeLabel);
 
         JPanel ownerCustomerPanel = new JPanel();
         ownerCustomerPanel.setLayout(new GridLayout(1, 2, 10, 10));
+        ownerCustomerPanel.setBackground(new Color(245, 202, 195));
 
-        ownerButton = new JButton("Restaurant Owner");
-        customerButton = new JButton("Customer");
+        ownerButton = createSizedButton("Restaurant Owner");
+        customerButton = createSizedButton("Customer");
+        styleButton(ownerButton, new Color(247, 237, 226), new Color(0,0,0));
+        styleButton(customerButton, new Color(247, 237, 226), new Color(0,0,0));
+       
         ownerCustomerPanel.add(ownerButton);
         ownerCustomerPanel.add(customerButton);
-        loadButton = new JButton("Load Previous Changes");
-        exitButton = new JButton("Exit");
 
+        loadButton = createSizedButton("Load Previous Changes");
+        exitButton = createSizedButton("Exit");
+        styleButton(loadButton, new Color(247, 237, 226), new Color(0,0,0));
+        styleButton(exitButton, new Color(242, 132, 130), new Color(255, 255, 255));
         mainPanel.add(ownerCustomerPanel);
         mainPanel.add(loadButton);
         mainPanel.add(exitButton);
 
-        // Set up action listeners for buttons
         ownerButton.addActionListener(e -> handleOwnerOptions());
         customerButton.addActionListener(e -> handleCustomerOptions());
         loadButton.addActionListener(e -> loadData());
         exitButton.addActionListener(e -> System.exit(0));
 
-        getContentPane().removeAll();
-        getContentPane().add(mainPanel);
-        revalidate();
-        repaint();
+        setPanelContent(mainPanel);
     }
 
     // EFFECTS: Owner options panel
     private void handleOwnerOptions() {
         JPanel ownerPanel = new JPanel();
-        ownerPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        ownerPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        ownerPanel.setLayout(new GridLayout(5, 1, 15, 15));
 
         JLabel ownerLabel = new JLabel("Restaurant Owner Options", SwingConstants.CENTER);
         ownerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        ownerPanel.setBackground(new Color(245, 202, 195));
         ownerPanel.add(ownerLabel);
 
         JPanel addRow1 = createButtonRow("Add Restaurant", "Add Menu Item");
@@ -105,70 +112,92 @@ public class ERestaurantManagerGUI extends JFrame {
         removeMenuItemButton.addActionListener(e -> removeMenuItem());
         ownerPanel.add(addRow2);
 
-        JPanel addRow3 = createButtonRow("Read Reviews", "Save Changes");
+        JPanel addRow3 = createOptionButtonRow("Read Reviews", "Save Changes");
         JButton readReviewsButton = (JButton) addRow3.getComponent(0);
         JButton saveChangesButton = (JButton) addRow3.getComponent(1);
         readReviewsButton.addActionListener(e -> readReviews());
         saveChangesButton.addActionListener(e -> saveData());
         ownerPanel.add(addRow3);
 
-        JButton mainMenuButton = new JButton("Back to the main menu");
+        JButton mainMenuButton = createSizedButton("Back to the main menu");
         mainMenuButton.addActionListener(e -> returnToMainMenu());
+        styleButton(mainMenuButton, new Color(242, 132, 130), new Color(255, 255, 255));
         ownerPanel.add(mainMenuButton);
-        getContentPane().removeAll();
-        getContentPane().add(ownerPanel);
-        revalidate();
-        repaint();
+
+        setPanelContent(ownerPanel);
     }
 
     // EFFECTS: Customer options panel
     private void handleCustomerOptions() {
         JPanel customerPanel = new JPanel();
-        customerPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        customerPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        customerPanel.setLayout(new GridLayout(5, 1, 15, 15));
 
         JLabel customerLabel = new JLabel("Customer Options", SwingConstants.CENTER);
         customerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        customerPanel.setBackground(new Color(245, 202, 195));
         customerPanel.add(customerLabel);
 
         JPanel addRow1 = createButtonRow("Make Reservation", "Place Order");
-        JButton makedReservationButton = (JButton) addRow1.getComponent(0);
+        JButton makeReservationButton = (JButton) addRow1.getComponent(0);
         JButton placeOrderButton = (JButton) addRow1.getComponent(1);
-        makedReservationButton.addActionListener(e -> makeReservation());
+        makeReservationButton.addActionListener(e -> makeReservation());
         placeOrderButton.addActionListener(e -> placeOrder());
         customerPanel.add(addRow1);
 
-        JPanel addRow2 = createButtonRow("Leave Review", "View Restarants");
+        JPanel addRow2 = createButtonRow("Leave Review", "View Restaurants");
         JButton leaveReviewButton = (JButton) addRow2.getComponent(0);
         JButton viewRestaurantsButton = (JButton) addRow2.getComponent(1);
         leaveReviewButton.addActionListener(e -> leaveReview());
         viewRestaurantsButton.addActionListener(e -> listRestaurants());
         customerPanel.add(addRow2);
 
-        JPanel addRow3 = createButtonRow("View Reviews", "Save Changes");
+        JPanel addRow3 = createOptionButtonRow("View Reviews", "Save Changes");
         JButton readReviewsButton = (JButton) addRow3.getComponent(0);
         JButton saveChangesButton = (JButton) addRow3.getComponent(1);
         readReviewsButton.addActionListener(e -> readReviews());
         saveChangesButton.addActionListener(e -> saveData());
         customerPanel.add(addRow3);
 
-        JButton mainMenuButton = new JButton("Back to the main menu");
+        JButton mainMenuButton = createSizedButton("Back to the main menu");
         mainMenuButton.addActionListener(e -> returnToMainMenu());
+        styleButton(mainMenuButton, new Color(242, 132, 130), new Color(255, 255, 255));
         customerPanel.add(mainMenuButton);
 
-        getContentPane().removeAll();
-        getContentPane().add(customerPanel);
-        revalidate();
-        repaint();
+        setPanelContent(customerPanel);
     }
 
-    // EFFECTS: Creates a row with two buttons
+    // EFFECTS: Creates a row with two buttons with consistent sizes
     private JPanel createButtonRow(String button1Text, String button2Text) {
-        JPanel rowPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-        JButton button1 = new JButton(button1Text);
-        JButton button2 = new JButton(button2Text);
+        JPanel rowPanel = new JPanel(new GridLayout(1, 2, 15, 15));
+        JButton button1 = createSizedButton(button1Text);
+        JButton button2 = createSizedButton(button2Text);
+        rowPanel.setBackground(new Color(245, 202, 195));
+        styleButton(button1, new Color(247, 237, 226), new Color(0,0,0));
+        styleButton(button2, new Color(247, 237, 226), new Color(0,0,0));
         rowPanel.add(button1);
         rowPanel.add(button2);
         return rowPanel;
+    }
+
+    // EFFECTS: Creates a row with two buttons with consistent sizes
+    private JPanel createOptionButtonRow(String button1Text, String button2Text) {
+        JPanel rowPanel = new JPanel(new GridLayout(1, 2, 15, 15));
+        JButton button1 = createSizedButton(button1Text);
+        JButton button2 = createSizedButton(button2Text);
+        rowPanel.setBackground(new Color(245, 202, 195));
+        styleButton(button1, new Color(247, 237, 226), new Color(0,0,0));
+        styleButton(button2, new Color(132, 165, 157), new Color(255,255,255));
+        rowPanel.add(button1);
+        rowPanel.add(button2);
+        return rowPanel;
+    }
+
+    // EFFECTS: Creates a JButton with a fixed preferred size for consistency
+    private JButton createSizedButton(String text) {
+        JButton button = new JButton(text);
+        button.setPreferredSize(new Dimension(200, 60));
+        return button;
     }
 
     // EFFECTS: Loads previous data (dummy action for now)
@@ -184,26 +213,48 @@ public class ERestaurantManagerGUI extends JFrame {
 
     // EFFECTS: adds a restaurant using user input
     private void addRestaurant() {
-        JPanel panel = new JPanel(new GridLayout(4, 1));
+        
+        JPanel addRestaurantPanel = new JPanel(new GridLayout(4, 2, 15, 15));
+        addRestaurantPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        addRestaurantPanel.setBackground(new Color(245, 202, 195));
         JTextField nameField = new JTextField();
         JTextField locationField = new JTextField();
         JTextField cuisineField = new JTextField();
-        JButton addButton = new JButton("Add Restaurant");
-        JButton backButton = new JButton("Back");
+        JButton addButton = createSizedButton("Add Restaurant");
+        JButton backButton = createSizedButton("Back");
 
-        panel.add(new JLabel("Restaurant Name: "));
-        panel.add(nameField);
-        panel.add(new JLabel("Location: "));
-        panel.add(locationField);
-        panel.add(new JLabel("Cuisine Type: "));
-        panel.add(cuisineField);
-        panel.add(addButton);
-        panel.add(backButton);
+        JLabel nameLabel = new JLabel("Restaurant Name: ");
+    JLabel locationLabel = new JLabel("Location: ");
+    JLabel cuisineLabel = new JLabel("Cuisine Type: ");
+    nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+    locationLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+    cuisineLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+
+    // Align labels to the center for a neater look
+    nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    locationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    cuisineLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+    // Add components to the panel
+    addRestaurantPanel.add(nameLabel);
+    addRestaurantPanel.add(nameField);
+    addRestaurantPanel.add(locationLabel);
+    addRestaurantPanel.add(locationField);
+    addRestaurantPanel.add(cuisineLabel);
+    addRestaurantPanel.add(cuisineField);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 15, 15));
+        addRestaurantPanel.setBackground(new Color(245, 202, 195));
+        buttonPanel.add(addButton);
+        buttonPanel.add(backButton);
+        addRestaurantPanel.add(new JLabel());
+        addRestaurantPanel.add(buttonPanel);
 
         addButton.addActionListener(e -> {
-            String name = nameField.getText();
-            String location = locationField.getText();
-            String cuisine = cuisineField.getText();
+            String name = nameField.getText().trim();
+            String location = locationField.getText().trim();
+            String cuisine = cuisineField.getText().trim();
+
             if (!name.isEmpty() && !location.isEmpty() && !cuisine.isEmpty()) {
                 Restaurant restaurant = new Restaurant(name, location, cuisine);
                 if (!restaurants.contains(restaurant)) {
@@ -219,8 +270,8 @@ public class ERestaurantManagerGUI extends JFrame {
         });
 
         backButton.addActionListener(e -> handleOwnerOptions());
-        setContentPane(panel);
-        revalidate();
+        setPanelContent(addRestaurantPanel);
+
     }
 
     /*
@@ -421,6 +472,15 @@ public class ERestaurantManagerGUI extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Restaurant not found.");
         }
+
+    }
+
+    private void setPanelContent(JPanel panel) {
+        getContentPane().removeAll();
+        getContentPane().add(panel);
+        validate();
+        revalidate();
+        repaint();
     }
 
     /*
@@ -743,7 +803,7 @@ public class ERestaurantManagerGUI extends JFrame {
             jsonWriter.write(restaurants);
             JOptionPane.showMessageDialog(this, "Data saved successfully.");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error saving data: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "No savable changes have been made");
         }
     }
 
@@ -769,6 +829,17 @@ public class ERestaurantManagerGUI extends JFrame {
         handleCustomerOptions();
         revalidate();
         repaint();
+    }
+
+    // MODIFIES: button
+    // EFFECTS: Sets the background color, text color, and font style for a button
+    private void styleButton(JButton button, Color backgroundColor, Color textColor) {
+        button.setBackground(backgroundColor);
+        button.setForeground(textColor);
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setOpaque(true);
     }
 
     public static void main(String[] args) {
