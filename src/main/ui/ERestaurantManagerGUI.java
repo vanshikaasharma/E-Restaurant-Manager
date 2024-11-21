@@ -736,6 +736,9 @@ private void readReviews() {
     setPanelContent(readReviewsPanel);
 }
 
+//EFFECTS: checks if there is a restaurant
+
+
 // EFFECTS: Lets the user make a reservation at a specific restaurant
 private void makeReservation() {
     if (restaurants.isEmpty()) {
@@ -868,13 +871,13 @@ private void placeOrder() {
         return;
     }
 
-    displayMenu(restaurant);
+    //displayMenu(restaurant);
 
     JPanel orderPanel = new JPanel(new BorderLayout(15, 15));
     orderPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     orderPanel.setBackground(new Color(245, 202, 195));
 
-    JPanel fieldsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+    JPanel fieldsPanel = new JPanel(new GridLayout(3, 2, 10, 10));
     fieldsPanel.setBackground(new Color(245, 202, 195));
 
     JTextField customerNameField = new JTextField();
@@ -906,15 +909,14 @@ private void placeOrder() {
     fieldsPanel.add(menuLabel);
     fieldsPanel.add(menuComboBox);
 
-    // Buttons for adding items, placing the order, and going back
-    JButton addButton = new JButton("Add Item");
-    JButton placeOrderButton = new JButton("Place Order");
-    JButton backButton = new JButton("Back");
+    JPanel buttonPanel = createOptionButtons("Add Item", "Place Order", "Back");
 
-    fieldsPanel.add(addButton);
-    fieldsPanel.add(placeOrderButton);
-    fieldsPanel.add(backButton);
+    orderPanel.add(fieldsPanel, BorderLayout.CENTER);
+    orderPanel.add(buttonPanel, BorderLayout.SOUTH);
 
+    JButton addButton = (JButton) buttonPanel.getComponent(0);
+    JButton placeOrderButton = (JButton) buttonPanel.getComponent(1);
+    JButton backButton = (JButton) buttonPanel.getComponent(2);
     ArrayList<MenuItems> orderItems = new ArrayList<>();
 
     addButton.addActionListener(e -> {
@@ -954,7 +956,29 @@ private void placeOrder() {
     revalidate();
 }
 
-    /*
+// EFFECTS: Creates a row with three buttons with consistent sizes
+private JPanel createOptionButtons(String button1Text, String button2Text, String button3Text) {
+    JPanel rowPanel = new JPanel(new GridLayout(1, 3, 15, 15));  // Use 1 row and 3 columns
+    JButton button1 = createSizedButton(button1Text);
+    JButton button2 = createSizedButton(button2Text);
+    JButton button3 = createSizedButton(button3Text);  // Create a third button
+    
+    rowPanel.setBackground(new Color(245, 202, 195));
+    
+    styleButton(button1, new Color(242, 132, 130), new Color(255, 255, 255));
+    styleButton(button2, new Color(132, 165, 157), new Color(255, 255, 255));
+    styleButton(button3, new Color(130, 160, 255), new Color(255, 255, 255));  // Style the third button with a different color
+    
+    rowPanel.add(button1);
+    rowPanel.add(button2);
+    rowPanel.add(button3);  // Add the third button to the panel
+    
+    return rowPanel;
+}
+
+
+
+/*
  * REQUIRES: restaurant != null
  * EFFECTS: lets customer leave a review for the restaurant using user input
  */
@@ -1091,37 +1115,6 @@ fieldsPanel.add(ratingLabel);
 
             JOptionPane.showMessageDialog(this, scrollPane, "List of Restaurants", JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-
-    // REQUIRES: restaurant != null
-    // EFFECTS: displays the menu of the selected restaurant in a GUI
-    private void displayMenu(Restaurant restaurant) {
-
-        // Create a panel to display the menu
-        JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new BorderLayout());
-
-        // Create a list of menu items to display
-        DefaultListModel<String> menuListModel = new DefaultListModel<>();
-        for (MenuItems item : restaurant.getRestaurantMenu().getMenuItems()) {
-            menuListModel.addElement(item.getItemName() + " - $" + item.getItemPrice());
-        }
-
-        // Create a JList to show menu items
-        JList<String> menuList = new JList<>(menuListModel);
-        menuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        menuList.setVisibleRowCount(10);
-        JScrollPane menuScrollPane = new JScrollPane(menuList);
-        menuPanel.add(menuScrollPane, BorderLayout.CENTER);
-
-        // Create a button for returning to the previous screen
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> returnToCustomerMenu());
-        menuPanel.add(backButton, BorderLayout.SOUTH);
-
-        // Set the content pane to the menu panel and refresh the frame
-        setContentPane(menuPanel);
-        revalidate();
     }
 
     /*
