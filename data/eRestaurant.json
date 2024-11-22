@@ -1,21 +1,56 @@
-{"restaurants": [{
-    "reviews": [],
-    "reservations": [],
-    "restaurantName": "starbucks",
-    "restaurantLocation": "ubc",
-    "menuItems": [
-        {
-            "itemName": "mocha latte",
-            "price": 4.99,
-            "description": "moha latte",
-            "category": "hot drink"
-        },
-        {
-            "itemName": "iced coffee",
-            "price": 2.99,
-            "description": "iced coffee",
-            "category": "cold drik"
-        }
-    ],
-    "cuisineType": "cafe"
-}]}
+{"restaurants": [
+    {
+        "reviews": [
+            {
+                "reviewComment": "too crowded!",
+                "rating": 3,
+                "customer": {
+                    "name": "katie",
+                    "email": "katie@gmail.com"
+                }
+            },
+            {
+                "reviewComment": "great!",
+                "rating": 4,
+                "customer": {
+                    "name": "lai",
+                    "email": "lai@gmail.com"
+                }
+            }
+        ],
+        "reservations": [{
+            "reservationTime": "12:30",
+            "numberOfGuests": 4,
+            "reservationDate": "2012-12-12",
+            "customer": {
+                "name": "greg",
+                "email": "grea@mail.com"
+            }
+        }],
+        "restaurantName": "starbucks",
+        "restaurantLocation": "ubc",
+        "menuItems": [
+            {
+                "itemName": "mocha latte",
+                "price": 4.99,
+                "description": "moha latte",
+                "category": "hot drink"
+            },
+            {
+                "itemName": "iced coffee",
+                "price": 2.99,
+                "description": "iced coffee",
+                "category": "cold drik"
+            }
+        ],
+        "cuisineType": "cafe"
+    },
+    {
+        "reviews": [],
+        "reservations": [],
+        "restaurantName": "cactus club",
+        "restaurantLocation": "broadway",
+        "menuItems": [],
+        "cuisineType": "fusion"
+    }
+]}

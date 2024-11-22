@@ -42,6 +42,7 @@ public class ERestaurantManager {
     }
 
     // Run the E Restaurant Manager to demonstrate its functionality
+    @SuppressWarnings("methodlength")
     public void runInterface() {
         boolean running = true;
 
@@ -128,6 +129,10 @@ public class ERestaurantManager {
         }
     }
 
+    /*
+     * EFFECTS: stores the choice made by the Owner
+     */
+    @SuppressWarnings("methodlength")
     private boolean processOwnerChoice(int choice) {
         switch (choice) {
             case 1:
@@ -159,6 +164,7 @@ public class ERestaurantManager {
     /*
      * EFFECTS: stores the choice made by the Customer
      */
+    @SuppressWarnings("methodlength")
     private boolean processCustomerChoice(int choice) {
         switch (choice) {
             case 1:
@@ -506,7 +512,7 @@ public class ERestaurantManager {
                 scanner.nextLine();
                 System.out.print("Enter new item category: ");
                 String newCategory = scanner.nextLine();
-                restaurant.updateMenuItem(itemName, newDescription, newPrice, newCategory );
+                restaurant.updateMenuItem(itemName, newDescription, newPrice, newCategory);
                 System.out.println("Menu item updated for " + restaurantName + ": " + itemName);
             } else {
                 System.out.println("Item not found in the menu.");
@@ -555,14 +561,14 @@ public class ERestaurantManager {
      * EFFECTS: Prompts user to save data
      */
     protected void saveData() {
-            try {
-                jsonWriter.open();
-                jsonWriter.write(restaurants);
-                jsonWriter.close();
-                System.out.println("Data saved successfully.");
-            } catch (IOException e) {
-                System.out.println("Unable to save data ");
-            }
+        try {
+            jsonWriter.open();
+            jsonWriter.write(restaurants);
+            jsonWriter.close();
+            System.out.println("Data saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Unable to save data ");
         }
+    }
 
 }
