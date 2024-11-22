@@ -52,7 +52,7 @@ public class LoadScreen {
         centerPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // Cute welcome message with a fun font
+        // EFFECTS: displays a welcome message panel
         JLabel welcomeLabel = new JLabel("Welcome to E-Restaurant Manager!", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         welcomeLabel.setForeground(new Color(255, 255, 225)); 
@@ -61,7 +61,7 @@ public class LoadScreen {
         gbc.insets = new Insets(10, 0, 20, 0);
         centerPanel.add(welcomeLabel, gbc);
 
-        // Cute progress bar
+        // EFFECTS: creates a progress bar
         JPanel progressPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -105,8 +105,8 @@ public class LoadScreen {
         });
         progressTimer.start();
 
-        // Timer to launch the main application after the splash screen
-        Timer timer = new Timer(3400, e -> {
+        // EFFECTS: cretaes a timer to launch the main application after the load screen
+        Timer timer = new Timer(4100, e -> {
             splashScreen.setVisible(false);
             splashScreen.dispose();
 

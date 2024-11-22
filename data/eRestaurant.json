@@ -46,8 +46,23 @@
         "cuisineType": "cafe"
     },
     {
-        "reviews": [],
-        "reservations": [],
+        "reviews": [{
+            "reviewComment": "great food!",
+            "rating": 3,
+            "customer": {
+                "name": "ting",
+                "email": "ting@mail.com"
+            }
+        }],
+        "reservations": [{
+            "reservationTime": "12:20",
+            "numberOfGuests": 5,
+            "reservationDate": "2024-12-12",
+            "customer": {
+                "name": "priya",
+                "email": "priya@gmail.com"
+            }
+        }],
         "restaurantName": "cactus club",
         "restaurantLocation": "broadway",
         "menuItems": [],
