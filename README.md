@@ -33,7 +33,23 @@ I chose the E-Restaurant Manager idea because I often find interesting restauran
 - As a user, I want to be able to save my reservation to the file.
 - As a user, I want to be able to be able to load the reservation from file.
 - As a user, I want to be able to read reviews for a restaurant, including rating and comments.
-- As a user, I want to be able to save the reviews to the file.
+- As a user, I want to be able to save the reviews for a restaurant to the file.
 - As a user, I want to be able to be able to load the reviews from file.
 - As a user, I want to be able to leave a review for a restaurant by rating and comments.
-- As a user, I want to be able to read the menu items from a restaurant and place an order.
+- As a user, I want to be able to place an order at a restaurant.
+
+
+# Instructions for End User
+
+- You can generate the first required action related to the user story "adding a new restaurant to the system" by going to the "restaurant owner" option and selecting "add restaurant" option.
+- You can generate the second required action related to the user story "adding a new menu item to the restaurant" by going to "restaurant owner" option and selecting "add menu item" option.
+- You can generate the third required action related to the user story "update menu item in the restaurant" by going to "restaurant owner" option and selecting "update menu item" option.
+- You can generate the fourth required action related to the user story "remove menu item in the restaurant" by going to "restaurant owner" option and selecting "remove menu item" option.
+- You can generate the fifth required action related to the user story "view customer reviews and ratings of the restaurant" by going to either "restaurant owner" or "customer" option and going to "view reviews" option and selecting the restaurant you want reviews for.
+- You can generate the sixth required action related to the user story "view a list of all available restaurants" by going to "customer" option and selecting "view restaurants" option.
+- You can generate the seventh required action related to the user story "make a reservation at a specific restaurant" by going to "customer" option and selecting "make reservation" option.
+- You can generate the eighth required action related to the user story "save the reviews for a restaurant to the file" by going to "customer" option and selecting "leave review" option.
+- You can generate the nineth required action related to the user story "place an order at a restaurant" by going to "customer" option and selecting "place order" option.
+- You can locate my visual component by running the LoadScreen class.
+- You can save the state of my application by going to either "restaurant owner" or "customer" option.
+- You can reload the state of my application by accessing the main menu.
