@@ -5,6 +5,7 @@ import model.Restaurant;
 import java.awt.*;
 import java.io.File;
 
+//Reprsents a class having 
 public class LoadScreen {
 
     private static JFrame splashScreen;

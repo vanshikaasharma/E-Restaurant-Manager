@@ -625,6 +625,7 @@ public class ERestaurantManagerGUI extends JFrame {
             }
         }
     }
+    
 //EFFECTS: Addes a specific panel by removing all its contents
     private void setPanelContent(JPanel panel) {
         getContentPane().removeAll();
