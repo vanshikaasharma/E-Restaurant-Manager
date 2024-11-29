@@ -45,6 +45,7 @@ public class Restaurant {
      */
     public void addReview(Review review) {
         restaurantReviews.add(review);
+        EventLog.getInstance().logEvent(new Event("Review was added."));
     }
 
     /*
@@ -54,6 +55,7 @@ public class Restaurant {
     public void addMenuItem(String itemName, String itemDescription, double itemPrice, String itemCategory) {
         MenuItems newItem = new MenuItems(itemName, itemDescription, itemPrice, itemCategory);
         restaurantMenu.addMenuItem(newItem);
+        EventLog.getInstance().logEvent(new Event("Menu Item "+ itemName+ " was added."));
     }
 
     /*
@@ -62,6 +64,7 @@ public class Restaurant {
      */
     public void removeMenuItem(String itemName) {
         restaurantMenu.removeMenuItem(itemName);
+        EventLog.getInstance().logEvent(new Event("Menu Item "+ itemName+ " was removed."));
     }
 
     /*
@@ -70,6 +73,7 @@ public class Restaurant {
      */
     public void updateMenuItem(String name, String description, double price, String category) {
         restaurantMenu.updateMenuItem(name, description, price, category);
+        EventLog.getInstance().logEvent(new Event("Menu Item "+ name + " was updated."));
     }
 
     /*
@@ -78,6 +82,7 @@ public class Restaurant {
      */
     public void addReservation(Reservation reservation) {
         reservations.add(reservation);
+        EventLog.getInstance().logEvent(new Event("Reservation was added."));
     }
 
     /*
@@ -86,6 +91,7 @@ public class Restaurant {
      */
     public void addOrder(OrderFood order) {
         orders.add(order);
+        EventLog.getInstance().logEvent(new Event("Order was placed."));
     }
 
     /*
@@ -183,6 +189,7 @@ public class Restaurant {
         json.put("menuItems", menuItemsToJson());
         json.put("reviews", reviewsToJson());
         json.put("reservations", reservationsToJson());
+        EventLog.getInstance().logEvent(new Event("All the changes have been saved to the system"));
         return json;
     }
 
@@ -211,5 +218,7 @@ public class Restaurant {
             jsonArray.put(reservation.toJson());
         }
         return jsonArray;
+        
     }
+    
 }

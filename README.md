@@ -53,3 +53,33 @@ I chose the E-Restaurant Manager idea because I often find interesting restauran
 - You can locate my visual component by running the LoadScreen class.
 - You can save the state of my application by going to either "restaurant owner" or "customer" option.
 - You can reload the state of my application by accessing the main menu.
+
+# Phase 4: Task 2
+Representation of the event log:
+
+Fri Nov 29 13:42:05 PST 2024
+Menu Item fries was added.
+ 
+Fri Nov 29 13:42:18 PST 2024
+Menu Item juice was added.
+ 
+Fri Nov 29 13:42:32 PST 2024
+Menu Item fries was updated.
+ 
+Fri Nov 29 13:42:39 PST 2024
+Menu Item juice was removed.
+ 
+Fri Nov 29 13:42:43 PST 2024
+All the changes have been saved to the system
+ 
+Fri Nov 29 13:43:02 PST 2024
+Reservation was added.
+ 
+Fri Nov 29 13:44:04 PST 2024
+Order was placed.
+ 
+Fri Nov 29 13:44:11 PST 2024
+Review was added.
+ 
+Fri Nov 29 13:44:14 PST 2024
+All the changes have been saved to the system

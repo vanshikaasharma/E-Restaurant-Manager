@@ -3,6 +3,8 @@ package ui;
 import javax.swing.*;
 
 import model.Customer;
+import model.EventLog;
+import model.Event;
 import model.MenuItems;
 import model.OrderFood;
 import model.Reservation;
@@ -86,12 +88,24 @@ public class ERestaurantManagerGUI extends JFrame {
         ownerButton.addActionListener(e -> handleOwnerOptions());
         customerButton.addActionListener(e -> handleCustomerOptions());
         loadButton.addActionListener(e -> loadData());
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> {
+            EventLog eventLog= EventLog.getInstance();
+            printEventLog(eventLog);
+            System.exit(0);
+        });
 
         setPanelContent(mainPanel);
     }
 
-    // MODIFIES: this
+    //EFFECTS: Prints the event log on console
+    private void printEventLog(EventLog eventLog){
+        for (Event e: eventLog){
+            System.out.println(e);
+            System.out.println(" ");
+        }
+    }
+
+    // MODIFIES: thiso
     //EFFECTS: Displays the owner's options such as adding restaurants, 
     //updating/removing menu items, reading reviews, and saving changes.
     @SuppressWarnings("methodlength")
