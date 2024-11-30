@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-import model.Restaurant;
 import java.awt.*;
 import java.io.File;
 

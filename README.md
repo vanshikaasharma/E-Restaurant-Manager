@@ -85,3 +85,7 @@ Fri Nov 29 13:44:14 PST 2024
 All the changes have been saved to the system
 
 # Phase 4: Task 3
+
+- The design could be improved by introducing inheritance and polymorphism to reduce redundancy. Shared functionality across classes like 'Menu', 'Reservation', and 'OrderFoo' could be abstracted into a common superclass or interface, such as 'ManageableEntity'. This change would enhance modularity, consistency, and reusability.
+
+- I would also optimize relationships between 'Restaurant', 'Menu', 'Review', and 'Customer' using composition to clarify responsibilities. Encapsulating 'MenuItems' and 'Reviews' in dedicated management classes would improve maintainability and simplify testing. Additionally, implementing a centralized observer pattern for event logging would streamline the process and reduce errors.
