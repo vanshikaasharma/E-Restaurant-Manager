@@ -89,7 +89,7 @@ public class ERestaurantManagerGUI extends JFrame {
         customerButton.addActionListener(e -> handleCustomerOptions());
         loadButton.addActionListener(e -> loadData());
         exitButton.addActionListener(e -> {
-            EventLog eventLog= EventLog.getInstance();
+            EventLog eventLog = EventLog.getInstance();
             printEventLog(eventLog);
             System.exit(0);
         });
@@ -98,8 +98,8 @@ public class ERestaurantManagerGUI extends JFrame {
     }
 
     //EFFECTS: Prints the event log on console
-    private void printEventLog(EventLog eventLog){
-        for (Event e: eventLog){
+    private void printEventLog(EventLog eventLog) {
+        for (Event e: eventLog) {
             System.out.println(e);
             System.out.println(" ");
         }

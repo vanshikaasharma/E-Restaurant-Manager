@@ -55,7 +55,7 @@ public class Restaurant {
     public void addMenuItem(String itemName, String itemDescription, double itemPrice, String itemCategory) {
         MenuItems newItem = new MenuItems(itemName, itemDescription, itemPrice, itemCategory);
         restaurantMenu.addMenuItem(newItem);
-        EventLog.getInstance().logEvent(new Event("Menu Item "+ itemName+ " was added."));
+        EventLog.getInstance().logEvent(new Event("Menu Item " + itemName + " was added."));
     }
 
     /*
@@ -64,7 +64,7 @@ public class Restaurant {
      */
     public void removeMenuItem(String itemName) {
         restaurantMenu.removeMenuItem(itemName);
-        EventLog.getInstance().logEvent(new Event("Menu Item "+ itemName+ " was removed."));
+        EventLog.getInstance().logEvent(new Event("Menu Item " + itemName + " was removed."));
     }
 
     /*
@@ -73,7 +73,7 @@ public class Restaurant {
      */
     public void updateMenuItem(String name, String description, double price, String category) {
         restaurantMenu.updateMenuItem(name, description, price, category);
-        EventLog.getInstance().logEvent(new Event("Menu Item "+ name + " was updated."));
+        EventLog.getInstance().logEvent(new Event("Menu Item " + name + " was updated."));
     }
 
     /*
